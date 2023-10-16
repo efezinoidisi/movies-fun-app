@@ -9,11 +9,11 @@ export default function Page() {
     signOut();
   };
   return (
-    <div>
+    <div className='py-10'>
       <h2>dashboard</h2>
       {data?.user?.email}
       {data?.user?.name}
-      <button className='text-white' onClick={handleLogout}>
+      <button className='' onClick={handleLogout}>
         {' '}
         logout
       </button>

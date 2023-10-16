@@ -5,10 +5,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import InputWrap from '@/components/form/InputWrap';
 
 type LoginForm = {
   email: string;
-  password: string;
+  password?: string;
 };
 
 const schema = yup
@@ -60,27 +62,43 @@ export default function Login() {
   return (
     <form
       onSubmit={handleSubmit(handleLogin)}
-      className='flex flex-col items-center gap-5 justify-center py-32'
+      className='flex flex-col items-center gap-5 justify-center'
     >
-      {error && (
-        <div className='text-red-500 bg-red-100 rounded-md p-2'>
-          <p>{error}</p>
-        </div>
-      )}
-      <input
-        type='email'
-        {...register('email')}
+      <InputWrap
         id='email'
-        className='border border-gray-400 p-2 text-black rounded-xl outline-none'
+        label='email'
         placeholder='email'
-      />
-      <input
-        type='password'
-        {...register('password')}
+        error={errors?.email?.message}
+      >
+        <input
+          className={`w-full h-full
+           focus:outline-none peer bg-inherit border-b  text-black placeholder-transparent border-gray`}
+          {...register('email')}
+          type={'email'}
+          id={'email'}
+          placeholder={'email'}
+          aria-invalid={errors?.email ? true : false}
+        />
+      </InputWrap>
+
+      <InputWrap
         id='password'
-        className='border border-gray-400 p-2 text-black rounded-xl placeholder:capitalize outline-none'
+        label='password'
         placeholder='password'
-      />
+        error={errors?.password?.message}
+      >
+        <input
+          className={`w-full h-full
+           focus:outline-none peer bg-inherit border-b  text-black placeholder-transparent border-gray`}
+          {...register('password')}
+          type={'password'}
+          id={'password'}
+          placeholder={'password'}
+          aria-invalid={errors?.password ? true : false}
+        />
+      </InputWrap>
+
+      <Link href={'forgot-password'}>forgot password</Link>
       <button
         type='submit'
         className='bg-teal-400 rounded-lg mt-3 px-6 py-2 text-black'

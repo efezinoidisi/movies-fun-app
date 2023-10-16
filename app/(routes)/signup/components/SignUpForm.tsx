@@ -44,7 +44,7 @@ export default function SignUpForm() {
     if (error) setError('');
 
     try {
-      const checkIfUserExists = await fetch('api/userExists', {
+      const checkIfUserExists = await fetch('api/auth/userExists', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ export default function SignUpForm() {
         return;
       }
 
-      const res = await fetch('api/register', {
+      const res = await fetch('api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

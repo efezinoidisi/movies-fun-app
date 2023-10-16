@@ -1,7 +1,12 @@
 import './globals.css';
+import '@mantine/core/styles.css';
+import '@mantine/carousel/styles.css';
+import { MantineProvider, ColorSchemeScript } from '@mantine/core';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import AuthProvider from './context/SessionContext';
+import Footer from '@/components/Footer';
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,8 +22,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
-        <AuthProvider>{children}</AuthProvider>
+      <head>
+        <ColorSchemeScript />
+      </head>
+      <body className={`${inter.className} bg-body text-grey-100`}>
+        <AuthProvider>
+          <MantineProvider>
+            <Toaster />
+            {children}
+            <Footer />
+          </MantineProvider>
+        </AuthProvider>
       </body>
     </html>
   );

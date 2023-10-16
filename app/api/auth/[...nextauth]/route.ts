@@ -20,7 +20,7 @@ export const authOptions: NextAuthOptions = {
             return null;
           }
 
-          const isValid = await bcrypt.compare(password, user.password);
+          const isValid = bcrypt.compareSync(password, user.password);
           if (!isValid) {
             return null;
           }
@@ -28,7 +28,6 @@ export const authOptions: NextAuthOptions = {
         } catch (error) {
           return null;
         }
-        return null;
       },
     }),
   ],

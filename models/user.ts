@@ -14,6 +14,11 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    reset_token: {
+      required: false,
+      type: String,
+      trim: true,
+    },
   },
   { timestamps: true }
 );

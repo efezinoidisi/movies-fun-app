@@ -9,12 +9,15 @@ export default async function page() {
 
   if (session) redirect('/dashboard');
   return (
-    <div>
-      <h2>Login</h2>
-      <Login />
-      <p>
-        don&#39;t have an account? <Link href={'/signup'}>register</Link>
-      </p>
-    </div>
+    <main className='bg-black text-white flex flex-col items-center py-5 gap-5'>
+      <h2 className=''>Login to your account</h2>
+
+      <div className='bg-white bg-opacity-10 w-9/12 py-10 rounded-lg'>
+        <Login />
+        <p>
+          don&#39;t have an account? <Link href={'/signup'}>register</Link>
+        </p>
+      </div>
+    </main>
   );
 }

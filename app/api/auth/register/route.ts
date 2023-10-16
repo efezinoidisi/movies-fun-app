@@ -6,7 +6,8 @@ import bcrypt from 'bcryptjs';
 export async function POST(req: NextRequest) {
   try {
     const { email, password, username } = await req.json();
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(password, salt);
     await connectDb();
     await User.create({ username, email, password: hashedPassword });
     return NextResponse.json({ message: 'signup sucess!' }, { status: 201 });
