@@ -3,7 +3,7 @@ import WatchTrailerButton from '@/components/Buttons/WatchTrailerButton';
 
 type Props = {
   title: string;
-  releaseYear: number;
+  releaseYear: string;
   genres: {
     id: number;
     name: string;

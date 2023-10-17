@@ -20,6 +20,7 @@ const config: Config = {
           700: '#78828a',
         },
         cGreen: '#00925d',
+        cpink: '#BE123C',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

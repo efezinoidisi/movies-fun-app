@@ -22,13 +22,14 @@ export default function Card(props: CardProps) {
       className=''
     >
       <div
-        className={`flex flex-col gap-3 items-start rounded-lg py-3 max-h-72 hover:bg-gray-800 px-2`}
+        className={`flex flex-col gap-3 items-start rounded-lg py-3  hover:bg-gray-800 px-2`}
       >
-        <div className={'h-52 w-full relative overflow-hidden'}>
+        <div className={'min-h-[12rem] w-full relative overflow-hidden'}>
           <Image
             src={`${IMG_URL}${poster_path}`}
             alt=''
             fill
+            sizes='100vw 100%'
             className='w-full h-full rounded-md'
           />
         </div>

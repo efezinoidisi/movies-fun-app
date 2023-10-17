@@ -1,7 +1,4 @@
 import './globals.css';
-import '@mantine/core/styles.css';
-import '@mantine/carousel/styles.css';
-import { MantineProvider, ColorSchemeScript } from '@mantine/core';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import AuthProvider from './context/SessionContext';
@@ -22,16 +19,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <head>
-        <ColorSchemeScript />
-      </head>
+      <head></head>
       <body className={`${inter.className} bg-body text-grey-100`}>
         <AuthProvider>
-          <MantineProvider>
-            <Toaster />
-            {children}
-            <Footer />
-          </MantineProvider>
+          <Toaster />
+          {children}
+          <Footer />
         </AuthProvider>
       </body>
     </html>

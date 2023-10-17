@@ -44,4 +44,28 @@ body {
   .login-btn {
     @apply bg-cGreen capitalize w-fit px-6 py-1 rounded-lg
   }
+
+  .scrollbar::-webkit-scrollbar {
+    width: 0.7rem;
+    height: 0.5rem;
+    display: none;
+  }
+
+  .scrollbar:hover::-webkit-scrollbar {
+    display: inline;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    /* box-shadow: inset 0 0 5px grey; */
+    border-radius: 0.3rem;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: gray;
+    border-radius: 0.3rem;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgb(54, 56, 58);
+  }
 }

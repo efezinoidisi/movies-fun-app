@@ -11,10 +11,26 @@ type CardProps = MovieList & {
 };
 
 export default async function MovieCard(props: CardProps) {
-  const { poster_path, title, vote_average, type, id, genre_ids, name } = props;
+  const {
+    poster_path,
+    title,
+    vote_average,
+    type,
+    id,
+    genre_ids,
+    name,
+    release_date,
+    first_air_date,
+  } = props;
 
   const average = getAverage(vote_average);
   const res = await getPlaceholder(poster_path);
+
+  const date = new Date(release_date);
+
+  const firstAirDate = new Date(first_air_date);
+  const releaseYear =
+    type !== 'tv' ? date.getFullYear() : firstAirDate.getFullYear();
 
   return (
     <div
@@ -46,11 +62,14 @@ export default async function MovieCard(props: CardProps) {
             {type === 'tv' ? name : title}
           </h3>
 
-          <p className='flex items-center gap-1'>
-            <AiFillStar className={'text-yellow-500'} />
-            <span className='font-semibold'> {average} </span>
-            <span className='capitalize text-xs opacity-80'>| {type}</span>
-          </p>
+          <div className='flex justify-between items-center'>
+            <p>{releaseYear}</p>
+            <p className='flex items-center gap-1'>
+              <AiFillStar className={'text-yellow-500'} />
+              <span className='font-semibold'> {average} </span>
+              <span className='capitalize text-xs opacity-80'>| {type}</span>
+            </p>
+          </div>
           <ul className='list-inside flex list-disc gap-2 flex-wrap text-sm lowercase'>
             {genre_ids.map((id) => {
               return (

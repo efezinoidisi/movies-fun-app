@@ -28,6 +28,8 @@ type MovieList = {
   media_type: string;
   name: string;
   trailerKey?: string;
+  first_air_date: string;
+  last_air_date: string;
 };
 
 type Genre = {
@@ -76,9 +78,43 @@ type MovieDetail = {
     id: string;
     results: VideoType[];
   };
-  credits: FetchData;
-  reviews: FetchData;
+  credits: {
+    cast: {
+      adult: boolean;
+      gender: number;
+      id: number;
+      known_for_department: string;
+      name: string;
+      original_name: string;
+      popularity: number;
+      profile_path: string;
+      character: string;
+      credit_id: string;
+      order: number;
+    }[];
+  };
+  reviews: {
+    page: number;
+    results: {
+      author: string;
+      author_details: {
+        name: string;
+        username: string;
+        avatar_path: string;
+        rating: number;
+      };
+      content: string;
+      created_at: string;
+      id: string;
+      updated_at: string;
+      url: string;
+    }[];
+    total_pages: number;
+    total_results: number;
+  };
   similar: FetchData;
+  first_air_date: string;
+  last_air_date: string;
 };
 
 type WatchProvider = {

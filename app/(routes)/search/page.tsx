@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import Search from '@/components/Search';
 import getPlaceholder from '@/utils/placeholder';
 import Image from 'next/image';
@@ -18,7 +19,9 @@ export default async function page() {
         placeholder='blur'
         blurDataURL={pl?.base64}
       />
-      <Search />
+      <Suspense fallback={<p>loading</p>}>
+        <Search />
+      </Suspense>
     </div>
   );
 }

@@ -24,7 +24,7 @@ export default function Favourite({ movieId }: { movieId: number }) {
   return (
     <Button
       className={`absolute z-50 top-0 right-0 ${
-        isFavourite ? 'text-red-500' : 'text-white'
+        isFavourite ? 'text-cpink' : 'text-white'
       } pr-3 pt-3`}
       onClick={() => toggleAddToFavourites(movieId)}
     >

@@ -1,6 +1,6 @@
 import Header from '@/components/Header';
-import Lists from './components/Lists';
-import AnimatedLogos from './components/AnimatedLogos';
+import Lists from '../components/home/Lists';
+import AnimatedLogos from '../components/home/AnimatedLogos';
 import { fetchList } from '@/utils/fetchList';
 
 export default async function Home() {
