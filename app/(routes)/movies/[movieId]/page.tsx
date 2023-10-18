@@ -2,10 +2,9 @@ import { IMG_URL } from '@/constants/data';
 import { fetchList } from '@/utils/fetchList';
 import HeaderContent from './components/HeaderContent';
 import { getTrailerKey } from '@/utils/helpers';
-import Favourite from '@/components/Favourite';
-import Image from 'next/image';
 import TitleCard from './components/TitleCard';
 import Ratings from './components/Ratings';
+import ImageWithPlaceholder from '@/components/ImageWithPlaceholder';
 
 type Props = {
   params: { movieId: string };
@@ -16,7 +15,7 @@ export default async function page({
   params: { movieId },
   searchParams,
 }: Props) {
-  const type = searchParams?.type ?? ('movie' as string);
+  const type = (searchParams?.type as string) ?? 'movie';
   const movieData: Promise<MovieDetail> = await fetchList(
     `${type}/${movieId}?append_to_response=videos,credits,recommendations,reviews,similar`
   );
@@ -94,12 +93,11 @@ export default async function page({
                     className='min-w-max h-full flex items-center gap-3 py-2 px-3'
                   >
                     <div className='w-16 h-16'>
-                      <Image
-                        src={`${IMG_URL}${profile_path}`}
-                        alt='profile picture'
-                        width={100}
-                        height={100}
+                      <ImageWithPlaceholder
+                        path={profile_path}
+                        size={100}
                         className='rounded-full object-cover object-center w-full h-full'
+                        alt={`profile of ${name}`}
                       />
                     </div>
                     <div className='flex flex-col'>

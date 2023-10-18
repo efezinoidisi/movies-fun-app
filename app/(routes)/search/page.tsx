@@ -7,7 +7,6 @@ import { IMG_URL } from '@/constants/data';
 export default async function page() {
   const url = '/klPqN1oITjVub0Yss0Kqnx8NfY3.jpg';
   const pl = await getPlaceholder(url);
-  console.log(pl?.base64);
   return (
     <div>
       <h2>search page</h2>

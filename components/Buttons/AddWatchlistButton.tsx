@@ -5,6 +5,7 @@ import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import ModalWrapper from '../modals/ModalWrapper';
 import Link from 'next/link';
 import { updateUrlParam } from '@/utils/helpers';
+import { Suspense } from 'react';
 
 type Props = {
   id: number;
@@ -50,14 +51,16 @@ export default function AddWatchlistButton(props: Props) {
         <BsFillBookmarkFill className='text-md md:text-xl' />
         add watchlist
       </button>
-      {showModal && (
-        <ModalWrapper closeModal={closeModal}>
-          <p>please login to add movie to your watchlist</p>
-          <Link href={'/login'} className='login-btn'>
-            login
-          </Link>
-        </ModalWrapper>
-      )}
+      <Suspense fallback={<p>loading</p>}>
+        {showModal && (
+          <ModalWrapper closeModal={closeModal}>
+            <p>please login to add movie to your watchlist</p>
+            <Link href={'/login'} className='login-btn'>
+              login
+            </Link>
+          </ModalWrapper>
+        )}
+      </Suspense>
     </>
   );
 }

@@ -1,5 +1,7 @@
 import AddWatchlistButton from '@/components/Buttons/AddWatchlistButton';
 import WatchTrailerButton from '@/components/Buttons/WatchTrailerButton';
+import SimpleLoader from '@/components/loaders/SimpleLoader';
+import { Suspense } from 'react';
 
 type Props = {
   title: string;
@@ -30,7 +32,9 @@ export default function HeaderContent(props: Props) {
         })}
       </ul>
       <div className='flex items-center gap-3'>
-        <WatchTrailerButton videoKey={trailer} />
+        <Suspense fallback={<SimpleLoader />}>
+          <WatchTrailerButton videoKey={trailer} />
+        </Suspense>
         <AddWatchlistButton id={id} />
       </div>
     </div>

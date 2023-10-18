@@ -3,8 +3,8 @@ import { IMG_URL, GENRES } from '@/constants/data';
 import NavHeader from './NavHeader';
 import WatchTrailerButton from './Buttons/WatchTrailerButton';
 import AddWatchlistButton from './Buttons/AddWatchlistButton';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import { Suspense, useEffect, useState } from 'react';
+import SimpleLoader from './loaders/SimpleLoader';
 
 export default function Header({ movies }: { movies: MovieList[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -53,8 +53,12 @@ export default function Header({ movies }: { movies: MovieList[] }) {
           </p>
 
           <div className='flex gap-2 items-center'>
-            <WatchTrailerButton path={`/movies/${currentMovie.id}`} />
-            <AddWatchlistButton id={currentMovie.id} />
+            <Suspense fallback={<SimpleLoader />}>
+              <WatchTrailerButton path={`/movies/${currentMovie.id}`} />
+            </Suspense>
+            <Suspense fallback={<p>loading</p>}>
+              <AddWatchlistButton id={currentMovie.id} />
+            </Suspense>
           </div>
         </div>
         <div className=' flex gap-2 items-end md:justify-start justify-center '>

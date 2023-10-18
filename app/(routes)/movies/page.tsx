@@ -1,4 +1,3 @@
-import Card from '@/components/Cards/Card';
 import { fetchList } from '@/utils/fetchList';
 import Link from 'next/link';
 import List from '@/components/List';
@@ -15,8 +14,8 @@ export default async function page({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const page = searchParams?.page as string;
-  const type = searchParams?.type as string;
+  const page = (searchParams?.page as string) ?? '1';
+  const type = (searchParams?.type as string) ?? 'movie';
 
   let endpoint = null;
 
