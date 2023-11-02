@@ -1,22 +1,33 @@
 'use client';
-import { signOut } from 'next-auth/react';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
+import { authOptions } from 'app/api/auth/[...nextauth]/route';
+import NavHeader from '@/components/NavHeader';
 
 export default function Page() {
+  // const session = await getServerSession(authOptions);
+  // console.log(session);
+
+  // await getWatchlist();
   const { data } = useSession();
-  console.log(data);
+  console.log('session', data);
   const handleLogout = () => {
     signOut();
   };
   return (
-    <div className='py-10'>
-      <h2>dashboard</h2>
-      {data?.user?.email}
-      {data?.user?.name}
-      <button className='' onClick={handleLogout}>
-        {' '}
-        logout
-      </button>
-    </div>
+    <main className='py-10 px-5 md:px-10'>
+      <NavHeader />
+      <button onClick={handleLogout}>signout</button>
+    </main>
   );
 }
+
+const getWatchlist = async () => {
+  try {
+    const res = await fetch(`${process.env.URL}/api/watchlist`);
+    const body = await res.json();
+    console.log(body);
+  } catch (error) {
+    console.log(error);
+  }
+};

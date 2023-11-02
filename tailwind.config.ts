@@ -11,7 +11,12 @@ const config: Config = {
       screens: {
         sl: '500px',
       },
+      fontFamily: {
+        'ibm-mono': ['var(--font-ibm-mono)'],
+      },
       colors: {
+        background: '#DCE5F2',
+        text: '#546E7A',
         body: '#0D0C0F',
         main: '#28262D',
         grey: {
@@ -21,11 +26,20 @@ const config: Config = {
         },
         cGreen: '#00925d',
         cpink: '#BE123C',
+        'deep-purple': 'rgba(149, 117, 205, 0.56)',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        inner: 'linear-gradient(0deg, #E6EEF8 0%, #E6EEF8 100%), #CFD8DC',
+      },
+      boxShadow: {
+        inner:
+          '4px 4px 12px 0px rgba(187, 195, 206, 0.60) inset, -4px -4px 12px 0px rgba(253, 255, 255, 0.80) inset',
+        outer:
+          '16px 16px 40px 0px rgba(187, 195, 206, 0.60), -16px -16px 40px 0px rgba(253, 255, 255, 0.80)',
+        ml: ' 4px 4px 12px 0px rgba(187, 195, 206, 0.60), -4px -4px 12px 0px rgba(253, 255, 255, 0.80)',
       },
       animation: {
         search: 'search 2s linear 1',

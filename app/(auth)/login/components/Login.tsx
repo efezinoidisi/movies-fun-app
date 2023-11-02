@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import InputWrap from '@/components/form/InputWrap';
+import Button from '@/components/Button';
 
 type LoginForm = {
   email: string;
@@ -62,7 +63,7 @@ export default function Login() {
   return (
     <form
       onSubmit={handleSubmit(handleLogin)}
-      className='flex flex-col items-center gap-5 justify-center'
+      className='flex flex-col items-center gap-5 justify-center '
     >
       <InputWrap
         id='email'
@@ -98,13 +99,12 @@ export default function Login() {
         />
       </InputWrap>
 
-      <Link href={'forgot-password'}>forgot password</Link>
-      <button
+      <Button
         type='submit'
-        className='bg-teal-400 rounded-lg mt-3 px-6 py-2 text-black'
+        className='bg-deep-purple rounded-2xl mt-3 px-6 py-2 text-white filter'
       >
         login
-      </button>
+      </Button>
     </form>
   );
 }

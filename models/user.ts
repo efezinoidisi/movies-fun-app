@@ -19,6 +19,14 @@ const userSchema = new Schema(
       type: String,
       trim: true,
     },
+    watchlist: {
+      required: false,
+      type: [Number],
+    },
+    favourites: {
+      required: false,
+      type: [Number],
+    },
   },
   { timestamps: true }
 );

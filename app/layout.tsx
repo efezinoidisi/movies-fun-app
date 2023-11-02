@@ -1,11 +1,9 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { ibmMono } from './fonts';
 import AuthProvider from './context/SessionContext';
 import Footer from '@/components/Footer';
 import { Toaster } from 'react-hot-toast';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -19,12 +17,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <head></head>
-      <body className={`${inter.className} bg-body text-grey-100`}>
+      <body
+        className={`${ibmMono.variable} bg-background text-text font-ibm-mono`}
+      >
         <AuthProvider>
           <Toaster />
           {children}
-          <Footer />
+          {/* <Footer /> */}
         </AuthProvider>
       </body>
     </html>

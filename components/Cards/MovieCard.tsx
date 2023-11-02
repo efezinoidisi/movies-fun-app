@@ -34,7 +34,7 @@ export default async function MovieCard(props: CardProps) {
 
   return (
     <div
-      className={`flex flex-col gap-3 items-start rounded-lg py-3 hover:bg-gray-800 px-2 relative`}
+      className={`flex flex-col gap-3 items-start rounded-lg py-3 hover:bg-gray-800 px-2 relative `}
     >
       <Favourite movieId={id} />
       <Link

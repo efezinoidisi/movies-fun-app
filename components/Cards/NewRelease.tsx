@@ -12,7 +12,7 @@ export default function NewReleaseCard(props: MovieList) {
         style={{
           background: `linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%),url(${IMG_URL}${backdrop_path})`,
         }}
-        className={`header relative justify-end flex flex-col px-4 h-48 rounded-lg mr-2`}
+        className={`header relative justify-end flex flex-col px-4 h-56 rounded-lg mr-2 pb-3 text-white`}
       >
         <h3 className='capitalize font-semibold text-md'>{title}</h3>
         <ul className='list-inside flex list-disc gap-2 flex-wrap text-sm'>

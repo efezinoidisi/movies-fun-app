@@ -15,8 +15,9 @@ export default function PopularMovieCard(props: CardProps) {
   const average = getAverage(vote_average);
   return (
     <Link href={''} className=''>
+      {/* max-h-44 */}
       <div
-        className={`flex gap-3 items-center rounded-lg py-3 max-h-44 hover:bg-gray-800 w-60 px-2`}
+        className={`flex gap-3 items-center rounded-lg py-3  hover:bg-gray-800 w-[17rem] px-2 bg-inner shadow-ml min-h-[15rem] hover:text-white transition-all duration-300 ease-in-out`}
       >
         <h2 className='col-span-1  text-2xl font-bold'> {index + 1}</h2>
         <div className={'max-h-40 h-40 w-48  overflow-hidden'}>

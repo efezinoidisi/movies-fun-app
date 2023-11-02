@@ -24,11 +24,15 @@ export default function HeaderContent(props: Props) {
         {type}
       </span>
       <h2>{title}</h2>
-      <ul className='list-inside list-disc flex gap-2'>
-        <li className='first:list-none'>{releaseYear}</li>
+      <ul className='list-inside list-disc flex gap-2 flex-wrap items-center'>
+        <li className='first:list-none min-w-fit'>{releaseYear}</li>
 
         {genres.map(({ id, name }) => {
-          return <li key={id}>{name}</li>;
+          return (
+            <li key={id} className='text-xs min-w-fit'>
+              {name}
+            </li>
+          );
         })}
       </ul>
       <div className='flex items-center gap-3'>

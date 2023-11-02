@@ -22,7 +22,7 @@ export default function Card(props: CardProps) {
       className=''
     >
       <div
-        className={`flex flex-col gap-3 items-start rounded-lg py-3  hover:bg-gray-800 px-2`}
+        className={`flex flex-col gap-3 items-start rounded-lg py-3  hover:bg-gray-800 px-2 bg-inner shadow-inner min-h-[23rem]`}
       >
         <div className={'min-h-[12rem] w-full relative overflow-hidden'}>
           <Image

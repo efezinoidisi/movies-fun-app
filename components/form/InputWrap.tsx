@@ -10,13 +10,13 @@ export default function InputWrap(props: InputProps) {
   const { label, id, error, placeholder, children } = props;
   return (
     <div className='relative py-4 w-full'>
-      {children}
-      <label
-        htmlFor={id}
-        className={`capitalize absolute left-0 transition-all peer-placeholder-shown:top-2 peer-focus:-top-3.5  duration-300 text-base -top-3.5`}
-      >
-        {label}
-      </label>
+      <div className='flex bg-inner shadow-inner p-4 pl-5 rounded-2xl gap-2 items-center'>
+        <label htmlFor={id} className={`capitalize min-w-fit`}>
+          {label}
+        </label>
+        {children}
+      </div>
+
       {error && (
         <p role='alert' className='text-red-500 text-xs pt-1'>
           {error}

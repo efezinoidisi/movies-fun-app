@@ -78,7 +78,7 @@ export default async function page({
         />
       </header>
 
-      <div className='p-5 md:p-10'>
+      <div className='p-5 md:p-10 flex flex-col gap-10'>
         <div className=''>
           <h3 className='capitalize text-xl font-semibold py-3'>story line</h3>
           <p>{overview}</p>
@@ -110,25 +110,29 @@ export default async function page({
             </div>
           </>
         </div>
-        <>
-          <h2 className='text-center text-xl font-semibold capitalize'>
-            reviews
-          </h2>
+        {reviews.results.length > 0 ? (
           <div>
-            {reviews.results.map(({ id, author, content, author_details }) => {
-              return (
-                <div
-                  key={id}
-                  className=' border-b last:border-b-0 py-7 flex flex-col gap-2'
-                >
-                  <p>{author}</p>
-                  <Ratings ratings={author_details.rating} />
-                  <p>{content}</p>
-                </div>
-              );
-            })}
+            <h2 className='text-center text-xl font-semibold capitalize pb-5'>
+              reviews
+            </h2>
+            <div>
+              {reviews.results.map(
+                ({ id, author, content, author_details }) => {
+                  return (
+                    <div
+                      key={id}
+                      className=' border-b last:border-b-0 py-7 flex flex-col gap-2'
+                    >
+                      <p>{author}</p>
+                      <Ratings ratings={author_details.rating} />
+                      <p>{content}</p>
+                    </div>
+                  );
+                }
+              )}
+            </div>
           </div>
-        </>
+        ) : null}
 
         <>
           {listItems.map((item) => (

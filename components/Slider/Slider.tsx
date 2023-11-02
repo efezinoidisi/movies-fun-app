@@ -59,7 +59,7 @@ export default function Carousel({
         },
       },
     ],
-    nextArrow: <ArrowRight />,
+    nextArrow: <ArrowRight className='' />,
     prevArrow: <ArrowLeft />,
   };
 
