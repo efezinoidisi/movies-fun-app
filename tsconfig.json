@@ -35,7 +35,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "next.config.mjs",
-    "app/(routes)/forgot-password"
+    "app/(routes)/forgot-password",
+    "tailwind.config.ts",
+    "postcss.config.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -5,6 +5,8 @@ import WatchTrailerButton from './Buttons/WatchTrailerButton';
 import AddWatchlistButton from './Buttons/AddWatchlistButton';
 import { Suspense, useEffect, useState } from 'react';
 import SimpleLoader from './loaders/SimpleLoader';
+import { checkTrimString } from '@/utils/helpers';
+import Link from 'next/link';
 
 export default function Header({ movies }: { movies: MovieList[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -19,19 +21,21 @@ export default function Header({ movies }: { movies: MovieList[] }) {
       setCurrentIndex((prev) => {
         return prev === 4 ? 0 : prev + 1;
       });
-    }, 5000);
+    }, 15000);
 
     return () => clearInterval(unSub);
   }, [currentIndex]);
+  const MAX = 250;
+  const overview = checkTrimString(currentMovie.overview, MAX);
 
   return (
-    <header
+    <section
       style={{
         background: `linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%),url(${IMG_URL}${currentMovie.backdrop_path})`,
       }}
-      className='h-screen w-full header text-white bg-opacity-30 flex flex-col justify-between  md:pb-40 md:px-20 py-10 px-5 gap-10 '
+      className='h-screen w-full header text-white bg-opacity-30 flex flex-col justify-between gap-10 md:px-20  px-5 pt-40 lg:pt-64 pb-20'
     >
-      <NavHeader />
+      {/* <NavHeader /> */}
       <div className='flex flex-col justify-between gap-10 md:gap-0 md:flex-row'>
         <div className='flex flex-col gap-3'>
           <span className='bg-opacity-50 bg-black py-1 px-2 rounded-full capitalize w-fit text-xs'>
@@ -49,7 +53,13 @@ export default function Header({ movies }: { movies: MovieList[] }) {
             })}
           </ul>
           <p className='md:max-w-md leading-5 tracking-wide opacity-90'>
-            {currentMovie.overview}
+            {overview}
+            <Link
+              href={`/movies/${currentMovie.id}?type=movie`}
+              className='underline pl-2'
+            >
+              more
+            </Link>
           </p>
 
           <div className='flex gap-2 items-center'>
@@ -57,7 +67,11 @@ export default function Header({ movies }: { movies: MovieList[] }) {
               <WatchTrailerButton path={`/movies/${currentMovie.id}`} />
             </Suspense>
             <Suspense fallback={<p>loading</p>}>
-              <AddWatchlistButton id={currentMovie.id} />
+              <AddWatchlistButton
+                id={currentMovie.id}
+                showText={true}
+                border={true}
+              />
             </Suspense>
           </div>
         </div>
@@ -73,7 +87,7 @@ export default function Header({ movies }: { movies: MovieList[] }) {
           ))}
         </div>
       </div>
-    </header>
+    </section>
   );
 }
 

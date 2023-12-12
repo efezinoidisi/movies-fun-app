@@ -1,6 +1,10 @@
 import Carousel from '@/components/Slider/Slider';
 import { fetchList } from '@/utils/fetchList';
 import Link from 'next/link';
+import Card from '../Cards/Card';
+import CustomCarousel from '../Slider/carousel';
+import NewReleaseCard from '../Cards/NewRelease';
+import PopularMovieCard from '../Cards/PopularMovieCard';
 
 export default async function Lists() {
   // endpoints
@@ -51,7 +55,7 @@ export default async function Lists() {
       variant: 'popular',
       results: popularResults,
       href: '/movies?type=popular&page=1',
-      title: 'popular this week',
+      title: 'popular',
       type: 'movie',
     },
     {
@@ -90,6 +94,39 @@ type SectionProps = {
   type?: 'movie' | 'tv';
 };
 
+const popularMoviesOptions = {
+  swipeable: true,
+  draggable: false,
+  showDots: false,
+  ssr: true,
+  infinite: false,
+  autoPlay: false,
+  autoPlaySpeed: 1000,
+  keyBoardControl: true,
+  customTransition: 'all .5',
+  transitionDuration: 500,
+  containerClass: 'carousel-container',
+  dotListClass: 'custom-dot-list-style',
+  itemClass: 'carousel-item-padding-40-px',
+  responsive: {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+      slidesToSlide: 2, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 600 },
+      items: 2,
+      slidesToSlide: 2, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 600, min: 0 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+  },
+};
+
 const Section = (props: SectionProps) => {
   const { title, variant, results, href, type = 'movie' } = props;
   return (
@@ -98,7 +135,22 @@ const Section = (props: SectionProps) => {
         <h2 className='font-semibold capitalize py-3 text-2xl'>{title}</h2>
         <Link href={href}>see more...</Link>
       </div>
-      <Carousel variant={variant} slideItems={results} type={type} />
+      {/* <Carousel variant={variant} slideItems={results} type={type} /> */}
+      <CustomCarousel
+        options={variant === 'popular' ? popularMoviesOptions : null}
+      >
+        {results.map((result, index) => {
+          if (variant === 'new') {
+            return <NewReleaseCard key={result.id} {...result} />;
+          }
+          if (variant === 'popular') {
+            return (
+              <PopularMovieCard index={index} key={result.id} {...result} />
+            );
+          }
+          return <Card key={result.id} {...result} type={type} />;
+        })}
+      </CustomCarousel>
     </>
   );
 };

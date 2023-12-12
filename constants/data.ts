@@ -21,7 +21,7 @@ export const NAVIGATION = [
   {
     id: 2,
     href: '/release',
-    name: 'movie release',
+    name: 'movie-release',
   },
   {
     id: 3,

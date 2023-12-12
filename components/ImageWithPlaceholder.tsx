@@ -1,5 +1,4 @@
 import { IMG_URL } from '@/constants/data';
-import getPlaceholder from '@/utils/placeholder';
 import Image from 'next/image';
 
 type Props = {
@@ -16,16 +15,7 @@ export default async function ImageWithPlaceholder({
   ...otherProps
 }: Props) {
   const imgUrl = `${IMG_URL}${path}`;
-  const placeholder = await getPlaceholder(imgUrl);
   return (
-    <Image
-      src={imgUrl}
-      alt={alt}
-      width={size}
-      height={size}
-      placeholder={placeholder ? 'blur' : 'empty'}
-      blurDataURL={placeholder?.base64}
-      {...otherProps}
-    />
+    <Image src={imgUrl} alt={alt} width={size} height={size} {...otherProps} />
   );
 }

@@ -47,3 +47,25 @@ export function getTrailerKey(videos: VideoType[]) {
 
   return trailer?.key;
 }
+
+// get random movies
+export function getRandomMovies(movies: MovieList[], length: number) {
+  const getRandomIndex = () => Math.floor(Math.random() * movies.length);
+
+  const values: { [key: string]: MovieList } = {};
+
+  while (Object.keys(values).length < length) {
+    const index = getRandomIndex();
+    if (values[index]) continue;
+    values[index] = movies[index];
+  }
+
+  return Object.values(values);
+}
+
+// check and trim a given string
+export function checkTrimString(originalString: string, maxLength: number) {
+  return originalString.length > maxLength
+    ? `${originalString.substring(0, maxLength)}...`
+    : originalString;
+}

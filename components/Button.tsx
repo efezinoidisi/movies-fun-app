@@ -1,16 +1,11 @@
-type ButtonProps = {
+import React from 'react';
+
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children: React.ReactNode;
-  type?: 'reset' | 'submit' | 'button';
-  onClick?: () => void;
-  className: string;
 };
 
 export default function Button(props: ButtonProps) {
-  const { children, type = 'button', ...otherProps } = props;
+  const { children, ...otherProps } = props;
 
-  return (
-    <button type={type} {...otherProps}>
-      {children}
-    </button>
-  );
+  return <button {...otherProps}>{children}</button>;
 }

@@ -1,9 +1,10 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { ibmMono } from './fonts';
-import AuthProvider from './context/SessionContext';
+import Providers from './providers';
 import Footer from '@/components/Footer';
 import { Toaster } from 'react-hot-toast';
+import NavHeader from '@/components/NavHeader';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -12,19 +13,23 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modals,
 }: {
   children: React.ReactNode;
+  modals: React.ReactNode;
 }) {
   return (
     <html lang='en'>
       <body
         className={`${ibmMono.variable} bg-background text-text font-ibm-mono`}
       >
-        <AuthProvider>
+        <Providers>
           <Toaster />
+          <NavHeader />
           {children}
           {/* <Footer /> */}
-        </AuthProvider>
+          {modals}
+        </Providers>
       </body>
     </html>
   );

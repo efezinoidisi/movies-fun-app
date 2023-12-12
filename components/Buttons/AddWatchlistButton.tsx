@@ -1,24 +1,32 @@
 'use client';
 import { useSession } from 'next-auth/react';
-import { BsFillBookmarkFill } from 'react-icons/bs';
+import Icons from '@/lib/icons';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import ModalWrapper from '../modals/ModalWrapper';
 import Link from 'next/link';
 import { updateUrlParam } from '@/utils/helpers';
 import { Suspense } from 'react';
+import Button from '../Button';
+import { addToWatchList, removeFromWatchList } from '@/utils/actions';
+import useUserMoviesData from '../../app/context/user-movie-data';
+import { merge } from '@/utils/merge';
 
 type Props = {
   id: number;
+  showText?: boolean;
+  border?: boolean;
+  extraStyles?: string;
 };
 
 export default function AddWatchlistButton(props: Props) {
-  const { id } = props;
+  const { id, showText = false, border = false, extraStyles = '' } = props;
+  const { data, setData } = useUserMoviesData();
   const { status } = useSession();
   const searchParams = useSearchParams();
   const router = useRouter();
   const path = usePathname();
 
-  const addToWatchList = async (id: number) => {
+  const handleClick = async (id: number) => {
     if (status === 'unauthenticated') {
       const urlStringParam = updateUrlParam(searchParams, {
         type: 'update',
@@ -26,9 +34,26 @@ export default function AddWatchlistButton(props: Props) {
         value: 'true',
       });
       router.push(path + '?' + urlStringParam);
-    } else {
-      console.log('auth');
+      return;
     }
+
+    if (movieInWatchList) {
+      removeFromWatchList(id);
+      setData((prev) => {
+        const watchlist = prev?.watchlist || [];
+        return {
+          ...prev,
+          watchlist: watchlist.filter((movieId) => movieId !== id),
+        };
+      });
+
+      return;
+    }
+    addToWatchList(id);
+    setData((prev) => {
+      const watchlist = prev?.watchlist || [];
+      return { ...prev, watchlist: [...watchlist, id] };
+    });
   };
 
   const showModal = searchParams.get('watch_modal');
@@ -40,17 +65,30 @@ export default function AddWatchlistButton(props: Props) {
     });
     router.push(path + '?' + urlStringParam);
   };
-
+  const movieInWatchList = data?.watchlist?.includes(id) ?? false;
   return (
     <>
-      <button
-        className='py-2 md:py-3 md:text-lg capitalize px-2 md:px-7 rounded-lg flex gap-2 items-center border text-sm font-medium'
+      <Button
+        className={merge(
+          `py-2 md:py-3 md:text-lg capitalize px-2 rounded-lg flex gap-2 items-center text-sm font-medium group cursor-pointer`,
+          border && 'border md:px-8',
+          extraStyles
+        )}
         type='button'
-        onClick={() => addToWatchList(id)}
+        onClick={(e) => {
+          e.preventDefault();
+          console.log('bookmark');
+          handleClick(id);
+        }}
+        title='add to watchlist'
       >
-        <BsFillBookmarkFill className='text-md md:text-xl' />
-        add watchlist
-      </button>
+        {movieInWatchList ? (
+          <Icons.bookmarkCheck className='text-md md:text-xl' />
+        ) : (
+          <Icons.bookmark className='text-md md:text-xl' />
+        )}
+        {showText && (movieInWatchList ? 'remove watchlist' : 'add watchlist')}
+      </Button>
       <Suspense fallback={<p>loading</p>}>
         {showModal && (
           <ModalWrapper closeModal={closeModal}>

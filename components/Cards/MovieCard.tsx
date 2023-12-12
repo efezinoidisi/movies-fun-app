@@ -4,7 +4,6 @@ import { getAverage } from '@/utils/helpers';
 import Image from 'next/image';
 import { GENRES, IMG_URL } from '@/constants/data';
 import Favourite from '../Favourite';
-import getPlaceholder from '@/utils/placeholder';
 
 type CardProps = MovieList & {
   type: 'movie' | 'tv';
@@ -24,7 +23,6 @@ export default async function MovieCard(props: CardProps) {
   } = props;
 
   const average = getAverage(vote_average);
-  const res = await getPlaceholder(poster_path);
 
   const date = new Date(release_date);
 
@@ -52,8 +50,6 @@ export default async function MovieCard(props: CardProps) {
             height={0}
             sizes='100vw 100%'
             className='w-full h-full rounded-lg'
-            placeholder='blur'
-            blurDataURL={res?.base64}
           />
         </div>
 
