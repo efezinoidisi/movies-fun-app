@@ -1,4 +1,5 @@
 'use client';
+import { useSession } from 'next-auth/react';
 import {
   Dispatch,
   ReactNode,
@@ -23,6 +24,7 @@ const UserMoviesContext = createContext<UserMoviesContextType | null>(null);
 
 export function UserMoviesProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<DataType | null>(null);
+  const { status } = useSession();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,8 +32,10 @@ export function UserMoviesProvider({ children }: { children: ReactNode }) {
       const data = await res.json();
       setData(data.data);
     };
-    fetchData();
-  }, []);
+    if (status === 'authenticated') {
+      fetchData();
+    }
+  }, [status]);
   const value = { data, setData };
   return (
     <UserMoviesContext.Provider value={value}>

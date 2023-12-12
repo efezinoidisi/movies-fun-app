@@ -3,8 +3,8 @@ import AuthProvider from './context/SessionContext';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <UserMoviesProvider>
-      <AuthProvider>{children}</AuthProvider>
-    </UserMoviesProvider>
+    <AuthProvider>
+      <UserMoviesProvider>{children}</UserMoviesProvider>
+    </AuthProvider>
   );
 }
