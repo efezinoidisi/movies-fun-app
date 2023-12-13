@@ -1,7 +1,7 @@
 'use client';
 import { signOut, useSession } from 'next-auth/react';
 import { getServerSession } from 'next-auth';
-import { authOptions } from 'app/api/auth/[...nextauth]/route';
+import authOptions from 'config/authOptions';
 import NavHeader from '@/components/NavHeader';
 
 export default function Page() {

@@ -2,7 +2,7 @@
 import { connectDb } from '@/lib/db';
 import User from '@/models/user';
 import { getServerSession } from 'next-auth';
-import { authOptions } from 'app/api/auth/[...nextauth]/route';
+import authOptions from 'config/authOptions';
 
 export async function addToWatchList(id: number) {
   const user = await fetchUser();

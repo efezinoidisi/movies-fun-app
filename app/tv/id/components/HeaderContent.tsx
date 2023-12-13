@@ -1,0 +1,46 @@
+import AddWatchlistButton from '@/components/Buttons/AddWatchlistButton';
+import WatchTrailerButton from '@/components/Buttons/WatchTrailerButton';
+import SimpleLoader from '@/components/loaders/SimpleLoader';
+import { Suspense } from 'react';
+
+type Props = {
+  title: string;
+  releaseYear: string;
+  genres: {
+    id: number;
+    name: string;
+  }[];
+  trailer: string;
+  id: number;
+  type: string;
+};
+
+export default function HeaderContent(props: Props) {
+  const { title, releaseYear, genres, trailer, id, type } = props;
+
+  return (
+    <div className='flex flex-col gap-3'>
+      <span className='rounded-xl bg-body px-2  capitalize text-xs font-mono leading-8 tracking-wider w-fit'>
+        {type}
+      </span>
+      <h2>{title}</h2>
+      <ul className='list-inside list-disc flex gap-2 flex-wrap items-center'>
+        <li className='first:list-none min-w-fit'>{releaseYear}</li>
+
+        {genres.map(({ id, name }) => {
+          return (
+            <li key={id} className='text-xs min-w-fit'>
+              {name}
+            </li>
+          );
+        })}
+      </ul>
+      <div className='flex items-center gap-3'>
+        <Suspense fallback={<SimpleLoader />}>
+          <WatchTrailerButton videoKey={trailer} />
+        </Suspense>
+        <AddWatchlistButton id={id} />
+      </div>
+    </div>
+  );
+}

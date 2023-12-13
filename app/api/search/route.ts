@@ -1,6 +1,5 @@
 import { API_BASE_URL, OPTIONS } from '@/constants/data';
 import { NextResponse, NextRequest } from 'next/server';
-import { number } from 'yup';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);

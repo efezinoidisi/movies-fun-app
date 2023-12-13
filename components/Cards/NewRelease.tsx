@@ -15,7 +15,7 @@ export default function NewReleaseCard(props: MovieList) {
         style={{
           background: `linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%),url(${IMG_URL}${backdrop_path})`,
         }}
-        className={`header relative justify-end flex flex-col px-4 h-56 rounded-lg mr-2 pb-3 text-white`}
+        className={`header relative justify-end flex flex-col px-4 h-56 rounded-lg mr-2 pb-3 text-white overflow-x-hidden`}
       >
         <Favourite
           id={id}

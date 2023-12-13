@@ -2,7 +2,7 @@ import Link from 'next/link';
 import NavBar from './NavBar';
 import search from '@/assets/Search.svg';
 import Image from 'next/image';
-import { authOptions } from 'app/api/auth/[...nextauth]/route';
+import authOptions from 'config/authOptions';
 import { getServerSession } from 'next-auth';
 import Logout from './Buttons/logout';
 
