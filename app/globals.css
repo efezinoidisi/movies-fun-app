@@ -42,6 +42,10 @@ body {
     @apply bg-no-repeat bg-cover bg-fixed bg-center !important
   }
 
+  .hero {
+    @apply bg-no-repeat bg-cover bg-center !important
+  }
+
   .login-btn {
     @apply bg-cGreen capitalize w-fit px-6 py-1 rounded-lg
   }
@@ -68,5 +72,11 @@ body {
 
   .scrollbar::-webkit-scrollbar-thumb:hover {
     background: rgb(54, 56, 58);
+  }
+
+  .mask {
+    -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 50%);
+    /* mask-image: linear-gradient(black, transparent); */
+    mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 50%);
   }
 }

@@ -15,13 +15,13 @@ export const NAVIGATION = [
   },
   {
     id: 1,
-    href: '/discover',
-    name: 'discover',
+    href: '/movies',
+    name: 'movies',
   },
   {
     id: 2,
-    href: '/release',
-    name: 'movie-release',
+    href: '/tv',
+    name: 'series',
   },
   {
     id: 3,
@@ -59,4 +59,40 @@ export const GENRES: { [key: number]: string } = {
   10767: 'talk',
   10768: 'war & politics',
   10770: 'tv movie',
+};
+
+export const popularMoviesOptions = {
+  swipeable: true,
+  draggable: false,
+  showDots: false,
+  ssr: true,
+  infinite: false,
+  autoPlay: false,
+  autoPlaySpeed: 1000,
+  keyBoardControl: true,
+  customTransition: 'all .5',
+  transitionDuration: 500,
+  containerClass: 'carousel-container',
+  dotListClass: 'custom-dot-list-style',
+  itemClass: 'carousel-item-padding-40-px',
+  responsive: {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 1200 },
+      items: 4,
+      itemsToSlide: 2,
+    },
+    desktop: {
+      breakpoint: { max: 1200, min: 900 },
+      items: 3,
+      slidesToSlide: 2,
+    },
+    tablet: {
+      breakpoint: { max: 900, min: 600 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 600, min: 0 },
+      items: 1,
+    },
+  },
 };

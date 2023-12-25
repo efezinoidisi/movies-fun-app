@@ -15,10 +15,11 @@ const config: Config = {
         'ibm-mono': ['var(--font-ibm-mono)'],
       },
       colors: {
-        background: '#DCE5F2',
-        text: '#546E7A',
-        body: '#0D0C0F',
-        main: '#28262D',
+        background: '#fef0fc',
+        text: '#2e2e2e',
+        body: '#FEE7FA',
+        main: '#FFB800',
+        accent: '#8c0674',
         grey: {
           100: '#f9f9f9',
           600: '#9ca4ab',
@@ -40,6 +41,7 @@ const config: Config = {
         outer:
           '16px 16px 40px 0px rgba(187, 195, 206, 0.60), -16px -16px 40px 0px rgba(253, 255, 255, 0.80)',
         ml: ' 4px 4px 12px 0px rgba(187, 195, 206, 0.60), -4px -4px 12px 0px rgba(253, 255, 255, 0.80)',
+        ul: '0px 10px 20px 0px rgba(140, 6, 116, 0.50)',
       },
       animation: {
         search: 'search 2s linear 1',

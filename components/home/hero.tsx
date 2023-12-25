@@ -1,14 +1,14 @@
 'use client';
 import { IMG_URL, GENRES } from '@/constants/data';
-import NavHeader from './NavHeader';
-import WatchTrailerButton from './Buttons/WatchTrailerButton';
-import AddWatchlistButton from './Buttons/AddWatchlistButton';
+import NavHeader from '../NavHeader';
+import WatchTrailerButton from '../Buttons/WatchTrailerButton';
+import AddWatchlistButton from '../Buttons/AddWatchlistButton';
 import { Suspense, useEffect, useState } from 'react';
-import SimpleLoader from './loaders/SimpleLoader';
+import SimpleLoader from '../loaders/SimpleLoader';
 import { checkTrimString } from '@/utils/helpers';
 import Link from 'next/link';
 
-export default function Header({ movies }: { movies: MovieList[] }) {
+export default function Hero({ movies }: { movies: MovieList[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // movie currently shown;
@@ -35,7 +35,6 @@ export default function Header({ movies }: { movies: MovieList[] }) {
       }}
       className='h-screen w-full header text-white bg-opacity-30 flex flex-col justify-between gap-10 md:px-20  px-5 pt-40 lg:pt-64 pb-20'
     >
-      {/* <NavHeader /> */}
       <div className='flex flex-col justify-between gap-10 md:gap-0 md:flex-row'>
         <div className='flex flex-col gap-3'>
           <span className='bg-opacity-50 bg-black py-1 px-2 rounded-full capitalize w-fit text-xs'>
@@ -64,7 +63,9 @@ export default function Header({ movies }: { movies: MovieList[] }) {
 
           <div className='flex gap-2 items-center'>
             <Suspense fallback={<SimpleLoader />}>
-              <WatchTrailerButton path={`/movies/${currentMovie.id}`} />
+              <WatchTrailerButton
+                path={`/trailer?movieId=${currentMovie.id}`}
+              />
             </Suspense>
             <Suspense fallback={<p>loading</p>}>
               <AddWatchlistButton
@@ -92,7 +93,7 @@ export default function Header({ movies }: { movies: MovieList[] }) {
 }
 
 // get random index
-const getRandomIndex = (size: number) => {
-  const index = Math.floor(Math.random() * size);
-  return index;
-};
+// const getRandomIndex = (size: number) => {
+//   const index = Math.floor(Math.random() * size);
+//   return index;
+// };

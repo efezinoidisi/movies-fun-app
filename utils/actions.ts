@@ -3,6 +3,7 @@ import { connectDb } from '@/lib/db';
 import User from '@/models/user';
 import { getServerSession } from 'next-auth';
 import authOptions from 'config/authOptions';
+import { redirect } from 'next/navigation';
 
 export async function addToWatchList(id: number) {
   const user = await fetchUser();
@@ -62,4 +63,9 @@ async function fetchUser() {
   }
 
   return user;
+}
+
+export async function handleSearchSubmit(query: string) {
+  if (!query) return;
+  redirect(`/search?query=${query}`);
 }

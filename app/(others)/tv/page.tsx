@@ -38,7 +38,7 @@ export default async function page({
       <h2 className='capitalize font-bold'>
         {type === 'top-rated' ? 'top rated' : type}
       </h2>
-      <List type={type === 'series' ? 'tv' : 'movie'} list={sorted} />
+      <List mode='mini' list={sorted} />
       <div className='flex justify-between items-center'>
         <Link
           href={{

@@ -2,9 +2,9 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { ibmMono } from './fonts';
 import Providers from './providers';
-import Footer from '@/components/Footer';
 import { Toaster } from 'react-hot-toast';
 import NavHeader from '@/components/NavHeader';
+import BackToTop from '@/components/Buttons/back-to-top';
 
 export const metadata: Metadata = {
   title: 'Zmovies',
@@ -27,7 +27,7 @@ export default function RootLayout({
           <Toaster />
           <NavHeader />
           {children}
-          <Footer />
+          <BackToTop />
           {modals}
         </Providers>
       </body>

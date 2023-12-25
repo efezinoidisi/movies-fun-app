@@ -1,3 +1,4 @@
+import { merge } from '@/utils/merge';
 import React from 'react';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -5,7 +6,11 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 export default function Button(props: ButtonProps) {
-  const { children, ...otherProps } = props;
+  const { children, className, ...otherProps } = props;
 
-  return <button {...otherProps}>{children}</button>;
+  return (
+    <button className={merge('outline-none', className)} {...otherProps}>
+      {children}
+    </button>
+  );
 }

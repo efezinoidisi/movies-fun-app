@@ -63,7 +63,7 @@ export default function Login() {
   return (
     <form
       onSubmit={handleSubmit(handleLogin)}
-      className='flex flex-col items-center gap-5 justify-center '
+      className='flex flex-col items-center gap-1 justify-center '
     >
       <InputWrap
         id='email'
@@ -98,6 +98,9 @@ export default function Login() {
           aria-invalid={errors?.password ? true : false}
         />
       </InputWrap>
+      <div className='flex flex-col mt-4 text-xs gap-1 md:flex-row md:justify-between md:gap-6'>
+        <Link href={'forgot-password'}>forgot your password</Link>
+      </div>
 
       <Button
         type='submit'
@@ -105,6 +108,13 @@ export default function Login() {
       >
         login
       </Button>
+
+      <p className='text-xs'>
+        don&#39;t have an account?{' '}
+        <Link href={'/signup'} className='text-blue-500 underline'>
+          sign up for free
+        </Link>
+      </p>
     </form>
   );
 }

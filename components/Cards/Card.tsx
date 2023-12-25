@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { IMG_URL, GENRES } from '@/constants/data';
 import Favourite from '../Buttons/Favourite';
 import AddWatchlistButton from '../Buttons/AddWatchlistButton';
+import Icons from '@/lib/icons';
 type CardProps = MovieList & {
   type: 'movie' | 'tv';
 };
@@ -47,7 +48,7 @@ export default function Card(props: CardProps) {
           </h3>
 
           <div className='flex items-center gap-1'>
-            <AiFillStar className={'text-yellow-500'} />
+            <Icons.star className={'text-yellow-500'} />
             <span className='font-semibold'> {average} </span>
             <span className='capitalize text-xs opacity-80'>| {type}</span>
             <AddWatchlistButton id={id} extraStyles='ml-auto' />
@@ -57,7 +58,7 @@ export default function Card(props: CardProps) {
               return (
                 <li
                   key={id}
-                  className=' border even:border-e-blue-500
+                  className='border even:border-e-blue-500
                   even:border-s-red-500
                   border-e-red-500
                   border-purple-500

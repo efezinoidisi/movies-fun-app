@@ -5,6 +5,7 @@ import Image from 'next/image';
 import authOptions from 'config/authOptions';
 import { getServerSession } from 'next-auth';
 import Logout from './Buttons/logout';
+import { NavSearchInput } from './Search';
 
 type Props = {
   styles?: string;
@@ -23,13 +24,11 @@ export default async function NavHeader(props: Props) {
         {' '}
         <h1 className=''>zmovies</h1>
       </Link>
-      <div className='hidden md:flex w-fit'>
+      <div className='hidden lg:flex w-fit'>
         <NavBar />
       </div>
       <div className='flex justify-between items-center gap-3'>
-        <Link href={'/search'} className=''>
-          <Image src={search} alt='' width={20} height={20} />
-        </Link>
+        <NavSearchInput />
         {isLoggedIn ? (
           <Logout />
         ) : (

@@ -1,47 +1,47 @@
 import Link from 'next/link';
 import { AiFillStar } from 'react-icons/ai';
-import { getAverage } from '@/utils/helpers';
+import { checkTrimString, getAverage } from '@/utils/helpers';
 import Image from 'next/image';
 import { GENRES, IMG_URL } from '@/constants/data';
-import Favourite from '../Favourite';
+import Favourite from '../Buttons/Favourite';
+import GenreList from '../common/genre-list';
 
-type CardProps = MovieList & {
-  type: 'movie' | 'tv';
+type Props = MovieList & {
+  type: 'movie' | 'tv' | 'person';
 };
 
-export default async function MovieCard(props: CardProps) {
+export default function MovieCard(props: Props) {
   const {
     poster_path,
     title,
     vote_average,
-    type,
     id,
     genre_ids,
     name,
     release_date,
     first_air_date,
+    media_type,
+    type = 'movie',
   } = props;
 
   const average = getAverage(vote_average);
 
   const date = new Date(release_date);
+  const genres = genre_ids.slice(0, 2);
 
   const firstAirDate = new Date(first_air_date);
   const releaseYear =
     type !== 'tv' ? date.getFullYear() : firstAirDate.getFullYear();
 
+  const displayedHeading = type === 'tv' ? name : title;
+
+  const page = `${media_type}${media_type === 'movie' ? 's' : ''}`;
   return (
     <div
-      className={`flex flex-col gap-3 items-start rounded-lg py-3 hover:bg-gray-800 px-2 relative `}
+      className={`flex flex-col gap-3 items-start rounded-lg  transition-all ease-in relative bg-white mr-1 pb-4 md:pb-0  min-h-[22rem] border border-y-main border-x-accent hover:border-2 hover:shadow-ul overflow-x-hidden`}
     >
-      <Favourite movieId={id} />
-      <Link
-        href={{
-          pathname: `/movies/${id}`,
-          query: { type },
-        }}
-        className='w-full'
-      >
+      <Favourite id={id} position='absolute' extraStyles='right-2 top-5' />
+      <Link href={`/${page}/${id}`} className='w-full h-full block p-3'>
         <div className={'w-full  overflow-hidden h-80 sl:h-64'}>
           <Image
             src={`${IMG_URL}${poster_path}`}
@@ -53,12 +53,15 @@ export default async function MovieCard(props: CardProps) {
           />
         </div>
 
-        <div className={'flex flex-col col-span-2 gap-1'}>
-          <h3 className='capitalize font-semibold text-md'>
-            {type === 'tv' ? name : title}
+        <div className={'flex flex-col col-span-2 gap-2 pt-3'}>
+          <h3 className='capitalize font-semibold text-md min-w-max hidden md:block'>
+            {checkTrimString(displayedHeading, 15)}
+          </h3>
+          <h3 className='capitalize font-semibold text-lg min-w-max md:hidden'>
+            {displayedHeading}
           </h3>
 
-          <div className='flex justify-between items-center'>
+          <div className='flex justify-between items-center text-sm'>
             <p>{releaseYear}</p>
             <p className='flex items-center gap-1'>
               <AiFillStar className={'text-yellow-500'} />
@@ -66,15 +69,7 @@ export default async function MovieCard(props: CardProps) {
               <span className='capitalize text-xs opacity-80'>| {type}</span>
             </p>
           </div>
-          <ul className='list-inside flex list-disc gap-2 flex-wrap text-sm lowercase'>
-            {genre_ids.map((id) => {
-              return (
-                <li key={id} className='first:list-none pl-0'>
-                  {GENRES[id]}
-                </li>
-              );
-            })}
-          </ul>
+          <GenreList genres={genres} type='without-id' />
         </div>
       </Link>
     </div>

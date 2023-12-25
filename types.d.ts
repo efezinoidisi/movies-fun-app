@@ -25,7 +25,7 @@ type MovieList = {
   video: boolean;
   vote_average: number;
   vote_count: number;
-  media_type: string;
+  media_type: 'movie' | 'tv' | 'person';
   name: string;
   trailerKey?: string;
   first_air_date: string;
@@ -35,6 +35,57 @@ type MovieList = {
 type Genre = {
   id: number;
   name: string;
+};
+
+type Cast = {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  character: string;
+  credit_id: string;
+  order: number;
+};
+
+type Credits = {
+  cast: Cast[];
+  crew: {
+    adult: boolean;
+    gender: number;
+    id: number;
+    known_for_department: string;
+    name: string;
+    original_name: string;
+    popularity: number;
+    profile_path: string;
+    credit_id: string;
+    department: string;
+    job: string;
+  }[];
+};
+
+type Reviews = {
+  page: number;
+  results: {
+    author: string;
+    author_details: {
+      name: string;
+      username: string;
+      avatar_path: string;
+      rating: number;
+    };
+    content: string;
+    created_at: string;
+    id: string;
+    updated_at: string;
+    url: string;
+  }[];
+  total_pages: number;
+  total_results: number;
 };
 
 type MovieDetail = {
@@ -78,43 +129,9 @@ type MovieDetail = {
     id: string;
     results: VideoType[];
   };
-  credits: {
-    cast: {
-      adult: boolean;
-      gender: number;
-      id: number;
-      known_for_department: string;
-      name: string;
-      original_name: string;
-      popularity: number;
-      profile_path: string;
-      character: string;
-      credit_id: string;
-      order: number;
-    }[];
-  };
-  reviews: {
-    page: number;
-    results: {
-      author: string;
-      author_details: {
-        name: string;
-        username: string;
-        avatar_path: string;
-        rating: number;
-      };
-      content: string;
-      created_at: string;
-      id: string;
-      updated_at: string;
-      url: string;
-    }[];
-    total_pages: number;
-    total_results: number;
-  };
+  credits: Credits;
+  reviews: Reviews;
   similar: FetchData;
-  first_air_date: string;
-  last_air_date: string;
 };
 
 type WatchProvider = {
@@ -150,4 +167,118 @@ type VideoType = {
   official: boolean;
   published_at: string;
   id: string;
+};
+
+type Review = {
+  author: string;
+  author_details: {
+    name: string;
+    username: string;
+    avatar_path: string | null;
+    rating: number;
+  };
+  content: string;
+  created_at: string;
+  id: string;
+  updated_at: string;
+  url: string;
+};
+
+type Season = {
+  air_date: string;
+  episode_count: number;
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string;
+  season_number: number;
+  vote_average: number;
+};
+
+type SeriesDetail = {
+  adult: boolean;
+  backdrop_path: string;
+  created_by: {
+    id: number;
+    credit_id: string;
+    name: string;
+    gender: number;
+    profile_path: string;
+  }[];
+  episode_run_time: [];
+  first_air_date: string;
+  genres: Genre[];
+  homepage: string;
+  id: number;
+  in_production: boolean;
+  languages: string[];
+  last_air_date: string;
+  last_episode_to_air: {
+    id: number;
+    name: string;
+    overview: string;
+    vote_average: number;
+    vote_count: number;
+    air_date: string;
+    episode_number: number;
+    episode_type: string;
+    production_code: string;
+    runtime: number;
+    season_number: number;
+    show_id: number;
+    still_path: string;
+  };
+  name: string;
+  next_episode_to_air: string;
+  networks: {
+    id: number;
+    logo_path: string;
+    name: string;
+    origin_country: string;
+  }[];
+  number_of_episodes: number;
+  number_of_seasons: number;
+  origin_country: string[];
+  original_language: string;
+  original_name: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  production_companies: {
+    id: number;
+    logo_path: string;
+    name: string;
+    origin_country: string;
+  }[];
+  production_countries: {
+    iso_3166_1: string;
+    name: string;
+  }[];
+  seasons: Season[];
+  spoken_languages: Language[];
+  status: string;
+  tagline: string;
+  type: string;
+  vote_average: number;
+  vote_count: number;
+  recommendations: FetchData;
+  videos: {
+    id: string;
+    results: VideoType[];
+  };
+  credits: Credits;
+  reviews: Reviews;
+  similar: FetchData;
+};
+
+type Language = {
+  iso_639_1: string;
+  english_name: string;
+  name: string;
+};
+
+type Country = {
+  iso_3166_1: string;
+  english_name: string;
+  native_name: string;
 };

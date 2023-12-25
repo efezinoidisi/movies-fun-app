@@ -1,6 +1,9 @@
 'use client';
 import Carousel from 'react-multi-carousel';
-import { ButtonGroupProps } from 'react-multi-carousel/lib/types';
+import {
+  ButtonGroupProps,
+  ResponsiveType,
+} from 'react-multi-carousel/lib/types';
 
 import 'react-multi-carousel/lib/styles.css';
 import Button from '../Button';
@@ -18,11 +21,7 @@ type CarouselProps = {
     swipeable: boolean;
     draggable: boolean;
     showDots: boolean;
-    responsive: {
-      desktop: Device;
-      tablet: Device;
-      mobile: Device;
-    };
+    responsive: ResponsiveType;
     ssr: boolean;
     infinite: boolean;
     autoPlay: boolean;
@@ -31,8 +30,8 @@ type CarouselProps = {
     customTransition: string;
     transitionDuration: number;
     containerClass: string;
-    dotListClass: string;
-    itemClass: string;
+    dotListClass?: string;
+    itemClass?: string;
   };
 };
 

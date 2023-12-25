@@ -1,10 +1,19 @@
-import NavHeader from '@/components/NavHeader';
+import AuthCard from '@/components/Cards/auth-card';
+import { fetchList } from '@/utils/fetchList';
 
-export default function layout({ children }: { children: React.ReactNode }) {
+export default async function layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const endpoint = 'trending/movie/day';
+  const moviesData: Promise<FetchData> = await fetchList(`${endpoint}`);
+
+  const { results } = await moviesData;
   return (
-    <div className='bg-background'>
-      <NavHeader styles='py-7 bg-background z-30 px-5 sticky top-0 w-full' />
+    <div className='bg-main grid  md:grid-cols-2 min-h-screen '>
       {children}
+      <AuthCard movies={results} />
     </div>
   );
 }

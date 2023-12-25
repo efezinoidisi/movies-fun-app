@@ -3,7 +3,7 @@ import ImageLoader from '../ImageLoader';
 import { GENRES, IMG_URL } from '@/constants/data';
 import Image from 'next/image';
 import { AiFillStar } from 'react-icons/ai';
-import { getAverage } from '@/utils/helpers';
+import { checkTrimString, getAverage } from '@/utils/helpers';
 import AddWatchlistButton from '../Buttons/AddWatchlistButton';
 import Favourite from '../Buttons/Favourite';
 
@@ -25,6 +25,9 @@ export default function PopularMovieCard(props: CardProps) {
   } = props;
   const average = getAverage(vote_average);
   const mediaType = media_type === 'movie' ? 'movies' : media_type;
+
+  const movieTitle = checkTrimString(media_type === 'tv' ? name : title, 15);
+  const genres = genre_ids.slice(0, 2);
   return (
     <Link href={`/${mediaType}/${id}`} className=''>
       {/* max-h-44 */}
@@ -32,7 +35,7 @@ export default function PopularMovieCard(props: CardProps) {
         style={{
           background: `linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%),url(${IMG_URL}${backdrop_path})`,
         }}
-        className={`flex gap-3 items-end rounded-lg py-3  hover:bg-gray-800 w-[17rem] px-2 min-h-[15rem] text-white transition-all duration-300 ease-in-out relative`}
+        className={`flex gap-3 items-end rounded-lg py-3  hover:bg-gray-800 px-2 min-h-[20rem] text-white transition-all duration-300 ease-in-out relative overflow-x-hidden mr-5`}
       >
         <Favourite
           id={id}
@@ -56,11 +59,9 @@ export default function PopularMovieCard(props: CardProps) {
           />
         </div>
         <div className={'flex flex-col col-span-2 gap-1'}>
-          <h3 className='capitalize font-semibold text-lg'>
-            {media_type === 'tv' ? name : title}
-          </h3>
+          <h3 className='capitalize font-semibold text-lg'>{movieTitle}</h3>
           <ul className='flex gap-1 text-xs opacity-80'>
-            {genre_ids.map((id) => {
+            {genres.map((id) => {
               return (
                 <li key={id} className='group'>
                   {GENRES[id]}
@@ -71,10 +72,9 @@ export default function PopularMovieCard(props: CardProps) {
           </ul>
           <div className='flex items-center gap-1'>
             <AiFillStar className={'text-yellow-500'} />
-            <span className='font-semibold'> {average} </span>
-            <span className='capitalize text-xs opacity-80'>
-              | {media_type}
-            </span>
+            <span className='font-semibold text-xs'> {average} </span>
+            <span className='opacity-80'>|</span>
+            <span className='capitalize text-xs opacity-80'>{media_type}</span>
             <AddWatchlistButton id={id} />
           </div>
         </div>
