@@ -1,23 +1,24 @@
 'use client';
 import { fetchClientList } from '@/utils/fetchList';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
-import MovieCard from '../Cards/MovieCard';
+import { useCallback, useRef } from 'react';
 import { merge } from '@/utils/merge';
-import SimpleLoader from '../loaders/SimpleLoader';
+import Loader from '../loaders/loader';
+import Ring from '../loaders/ring';
+import NewReleaseCard from '../Cards/NewRelease';
 
 type Props = {
   endpoint: string;
-  key: string;
+  passkey: string[];
   title?: string;
+  type?: 'movie' | 'tv' | 'person';
 };
 
 export default function InfiniteScroll(props: Props) {
-  const { endpoint, key, title } = props;
+  const { endpoint, passkey, title, type = 'movie' } = props;
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery({
-      queryKey: [key],
+      queryKey: passkey,
       queryFn: ({ pageParam = 1 }) => fetchClientList(endpoint, pageParam),
       initialPageParam: 1,
       getNextPageParam: (lastPage, _, lastPageParam) => {
@@ -50,16 +51,16 @@ export default function InfiniteScroll(props: Props) {
 
   if (status === 'pending')
     return (
-      <p className='animate-spin' color='#0077e6'>
-        loading
-      </p>
+      <div className='flex flex-col items-center'>
+        <Ring />
+      </div>
     );
 
   if (status === 'error') return <p>An error occurred please try again!</p>;
 
   const content = data?.pages?.map((pg) => {
     return pg?.results?.map((movie: MovieList) => {
-      return <MovieCard key={movie.id} {...movie} type={movie.media_type} />;
+      return <NewReleaseCard key={movie.id} {...movie} type={type} />;
     });
   });
 
@@ -71,14 +72,14 @@ export default function InfiniteScroll(props: Props) {
       </div>
       <div
         className={merge(
-          `invisible `,
+          `invisible flex flex-col items-center`,
 
           isFetchingNextPage && 'visible'
         )}
         aria-hidden={true}
         ref={lastNodeRef}
       >
-        <SimpleLoader />
+        <Loader background='bg-accent/80' />
       </div>
     </section>
   );

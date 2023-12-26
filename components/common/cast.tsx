@@ -33,7 +33,7 @@ export default function Casts({ casts }: Props) {
                   />
                 </div>
                 <div className='flex flex-col'>
-                  <p className='font-semibold text-base text-center min-w-max'>
+                  <p className='font-semibold text-base text-center min-w-min'>
                     {name}
                   </p>
                   <p className='text-sm text-center'>{character}</p>

@@ -1,7 +1,7 @@
 import AddWatchlistButton from '@/components/Buttons/AddWatchlistButton';
 import WatchTrailerButton from '@/components/Buttons/WatchTrailerButton';
 import GenreList from '@/components/common/genre-list';
-import SimpleLoader from '@/components/loaders/SimpleLoader';
+import SimpleLoader from '@/components/loaders/loader';
 import { IMG_URL } from '@/constants/data';
 import Icons from '@/lib/icons';
 import Image from 'next/image';
@@ -40,7 +40,7 @@ export default function HeroContent(props: Props) {
   } = props;
 
   const style = {
-    background: `linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%),url(${IMG_URL}${backdrop})`,
+    background: `linear-gradient(0deg, rgba(0, 0, 0, 0.90) 0%, rgba(0, 0, 0, 0.50) 100%),url(${IMG_URL}${backdrop})`,
   };
   return (
     <section
@@ -52,16 +52,16 @@ export default function HeroContent(props: Props) {
           {type}
         </span>
         <h2 className='text-3xl text-bold capitalize'>{title}</h2>
-        <div className='flex gap-2 items-center'>
+        <div className='flex flex-col md:flex-row gap-2 md:items-center'>
           <p className='min-w-max text-sm'>
             {releaseYear && `${releaseYear} |`} {runtime && runtime}
           </p>
 
           <GenreList genres={genres} type='with-id' />
         </div>
-        <p className='flex items-center gap-1 text-sm'>
-          {`directed by ${director}`} |{' '}
-          <Icons.star className={'text-yellow-500'} />
+        <p className='flex items-center gap-1 text-xs md:text-sm min-w-max'>
+          {director && `directed by ${director} |`}
+          <Icons.star className={'text-yellow-500 text-sm'} />
           {average}
         </p>
         <div className='flex items-center gap-3'>

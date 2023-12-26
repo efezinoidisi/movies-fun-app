@@ -1,67 +1,72 @@
 import { fetchList } from '@/utils/fetchList';
 import Link from 'next/link';
 import List from '@/components/List';
+import { TV_ENDPOINTS } from '@/constants/data';
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from '@tanstack/react-query';
+import Tab from '@/components/common/tab';
+import InfiniteScroll from '@/components/infinite-scroll/infinite-scroll';
 
-const ENDPOINTS = {
-  popular: 'trending/all/week',
-  trending: 'trending/movie/day',
-  'top-rated': 'movie/top_rated',
-  series: 'tv/top_rated',
-};
+type Tab = 'top_rated' | 'popular' | 'trending';
+
+const tabList = [
+  {
+    query: 'top_rated',
+    title: 'top-rated',
+  },
+  {
+    query: 'trending',
+    title: 'trending',
+  },
+  {
+    query: 'popular',
+    title: 'popular',
+  },
+];
 
 export default async function page({
   searchParams,
 }: {
-  searchParams: { page: string; type: string };
+  searchParams: { tab: Tab };
 }) {
-  const page = (searchParams?.page as string) ?? '1';
-  const type = (searchParams?.page as string) ?? 'popular';
+  const { tab = 'top_rated' } = searchParams;
 
-  let endpoint = null;
+  const endpoint = TV_ENDPOINTS[tab];
 
-  // resolve correct endpoint to call
-  if (type === 'popular') endpoint = ENDPOINTS.popular;
-  else if (type === 'trending') endpoint = ENDPOINTS.trending;
-  else if (type === 'series') endpoint = ENDPOINTS.series;
-  else endpoint = ENDPOINTS['top-rated'];
+  const queryClient = new QueryClient();
 
-  const moviesData: Promise<FetchData> = await fetchList(
-    `${endpoint}?page=${page}`
-  );
+  const queryKey = ['tv', tab];
 
-  const { results, page: currentPage, total_pages } = await moviesData;
-
-  const sorted = [...results].sort((a, b) => b.vote_average - a.vote_average);
+  await queryClient.prefetchInfiniteQuery({
+    queryKey,
+    queryFn: () => fetchList(endpoint),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      return lastPage;
+    },
+    pages: 1,
+  });
 
   return (
-    <main className=' px-5 md:px-10'>
-      <h2 className='capitalize font-bold'>
-        {type === 'top-rated' ? 'top rated' : type}
-      </h2>
-      <List mode='mini' list={sorted} />
-      <div className='flex justify-between items-center'>
-        <Link
-          href={{
-            pathname: '/movies',
-            query: { type, page: Number(page) - 1 },
-          }}
-          className={`${Number(page) === 1 ? 'invisible' : 'visible'}`}
-        >
-          prev
-        </Link>
-        <span>{`page ${page} of ${total_pages}`}</span>
-        <Link
-          href={{
-            pathname: '/movies',
-            query: { type, page: Number(page) + 1 },
-          }}
-          className={`${
-            Number(page) === total_pages ? 'invisible' : 'visible'
-          }`}
-        >
-          next
-        </Link>
-      </div>
-    </main>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <div className='py-12 bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500'></div>
+      <main className='px-5 md:px-10 pt-10 flex flex-col gap-5'>
+        <h2 className='capitalize font-bold pb-5'>{`${tab.replace(
+          '_',
+          ' '
+        )} tv shows`}</h2>
+
+        <Tab
+          tabItems={tabList}
+          defaultTab='top_rated'
+          styles='self-end rounded-md border-white bg-white sticky top-7 bg-opacity-80 z-50'
+          activeStyles='border-accent  text-accent'
+        />
+        <InfiniteScroll endpoint={endpoint} passkey={queryKey} type='tv' />
+      </main>
+    </HydrationBoundary>
   );
 }

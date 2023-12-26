@@ -3,7 +3,7 @@ import Link from 'next/link';
 import WatchTrailerButton from './Buttons/WatchTrailerButton';
 import AddWatchlistButton from './Buttons/AddWatchlistButton';
 import { Suspense } from 'react';
-import SimpleLoader from './loaders/SimpleLoader';
+import SimpleLoader from './loaders/loader';
 import { merge } from '@/utils/merge';
 
 type Props = {

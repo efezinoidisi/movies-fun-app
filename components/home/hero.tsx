@@ -4,7 +4,7 @@ import NavHeader from '../NavHeader';
 import WatchTrailerButton from '../Buttons/WatchTrailerButton';
 import AddWatchlistButton from '../Buttons/AddWatchlistButton';
 import { Suspense, useEffect, useState } from 'react';
-import SimpleLoader from '../loaders/SimpleLoader';
+import SimpleLoader from '../loaders/loader';
 import { checkTrimString } from '@/utils/helpers';
 import Link from 'next/link';
 
@@ -25,15 +25,15 @@ export default function Hero({ movies }: { movies: MovieList[] }) {
 
     return () => clearInterval(unSub);
   }, [currentIndex]);
-  const MAX = 250;
+  const MAX = 200;
   const overview = checkTrimString(currentMovie.overview, MAX);
 
   return (
     <section
       style={{
-        background: `linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%),url(${IMG_URL}${currentMovie.backdrop_path})`,
+        background: `linear-gradient(0deg, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.70) 100%),url(${IMG_URL}${currentMovie.backdrop_path})`,
       }}
-      className='h-screen w-full header text-white bg-opacity-30 flex flex-col justify-between gap-10 md:px-20  px-5 pt-40 lg:pt-64 pb-20'
+      className='h-screen w-full hero lg:header text-white bg-opacity-30 flex flex-col justify-between gap-10 md:px-20  px-5 pt-40 lg:pt-64 pb-20'
     >
       <div className='flex flex-col justify-between gap-10 md:gap-0 md:flex-row'>
         <div className='flex flex-col gap-3'>

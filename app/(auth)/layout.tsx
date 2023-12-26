@@ -11,7 +11,7 @@ export default async function layout({
 
   const { results } = await moviesData;
   return (
-    <div className='bg-main grid  md:grid-cols-2 min-h-screen '>
+    <div className='bg-gradient-to-r from-rose-100 to-teal-100 grid  md:grid-cols-2 min-h-screen text-text'>
       {children}
       <AuthCard movies={results} />
     </div>

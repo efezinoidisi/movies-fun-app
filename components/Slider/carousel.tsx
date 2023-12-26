@@ -37,8 +37,12 @@ type CarouselProps = {
 
 const responsive = {
   desktop: {
-    breakpoint: { max: 3000, min: 1024 },
+    breakpoint: { max: 3000, min: 1200 },
     items: 5,
+  },
+  miniDesktop: {
+    breakpoint: { max: 1200, min: 1024 },
+    items: 4,
   },
   tablet: {
     breakpoint: { max: 1024, min: 600 },
@@ -67,6 +71,7 @@ export default function CustomCarousel(props: CarouselProps) {
     containerClass: 'carousel-container',
     dotListClass: 'custom-dot-list-style',
     itemClass: 'carousel-item-padding-40-px',
+    partialVisible: true,
   };
 
   const usedOption = options ? options : defaultOptions;
@@ -88,16 +93,16 @@ const ButtonGroup = ({
   return (
     <div className='absolute top-1/2 -translate-y-1/2 flex justify-between w-full'>
       <Button
-        className={`bg-white bg-opacity-25 rounded-full hover:bg-opacity-60 group`}
+        className={`bg-text bg-opacity-25 rounded-full hover:bg-opacity-60 group`}
         onClick={() => previous()}
       >
-        <Icons.prev className='text-7xl opacity-50 group-hover:opacity-100' />
+        <Icons.prev className='text-7xl opacity-50 text-white group-hover:opacity-100' />
       </Button>
       <Button
-        className={`bg-white bg-opacity-25 rounded-full hover:bg-opacity-60 group`}
+        className={`bg-text bg-opacity-25 rounded-full hover:bg-opacity-60 group`}
         onClick={() => next()}
       >
-        <Icons.next className='text-7xl opacity-50 group-hover:opacity-100' />
+        <Icons.next className='text-7xl opacity-50 text-white group-hover:opacity-100' />
       </Button>
     </div>
   );

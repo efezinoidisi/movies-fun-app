@@ -111,7 +111,7 @@ function ReviewCard(props: ReviewCardProps) {
 
   const publishedDate = new Date(created);
   return (
-    <div className=' border-b last:border-b-0 py-7 flex flex-col gap-2 border-text border-opacity-50'>
+    <div className=' border-b last:border-b-0 py-7 flex flex-col gap-2 border-text border-opacity-40'>
       <div className='flex items-center gap-2'>
         <Image
           src={picture}
@@ -143,11 +143,13 @@ function ReviewCard(props: ReviewCardProps) {
             className={merge(
               'absolute self-center flex items-center gap-1 border border-text px-3 rounded-xl ',
               showFullContent
-                ? '-bottom-4 border-opacity-30'
+                ? '-bottom-6 right-0 border-opacity-30'
                 : 'bottom-0 border-opacity-80'
             )}
           >
-            <span>{`${showFullContent ? 'hide' : 'continue reading'}`}</span>
+            <span>{`${
+              showFullContent ? 'collapse' : 'continue reading'
+            }`}</span>
             <Icons.doubleDownArrow
               className={`${showFullContent ? 'rotate-180' : ''}`}
             />

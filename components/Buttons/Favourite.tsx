@@ -54,13 +54,17 @@ export default function Favourite({
   );
   return (
     <Button
-      className={merge('px-2 group', position, extraStyles)}
+      className={merge(
+        'px-2 group bg-black/20 py-2 rounded-full',
+        position,
+        extraStyles
+      )}
       onClick={handleAddtoFavourites}
     >
       <Icons.heart
         className={`${
-          isFavourite ? 'fill-red-500' : ''
-        } text-2xl group-hover:fill-red-200 `}
+          isFavourite ? 'fill-red-500' : 'fill-white'
+        } text-2xl group-hover:fill-red-200 group-active:animate-heart`}
       />
     </Button>
   );

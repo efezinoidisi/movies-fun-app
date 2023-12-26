@@ -25,15 +25,10 @@ export default function AddWatchlistButton(props: Props) {
   const handleClick = useCallback(
     async (id: number) => {
       if (status === 'unauthenticated') {
-        // const urlStringParam = updateUrlParam(searchParams, {
-        //   type: 'update',
-        //   key: 'watch_modal',
-        //   value: 'true',
-        // });
-        // router.push(path + '?' + urlStringParam);
         toast.error('please login!', {
           position: 'top-center',
-          duration: 5000,
+          duration: 9000,
+          style: { backgroundColor: '#000', color: '#fff' },
         });
         return;
       }
@@ -59,17 +54,10 @@ export default function AddWatchlistButton(props: Props) {
     [id, movieInWatchList, status]
   );
 
-  // const closeModal = () => {
-  //   const urlStringParam = updateUrlParam(searchParams, {
-  //     type: 'delete',
-  //     key: 'watch_modal',
-  //   });
-  //   router.push(path + '?' + urlStringParam);
-  // };
   return (
     <Button
       className={merge(
-        `py-2 md:py-4 min-w-max capitalize px-2 md:px-4 rounded-lg flex gap-2 items-center text-sm font-medium group cursor-pointer`,
+        `py-2 md:py-4 min-w-max capitalize px-2 md:px-4 rounded-lg flex gap-2 items-center text-sm font-medium group cursor-pointer h-12`,
         border && 'border',
         extraStyles
       )}

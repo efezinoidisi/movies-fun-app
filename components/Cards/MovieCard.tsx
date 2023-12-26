@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { GENRES, IMG_URL } from '@/constants/data';
 import Favourite from '../Buttons/Favourite';
 import GenreList from '../common/genre-list';
+import AddWatchlistButton from '../Buttons/AddWatchlistButton';
 
 type Props = MovieList & {
   type: 'movie' | 'tv' | 'person';
@@ -20,7 +21,6 @@ export default function MovieCard(props: Props) {
     name,
     release_date,
     first_air_date,
-    media_type,
     type = 'movie',
   } = props;
 
@@ -35,10 +35,10 @@ export default function MovieCard(props: Props) {
 
   const displayedHeading = type === 'tv' ? name : title;
 
-  const page = `${media_type}${media_type === 'movie' ? 's' : ''}`;
+  const page = `${type}${type === 'movie' ? 's' : ''}`;
   return (
     <div
-      className={`flex flex-col gap-3 items-start rounded-lg  transition-all ease-in relative bg-white mr-1 pb-4 md:pb-0  min-h-[22rem] border border-y-main border-x-accent hover:border-2 hover:shadow-ul overflow-x-hidden`}
+      className={`flex flex-col gap-3 items-start rounded-lg  transition-colors ease-in relative bg-white mr-1 pb-4 md:pb-0  min-h-[22rem] border border-y-main border-x-accent hover:border-2 hover:shadow-ul overflow-x-hidden`}
     >
       <Favourite id={id} position='absolute' extraStyles='right-2 top-5' />
       <Link href={`/${page}/${id}`} className='w-full h-full block p-3'>
@@ -61,12 +61,14 @@ export default function MovieCard(props: Props) {
             {displayedHeading}
           </h3>
 
-          <div className='flex justify-between items-center text-sm'>
+          <div className='flex justify-between items-center text-xs md:text-sm'>
             <p>{releaseYear}</p>
             <p className='flex items-center gap-1'>
               <AiFillStar className={'text-yellow-500'} />
               <span className='font-semibold'> {average} </span>
-              <span className='capitalize text-xs opacity-80'>| {type}</span>
+              <span className='capitalize text-xs opacity-80 font-mono'>
+                | {type}
+              </span>
             </p>
           </div>
           <GenreList genres={genres} type='without-id' />

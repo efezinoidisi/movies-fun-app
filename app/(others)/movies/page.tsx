@@ -5,51 +5,69 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import InfiniteScroll from '@/components/infinite-scroll/infinite-scroll';
+import { MOVIE_ENDPOINTS } from '@/constants/data';
+import Tab from '@/components/common/tab';
 
-const ENDPOINTS = {
-  popular: 'trending/all/week',
-  trending: 'trending/movie/day',
-  'top-rated': 'movie/top_rated',
-};
+type Tab = 'top_rated' | 'upcoming' | 'popular' | 'trending';
+
+const tabList = [
+  {
+    query: 'top_rated',
+    title: 'top-rated',
+  },
+  {
+    query: 'upcoming',
+    title: 'upcoming',
+  },
+  {
+    query: 'trending',
+    title: 'trending',
+  },
+  {
+    query: 'popular',
+    title: 'popular',
+  },
+];
 
 export default async function page({
   searchParams,
 }: {
-  searchParams: { type: string };
+  searchParams: { tab: Tab };
 }) {
-  const type = (searchParams?.type as string) ?? 'top_rated';
+  const { tab = 'top_rated' } = searchParams;
 
-  let endpoint: string = '';
-
-  const date = new Date();
-  const tomorrow = new Date();
-  tomorrow.setDate(date.getDate() + 1);
-  const minDate = tomorrow.toISOString().split('T')[0];
-
-  const nextTwoMonths = new Date();
-  nextTwoMonths.setMonth(date.getMonth() + 2);
-
-  const maxDate = nextTwoMonths.toISOString().split('T')[0];
-
-  // resolve correct endpoint to call
-  if (type === 'top_rated') endpoint = ENDPOINTS.popular;
-  else if (type === 'trending') endpoint = ENDPOINTS.trending;
-  else
-    endpoint = `discover/movie?include_adult=false&include_video=false&language=en-US&sort_by=popularity.desc&with_release_type=2|3&release_date.gte=${minDate}&release_date.lte={maxDate}`;
+  const endpoint = MOVIE_ENDPOINTS[tab];
 
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: [`movies-${type}`],
+  const queryKey = ['movies', tab];
+
+  await queryClient.prefetchInfiniteQuery({
+    queryKey,
     queryFn: () => fetchList(endpoint),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      return lastPage;
+    },
+    pages: 1,
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div className='py-10 bg-main'></div>
-      <main className='px-5 md:px-10 pt-10'>
-        <h2 className='capitalize font-bold pb-10'>{`${type} movies`}</h2>
-        <InfiniteScroll endpoint={endpoint} key={`movies-${type}`} />
+      <div className='py-12 bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500'></div>
+      <main className='px-5 md:px-10 pt-10  flex flex-col gap-5'>
+        <h2 className='capitalize font-bold pb-5 text-center text-xl'>{`${tab.replace(
+          '_',
+          ' '
+        )} movies`}</h2>
+
+        <Tab
+          tabItems={tabList}
+          defaultTab='top_rated'
+          styles='self-end rounded-md border-white bg-white sticky top-7 bg-opacity-80 z-50'
+          activeStyles='border-accent  text-accent'
+        />
+        <InfiniteScroll endpoint={endpoint} passkey={queryKey} />
       </main>
     </HydrationBoundary>
   );

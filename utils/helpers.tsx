@@ -107,3 +107,34 @@ export async function getCountry(isoKey: string) {
 
   return country?.english_name;
 }
+
+export function numberToDollarString(value: number) {
+  const units = [
+    { unit: 'quadrillion', divisor: 1e15 },
+    { unit: 'trillion', divisor: 1e12 },
+    { unit: 'billion', divisor: 1e9 },
+    { unit: 'million', divisor: 1e6 },
+    { unit: 'thousand', divisor: 1e3 },
+    { unit: '', divisor: 1 },
+  ];
+
+  for (const unit of units) {
+    if (Math.abs(value) >= unit.divisor) {
+      const formattedValue = Math.floor(value / unit.divisor);
+      const minimumFractionDigits = unit.unit ? 0 : 2;
+      return (
+        formattedValue.toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+          minimumFractionDigits,
+        }) + (unit.unit ? ` ${unit.unit}` : '')
+      );
+    }
+  }
+
+  return value.toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+  });
+}

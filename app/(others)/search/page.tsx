@@ -6,6 +6,7 @@ import List from '@/components/List';
 import Link from 'next/link';
 import { fetchList } from '@/utils/fetchList';
 import NewReleaseCard from '@/components/Cards/NewRelease';
+import Ring from '@/components/loaders/ring';
 type Props = {
   searchParams?: { query?: string; page?: string };
 };
@@ -24,21 +25,23 @@ export default async function page({ searchParams }: Props) {
 
   return (
     <main className='min-h-screen'>
-      <div className='py-10 bg-black'></div>
-      <section className='flex flex-col gap-3'>
-        <h2>search page</h2>
-        <Suspense fallback={<p>loading</p>}>
+      <div className='py-12 bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500'></div>
+      <section className='flex flex-col gap-3 px-5 md:px-14 lg:px-20 py-5'>
+        <h2 className='capitalize text-xl text-center font-semibold tracking-wider'>
+          search
+        </h2>
+        <Suspense fallback={<Ring />}>
           <Search />
         </Suspense>
         {query ? (
-          <section>
-            <h3>{`showing results for "${query}"`}</h3>
+          <section className=''>
+            <h3 className='pb-7'>{`showing results for "${query}"`}</h3>
             <List list={results} mode='mini' />
-            <div className='flex justify-between items-center'>
+            <div className='flex justify-between items-center px-8 md:px-20 py-10'>
               <Link
                 href={{
-                  pathname: '/movies',
-                  query: { page: Number(page) - 1 },
+                  pathname: '/search',
+                  query: { page: Number(page) - 1, query },
                 }}
                 className={`${Number(page) === 1 ? 'invisible' : 'visible'}`}
               >
@@ -47,8 +50,8 @@ export default async function page({ searchParams }: Props) {
               <span>{`page ${page} of ${total_pages}`}</span>
               <Link
                 href={{
-                  pathname: '/movies',
-                  query: { page: Number(page) + 1 },
+                  pathname: '/search',
+                  query: { page: Number(page) + 1, query },
                 }}
                 className={`${
                   Number(page) === total_pages ? 'invisible' : 'visible'

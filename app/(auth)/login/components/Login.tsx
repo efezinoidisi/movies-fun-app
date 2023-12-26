@@ -73,7 +73,7 @@ export default function Login() {
       >
         <input
           className={`w-full h-full
-           focus:outline-none peer bg-inherit border-b  text-black placeholder-transparent border-gray`}
+           focus:outline-none peer bg-inherit border-b  text-white placeholder-transparent border-gray`}
           {...register('email')}
           type={'email'}
           id={'email'}

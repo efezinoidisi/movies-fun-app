@@ -53,7 +53,12 @@ const Section = (props: SectionProps) => {
           }
           if (variant === 'popular') {
             return (
-              <PopularMovieCard index={index} key={result.id} {...result} />
+              <PopularMovieCard
+                index={index}
+                key={result.id}
+                {...result}
+                type={type}
+              />
             );
           }
           return <Card key={result.id} {...result} type={type} />;

@@ -28,7 +28,7 @@ export default function BackToTop() {
     <>
       {showButton ? (
         <Button className='fixed bottom-10 right-10' onClick={scrollToTop}>
-          <Icons.doubleDownArrow className='text-4xl  rotate-180' />
+          <Icons.doubleDownArrow className='text-4xl  rotate-180 text-accent' />
           top
         </Button>
       ) : null}

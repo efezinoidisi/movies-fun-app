@@ -87,7 +87,7 @@ export default function SignUpForm() {
   return (
     <form
       onSubmit={handleSubmit(handleSignUp)}
-      className='flex flex-col items-center gap-5 justify-center '
+      className='flex flex-col items-center gap-1 justify-center '
     >
       {error && (
         <div className='text-red-500 bg-red-100 rounded-md p-2'>
@@ -102,7 +102,7 @@ export default function SignUpForm() {
       >
         <input
           className={`w-full h-full
-           focus:outline-none peer bg-inherit border-b  text-black placeholder-transparent border-gray`}
+           focus:outline-none peer bg-inherit border-b  text-black placeholder-transparent border-gray group-focus:shadow-zl`}
           {...register('username')}
           type={'text'}
           id={'username'}

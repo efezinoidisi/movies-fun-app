@@ -10,7 +10,7 @@ export default function InputWrap(props: InputProps) {
   const { label, id, error, placeholder, children } = props;
   return (
     <div className='relative py-4 w-full'>
-      <div className='flex bg-inner shadow-inner p-4 pl-5 rounded-2xl gap-2 items-center'>
+      <div className='flex shadow-al p-4 pl-5 rounded-xl gap-2 items-center'>
         <label htmlFor={id} className={`capitalize min-w-fit`}>
           {label}
         </label>

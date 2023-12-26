@@ -67,8 +67,11 @@ export const popularMoviesOptions = {
   showDots: false,
   ssr: true,
   infinite: false,
-  autoPlay: false,
-  autoPlaySpeed: 1000,
+  autoPlay: true,
+  partialVisible: true,
+  autoPlaySpeed: 2000,
+  rewind: true,
+  rewindWithAnimation: true,
   keyBoardControl: true,
   customTransition: 'all .5',
   transitionDuration: 500,
@@ -95,4 +98,17 @@ export const popularMoviesOptions = {
       items: 1,
     },
   },
+};
+
+export const MOVIE_ENDPOINTS = {
+  popular: 'movie/popular',
+  trending: 'trending/movie/day',
+  top_rated: 'movie/top_rated',
+  upcoming: 'movie/upcoming',
+};
+
+export const TV_ENDPOINTS = {
+  popular: 'tv/popular',
+  trending: 'trending/tv/day',
+  top_rated: 'tv/top_rated',
 };

@@ -15,16 +15,11 @@ export default function Card(props: CardProps) {
 
   const average = getAverage(vote_average);
   const genres = genre_ids.slice(0, 2);
+  const path = `${type}${type === 'movie' ? 's' : ''}`;
   return (
-    <Link
-      href={{
-        pathname: `/movies/${id}`,
-        query: { type },
-      }}
-      className=''
-    >
+    <Link href={`/${path}/${id}`} className='block'>
       <div
-        className={`relative flex flex-col items-start rounded-lg py-3  hover:bg-gray-800 px-2 gap-3 min-h-[23rem]
+        className={`relative flex flex-col items-start py-3 bg-white bg-opacity-80  px-2 gap-3 min-h-[25rem] mr-2 rounded-xl border-b-[.4rem]  border-l-[.1rem] border-t-[.1rem] border-r-[.4rem] border-main border-opacity-60
         `}
       >
         <Favourite
@@ -39,11 +34,11 @@ export default function Card(props: CardProps) {
             alt=''
             fill
             sizes='100vw 100%'
-            className='w-full h-full rounded-md'
+            className='w-full h-full rounded-md border border-main border-opacity-40'
           />
         </div>
         <div className={'flex flex-col col-span-2 gap-1'}>
-          <h3 className='capitalize font-semibold text-md max-w-[11rem]'>
+          <h3 className='capitalize font-semibold text-md max-w-[11rem] min-w-min'>
             {type === 'tv' ? name : title}
           </h3>
 

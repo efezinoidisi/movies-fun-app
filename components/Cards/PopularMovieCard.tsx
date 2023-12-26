@@ -6,9 +6,11 @@ import { AiFillStar } from 'react-icons/ai';
 import { checkTrimString, getAverage } from '@/utils/helpers';
 import AddWatchlistButton from '../Buttons/AddWatchlistButton';
 import Favourite from '../Buttons/Favourite';
+import GenreList from '../common/genre-list';
 
 type CardProps = MovieList & {
   index: number;
+  type?: 'movie' | 'tv';
 };
 
 export default function PopularMovieCard(props: CardProps) {
@@ -22,11 +24,12 @@ export default function PopularMovieCard(props: CardProps) {
     id,
     backdrop_path,
     name,
+    type = 'movie',
   } = props;
   const average = getAverage(vote_average);
-  const mediaType = media_type === 'movie' ? 'movies' : media_type;
+  const mediaType = type === 'movie' ? 'movies' : type;
 
-  const movieTitle = checkTrimString(media_type === 'tv' ? name : title, 15);
+  const movieTitle = checkTrimString(type === 'tv' ? name : title, 15);
   const genres = genre_ids.slice(0, 2);
   return (
     <Link href={`/${mediaType}/${id}`} className=''>
@@ -60,16 +63,7 @@ export default function PopularMovieCard(props: CardProps) {
         </div>
         <div className={'flex flex-col col-span-2 gap-1'}>
           <h3 className='capitalize font-semibold text-lg'>{movieTitle}</h3>
-          <ul className='flex gap-1 text-xs opacity-80'>
-            {genres.map((id) => {
-              return (
-                <li key={id} className='group'>
-                  {GENRES[id]}
-                  <span className='group-last:hidden'>,</span>
-                </li>
-              );
-            })}
-          </ul>
+          <GenreList genres={genres} type='without-id' />
           <div className='flex items-center gap-1'>
             <AiFillStar className={'text-yellow-500'} />
             <span className='font-semibold text-xs'> {average} </span>

@@ -9,7 +9,8 @@ export default async function page() {
 
   if (session) redirect('/dashboard');
   return (
-    <main className='bg-inner shadow-outer rounded-2xl flex flex-col items-center w-11/12 md:w-1/2  mx-auto py-5 md:mt-5 '>
+    <main className='bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100 flex flex-col items-center  py-5 px-5 md:pt-20'>
+      <h2 className='capitalize'>registration form</h2>
       <SignUpForm />
       <div className='mt-7 text-xs'>
         <p>
