@@ -20,7 +20,7 @@ export default function Pagination({ totalPages, page, searchParams }: Props) {
       >
         prev
       </Link>
-      <span className='text-sm'>{`${page} of ${totalPages}`}</span>
+      <span className='text-sm min-w-max'>{`${page} of ${totalPages}`}</span>
       <Link
         href={{
           pathname: '/search',

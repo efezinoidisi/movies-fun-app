@@ -40,9 +40,11 @@ export default function Hero({ movies }: { movies: MovieList[] }) {
           <span className='bg-opacity-50 bg-black py-1 px-2 rounded-full capitalize w-fit text-xs'>
             movie
           </span>
-          <h2 className='capitalize text-4xl'>{currentMovie.title}</h2>
+          <Link href={`/movies/${currentMovie.id}?type=movie`}>
+            <h2 className='capitalize text-4xl'>{currentMovie.title}</h2>
+          </Link>
           <ul className='list-inside flex gap-3 text-sm text-white opacity-70 flex-wrap'>
-            <li className=''>{releaseYear}</li>
+            <li className=''>{releaseYear || ''}</li>
             {currentMovie.genre_ids.map((id) => {
               return (
                 <li key={id} className='list-disc'>
@@ -55,7 +57,7 @@ export default function Hero({ movies }: { movies: MovieList[] }) {
             {overview}
             <Link
               href={`/movies/${currentMovie.id}?type=movie`}
-              className='underline pl-2'
+              className='underline pl-2 text-blue-500'
             >
               more
             </Link>

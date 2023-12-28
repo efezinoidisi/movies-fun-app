@@ -5,7 +5,14 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const sidebarItems: {
-  title: 'home' | 'movies' | 'series' | 'people' | 'search' | 'genres';
+  title:
+    | 'home'
+    | 'movies'
+    | 'series'
+    | 'people'
+    | 'search'
+    | 'genres'
+    | 'profile';
   href: string;
   icon: React.ReactNode;
 }[] = [
@@ -27,7 +34,7 @@ const sidebarItems: {
   {
     title: 'people',
     href: '/people',
-    icon: <Icons.person />,
+    icon: <Icons.people />,
   },
   {
     title: 'search',
@@ -38,6 +45,11 @@ const sidebarItems: {
     title: 'genres',
     href: '/genres',
     icon: <Icons.genre />,
+  },
+  {
+    title: 'profile',
+    href: '/profile',
+    icon: <Icons.person />,
   },
 ];
 
@@ -61,7 +73,7 @@ export default function Sidebar() {
     );
   });
   return (
-    <section className='fixed md:sticky bottom-0 w-full md:top-0 md:h-screen bg-body z-50 flex md:flex-col md:justify-start md:items-end md:py-20 pt-3 lg:gap-2 justify-between px-5 md:px-0 rounded-t-3xl md:rounded-tl-none md:rounded-e-3xl'>
+    <section className='fixed md:sticky bottom-0 w-full md:top-0 md:h-screen bg-body z-50 flex md:flex-col md:justify-start md:items-end md:py-20 pt-3 lg:gap-2 justify-between px-5 md:px-0 rounded-t-xl md:rounded-tl-none md:rounded-e-xl'>
       {content}
     </section>
   );

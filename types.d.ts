@@ -30,6 +30,8 @@ type MovieList = {
   trailerKey?: string;
   first_air_date: string;
   last_air_date: string;
+  known_for: MovieList[];
+  profile_path: string;
 };
 
 type Genre = {
@@ -300,4 +302,16 @@ type Country = {
   iso_3166_1: string;
   english_name: string;
   native_name: string;
+};
+
+type Person = {
+  adult: string;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  known_for: MovieList[];
 };

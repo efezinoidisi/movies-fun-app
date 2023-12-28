@@ -2,6 +2,7 @@ import Link from 'next/link';
 import MovieCard from './Cards/MovieCard';
 import NewReleaseCard from './Cards/NewRelease';
 import { merge } from '@/utils/merge';
+import Person from './Cards/person';
 
 export default function List({
   list,
@@ -24,10 +25,17 @@ export default function List({
           {title}
         </h2>
       )}
-      <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 sl:grid-cols-3 gap-2 sl:gap-7 md:gap-5'>
+      <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 sl:grid-cols-3 gap-2 sl:gap-7 md:gap-5 gap-y-5'>
         {list.map((movie) => {
-          if (movie.media_type === 'person') {
-            return null;
+          if (movie?.media_type === 'person') {
+            return (
+              <Person
+                key={movie.id}
+                picture={movie.profile_path}
+                name={movie.name}
+                id={movie.id}
+              />
+            );
           }
 
           if (mode === 'mini')

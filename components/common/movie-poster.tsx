@@ -23,7 +23,7 @@ export default function MoviePoster({
       className={imageStyles}
     />
   ) : (
-    <Icons.unknown className={merge('border-b border-body', imageStyles)} />
+    <Icons.unknown className={merge('border-b border-text/50', imageStyles)} />
   );
   return <div className={merge('aspect-[2/3]', className)}>{picture}</div>;
 }

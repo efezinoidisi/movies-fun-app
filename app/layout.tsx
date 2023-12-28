@@ -29,7 +29,9 @@ export default function RootLayout({
           <NavHeader />
           <main className='md:grid md:grid-cols-12'>
             <Sidebar />
-            <section className='md:col-span-11'>{children}</section>
+            <section className='md:col-span-11 overflow-x-clip'>
+              {children}
+            </section>
           </main>
           <BackToTop />
           {modals}

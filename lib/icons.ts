@@ -6,6 +6,7 @@ import {
 } from 'react-icons/bs';
 import { FaHeart } from 'react-icons/fa';
 import { HiOutlineChevronDoubleDown } from 'react-icons/hi';
+import { HiUserGroup } from 'react-icons/hi2';
 import {
   AiFillStar,
   AiFillPlayCircle,
@@ -36,6 +37,7 @@ const Icons = {
   genre: FaTag,
   home: MdHome,
   unknown: AiOutlineFileUnknown,
+  people: HiUserGroup,
 };
 
 export default Icons;

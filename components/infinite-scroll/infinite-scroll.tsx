@@ -7,6 +7,7 @@ import Loader from '../loaders/loader';
 import Ring from '../loaders/ring';
 import NewReleaseCard from '../Cards/NewRelease';
 import MovieCard from '../Cards/MovieCard';
+import Person from '../Cards/person';
 
 type Props = {
   endpoint: string;
@@ -59,11 +60,25 @@ export default function InfiniteScroll(props: Props) {
 
   if (status === 'error') return <p>An error occurred please try again!</p>;
 
-  const content = data?.pages?.map((pg) => {
-    return pg?.results?.map((movie: MovieList) => {
-      return <MovieCard key={movie.id} {...movie} />;
-    });
-  });
+  const content =
+    type === 'person'
+      ? data?.pages?.map((pg) => {
+          return pg?.results?.map((person: Person) => {
+            return (
+              <Person
+                key={person.id}
+                id={person.id}
+                name={person.name}
+                picture={person.profile_path}
+              />
+            );
+          });
+        })
+      : data?.pages?.map((pg) => {
+          return pg?.results?.map((movie: MovieList) => {
+            return <MovieCard key={movie.id} {...movie} />;
+          });
+        });
 
   return (
     <section>
