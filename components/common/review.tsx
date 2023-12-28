@@ -41,7 +41,7 @@ export default function Review(props: Props) {
   if (!movieReviews || movieReviews.length === 0) return null;
   return (
     <section className=''>
-      <h2 className='text-center text-xl font-semibold capitalize pb-5'>
+      <h2 className='text-white text-xl font-semibold capitalize mb-4'>
         reviews
       </h2>
       <div>
@@ -107,19 +107,24 @@ function ReviewCard(props: ReviewCardProps) {
   const toggleContent = () => {
     setShowFullContent((prev) => !prev);
   };
-  const picture = image ? `${IMG_URL}${image}` : '/default_pic.png';
 
   const publishedDate = new Date(created);
+
+  const authorImage = image ? (
+    <Image
+      src={`${IMG_URL}${image}`}
+      alt={`profile of ${author}`}
+      width={200}
+      height={200}
+      className='rounded-full w-12 h-12'
+    />
+  ) : (
+    <Icons.person className='rounded-full w-12 h-12' />
+  );
   return (
     <div className=' border-b last:border-b-0 py-7 flex flex-col gap-2 border-text border-opacity-40'>
       <div className='flex items-center gap-2'>
-        <Image
-          src={picture}
-          alt={`profile of ${author}`}
-          width={200}
-          height={200}
-          className='rounded-full w-12 h-12'
-        />
+        {authorImage}
         <p className='flex flex-col'>
           <span>{author}</span>
           <span className='text-xs'>

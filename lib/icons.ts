@@ -1,11 +1,22 @@
-import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
-import { BsFillBookmarkFill, BsFillBookmarkCheckFill } from 'react-icons/bs';
+import { MdChevronLeft, MdChevronRight, MdHome } from 'react-icons/md';
+import {
+  BsFillBookmarkFill,
+  BsFillBookmarkCheckFill,
+  BsPersonFill,
+} from 'react-icons/bs';
 import { FaHeart } from 'react-icons/fa';
 import { HiOutlineChevronDoubleDown } from 'react-icons/hi';
-import { AiFillStar, AiFillPlayCircle } from 'react-icons/ai';
+import {
+  AiFillStar,
+  AiFillPlayCircle,
+  AiOutlineFileUnknown,
+} from 'react-icons/ai';
 import { CgCloseR } from 'react-icons/cg';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import { FiSearch } from 'react-icons/fi';
+import { BiSolidMoviePlay } from 'react-icons/bi';
+import { PiTelevisionSimpleFill } from 'react-icons/pi';
+import { FaTag } from 'react-icons/fa6';
 
 const Icons = {
   next: MdChevronRight,
@@ -19,6 +30,12 @@ const Icons = {
   play: AiFillPlayCircle,
   hamburger: TfiMenuAlt,
   search: FiSearch,
+  person: BsPersonFill,
+  movie: BiSolidMoviePlay,
+  tv: PiTelevisionSimpleFill,
+  genre: FaTag,
+  home: MdHome,
+  unknown: AiOutlineFileUnknown,
 };
 
 export default Icons;

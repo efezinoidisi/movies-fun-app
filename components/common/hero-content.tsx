@@ -10,34 +10,17 @@ import { Suspense } from 'react';
 type Props = {
   title: string;
   releaseYear: string | null;
-  genres: {
-    id: number;
-    name: string;
-  }[];
   trailer: string;
   id: number;
   type: string;
   runtime: string | null;
-  director: string;
-  average: string;
   poster: string;
   backdrop: string;
 };
 
 export default function HeroContent(props: Props) {
-  const {
-    title,
-    releaseYear,
-    genres,
-    trailer,
-    id,
-    type,
-    runtime,
-    director,
-    average,
-    poster,
-    backdrop,
-  } = props;
+  const { title, releaseYear, trailer, id, type, runtime, poster, backdrop } =
+    props;
 
   const style = {
     background: `linear-gradient(0deg, rgba(0, 0, 0, 0.90) 0%, rgba(0, 0, 0, 0.50) 100%),url(${IMG_URL}${backdrop})`,
@@ -45,7 +28,7 @@ export default function HeroContent(props: Props) {
   return (
     <section
       style={style}
-      className='relative header text-white h-[70vh] flex items-end justify-between gap-10 px-5 md:px-16 py-10 md:py-14 md:h-[80vh]'
+      className='relative hero text-white h-[70vh] flex items-end justify-between gap-10 px-5 md:px-16 py-10 md:py-14 md:h-[80vh]'
     >
       <div className='flex flex-col gap-3'>
         <span className='rounded-xl bg-black bg-opacity-60 px-2  capitalize text-xs font-mono leading-8 tracking-wider w-fit'>
@@ -56,18 +39,9 @@ export default function HeroContent(props: Props) {
           <p className='min-w-max text-sm'>
             {releaseYear && `${releaseYear} |`} {runtime && runtime}
           </p>
-
-          <GenreList genres={genres} type='with-id' />
         </div>
-        <p className='flex items-center gap-1 text-xs md:text-sm min-w-max'>
-          {director && `directed by ${director} |`}
-          <Icons.star className={'text-yellow-500 text-sm'} />
-          {average}
-        </p>
         <div className='flex items-center gap-3'>
-          <Suspense fallback={<SimpleLoader />}>
-            <WatchTrailerButton path={`/trailer?videoKey=${trailer}`} />
-          </Suspense>
+          <WatchTrailerButton path={`/trailer?videoKey=${trailer}`} />
           <AddWatchlistButton id={id} border={true} showText={true} />
         </div>
       </div>

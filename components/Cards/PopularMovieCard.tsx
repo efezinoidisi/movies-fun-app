@@ -1,16 +1,13 @@
 import Link from 'next/link';
-import ImageLoader from '../ImageLoader';
 import { GENRES, IMG_URL } from '@/constants/data';
-import Image from 'next/image';
-import { AiFillStar } from 'react-icons/ai';
-import { checkTrimString, getAverage } from '@/utils/helpers';
 import AddWatchlistButton from '../Buttons/AddWatchlistButton';
 import Favourite from '../Buttons/Favourite';
 import GenreList from '../common/genre-list';
+import MoviePoster from '../common/movie-poster';
+import Rating from '../common/rating';
 
 type CardProps = MovieList & {
   index: number;
-  type?: 'movie' | 'tv';
 };
 
 export default function PopularMovieCard(props: CardProps) {
@@ -20,20 +17,17 @@ export default function PopularMovieCard(props: CardProps) {
     vote_average,
     genre_ids,
     index,
-    media_type,
     id,
     backdrop_path,
     name,
-    type = 'movie',
   } = props;
-  const average = getAverage(vote_average);
-  const mediaType = type === 'movie' ? 'movies' : type;
 
-  const movieTitle = checkTrimString(type === 'tv' ? name : title, 15);
+  const type = name ? 'tv' : 'movie';
+  const page = `${type}${type === 'tv' ? '' : 's'}`;
+
   const genres = genre_ids.slice(0, 2);
   return (
-    <Link href={`/${mediaType}/${id}`} className=''>
-      {/* max-h-44 */}
+    <Link href={`/${page}/${id}`} className=''>
       <div
         style={{
           background: `linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%),url(${IMG_URL}${backdrop_path})`,
@@ -50,25 +44,20 @@ export default function PopularMovieCard(props: CardProps) {
           {' '}
           {index + 1}
         </p>
-        <div
-          className={'h-44 max-h-44 w-48 min-w-[6rem] overflow-hidden relative'}
-        >
-          <Image
-            src={`${IMG_URL}${poster_path}`}
-            alt={`${title}`}
-            width={300}
-            height={500}
-            className='object-cover w-full h-full rounded-md'
-          />
-        </div>
+        <MoviePoster
+          posterPath={poster_path}
+          className='min-w-[6rem] max-w-[6rem] overflow-hidden relative'
+          imageStyles='object-cover w-full h-full rounded-md'
+        />
         <div className={'flex flex-col col-span-2 gap-1'}>
-          <h3 className='capitalize font-semibold text-lg'>{movieTitle}</h3>
+          <h3 className='capitalize font-semibold text-md line-clamp-1'>
+            {name || title}
+          </h3>
           <GenreList genres={genres} type='without-id' />
           <div className='flex items-center gap-1'>
-            <AiFillStar className={'text-yellow-500'} />
-            <span className='font-semibold text-xs'> {average} </span>
+            <Rating rating={vote_average} />
             <span className='opacity-80'>|</span>
-            <span className='capitalize text-xs opacity-80'>{media_type}</span>
+            <span className='capitalize text-xs opacity-80'>{type}</span>
             <AddWatchlistButton id={id} />
           </div>
         </div>

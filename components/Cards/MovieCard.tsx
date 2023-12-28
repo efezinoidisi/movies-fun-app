@@ -1,17 +1,10 @@
 import Link from 'next/link';
-import { AiFillStar } from 'react-icons/ai';
-import { checkTrimString, getAverage } from '@/utils/helpers';
-import Image from 'next/image';
-import { GENRES, IMG_URL } from '@/constants/data';
 import Favourite from '../Buttons/Favourite';
 import GenreList from '../common/genre-list';
-import AddWatchlistButton from '../Buttons/AddWatchlistButton';
+import Rating from '../common/rating';
+import MoviePoster from '../common/movie-poster';
 
-type Props = MovieList & {
-  type: 'movie' | 'tv' | 'person';
-};
-
-export default function MovieCard(props: Props) {
+export default function MovieCard(props: MovieList) {
   const {
     poster_path,
     title,
@@ -21,51 +14,36 @@ export default function MovieCard(props: Props) {
     name,
     release_date,
     first_air_date,
-    type = 'movie',
   } = props;
 
-  const average = getAverage(vote_average);
-
+  const type = name ? 'tv' : 'movie';
   const date = new Date(release_date);
   const genres = genre_ids.slice(0, 2);
 
   const firstAirDate = new Date(first_air_date);
-  const releaseYear =
-    type !== 'tv' ? date.getFullYear() : firstAirDate.getFullYear();
+  const releaseYear = title ? date.getFullYear() : firstAirDate.getFullYear();
 
-  const displayedHeading = type === 'tv' ? name : title;
-
-  const page = `${type}${type === 'movie' ? 's' : ''}`;
+  const page = `${type}${type === 'tv' ? '' : 's'}`;
   return (
     <div
-      className={`flex flex-col gap-3 items-start rounded-lg  transition-colors ease-in relative bg-white mr-1 pb-4 md:pb-0  min-h-[22rem] border border-y-main border-x-accent hover:border-2 hover:shadow-ul overflow-x-hidden`}
+      className={`flex flex-col gap-3 items-start rounded-lg  transition-colors ease-in relative bg-body mr-1 pb-4 md:pb-0  min-h-[18rem] border border-y-main border-x-accent hover:border-2 hover:shadow-ul overflow-x-hidden w-full`}
     >
       <Favourite id={id} position='absolute' extraStyles='right-2 top-5' />
-      <Link href={`/${page}/${id}`} className='w-full h-full block p-3'>
-        <div className={'w-full  overflow-hidden h-80 sl:h-64'}>
-          <Image
-            src={`${IMG_URL}${poster_path}`}
-            alt=''
-            width={0}
-            height={0}
-            sizes='100vw 100%'
-            className='w-full h-full rounded-lg'
-          />
-        </div>
+      <Link href={`/${page}/${id}`} className='w-full h-full block pb-3'>
+        <MoviePoster
+          posterPath={poster_path}
+          imageStyles='w-full h-full rounded-t-lg bg-cover'
+        />
 
-        <div className={'flex flex-col col-span-2 gap-2 pt-3'}>
-          <h3 className='capitalize font-semibold text-md min-w-max hidden md:block'>
-            {checkTrimString(displayedHeading, 15)}
-          </h3>
-          <h3 className='capitalize font-semibold text-lg min-w-max md:hidden'>
-            {displayedHeading}
+        <div className={'flex flex-col col-span-2 gap-2 pt-3 px-3'}>
+          <h3 className='capitalize font-semibold text-md line-clamp-1 text-white'>
+            {name || title}
           </h3>
 
           <div className='flex justify-between items-center text-xs md:text-sm'>
-            <p>{releaseYear}</p>
+            <p>{releaseYear || ''}</p>
             <p className='flex items-center gap-1'>
-              <AiFillStar className={'text-yellow-500'} />
-              <span className='font-semibold'> {average} </span>
+              <Rating rating={vote_average} />
               <span className='capitalize text-xs opacity-80 font-mono'>
                 | {type}
               </span>

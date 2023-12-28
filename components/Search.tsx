@@ -30,6 +30,7 @@ export default function Search() {
       onChange={(e) => {
         handleSearch(e.target.value);
       }}
+      placeholder='search movie,tv or person'
       className='text-black px-5 py-2 rounded-lg mx-7 md:mx-14 lg:mx-32 outline-none focus:border-blue-500/50 focus:border'
     />
   );
@@ -49,19 +50,15 @@ export function NavSearchInput() {
   };
 
   return (
-    <div
-      className={merge(
-        'w-full flex gap-1 md:relative md:top-0 ',
-        showSearch && 'fixed top-20 left-0 bg-text/30 md:bg-inherit'
-      )}
-    >
+    <div className={'w-full flex gap-1 relative'}>
       {showSearch && (
         <form action={submitSearch} className='w-full relative  py-2'>
           <input
             autoFocus
             ref={inputRef}
             type='search'
-            className='text-text pl-5 py-1 outline-none pr-10 w-full rounded-lg outline-none focus:border focus:border-main/40 animate-slideIn'
+            className='pl-2 md:pl-5 py-1 outline-none pr-10 w-full rounded-lg text-black focus:border focus:border-main/40'
+            placeholder='search movie,tv or person'
           />
           <Button
             type='submit'
@@ -71,9 +68,15 @@ export function NavSearchInput() {
           </Button>
         </form>
       )}
-      <Button className='w-fit' onClick={toggleSearch}>
+      <Button
+        className={`w-fit group ${
+          showSearch ? 'absolute -right-3 -top-2' : ''
+        } hover:opacity-60`}
+        onClick={toggleSearch}
+        aria-label={showSearch ? 'close search' : 'open search'}
+      >
         {showSearch ? (
-          <Icons.close className={'text-xl'} />
+          <Icons.close className={`text-xl text-red-400 `} />
         ) : (
           <Icons.search className={'text-xl'} />
         )}

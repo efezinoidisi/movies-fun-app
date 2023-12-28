@@ -41,7 +41,7 @@ export default function Tab({
               'uppercase hover:text-accent hover:border-accent hover:opacity-70',
               activeTab
                 ? `border-b-4 scale-105 transition-colors duration-200 ease-in  ${activeStyles}`
-                : ''
+                : 'text-black/80'
             )}
           >
             {title}

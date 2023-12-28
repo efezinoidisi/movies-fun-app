@@ -38,19 +38,25 @@ type CarouselProps = {
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1200 },
-    items: 5,
+    items: 6,
   },
   miniDesktop: {
-    breakpoint: { max: 1200, min: 1024 },
-    items: 4,
+    breakpoint: { max: 1200, min: 1100 },
+    items: 5,
   },
   tablet: {
-    breakpoint: { max: 1024, min: 600 },
+    breakpoint: { max: 1100, min: 900 },
+    items: 4,
+  },
+
+  mini: {
+    breakpoint: { max: 800, min: 600 },
     items: 3,
   },
+
   mobile: {
     breakpoint: { max: 600, min: 0 },
-    items: 1,
+    items: 2,
   },
 };
 

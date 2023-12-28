@@ -1,31 +1,47 @@
+'use client';
 import { GENRES } from '@/constants/data';
 import { merge } from '@/utils/merge';
+import { useRouter } from 'next/navigation';
+import Button from '../Button';
 type GenreWithId = {
   type: 'with-id';
   genres: Genre[];
   styles?: string;
+  page?: 'movie' | 'tv';
 };
 
 type GenreWithoutId = {
   type: 'without-id';
   genres: number[];
   styles?: string;
+  page?: 'movie' | 'tv';
 };
 type Props = GenreWithId | GenreWithoutId;
 
-export default function GenreList({ genres, type, styles = '' }: Props) {
+export default function GenreList({
+  genres,
+  type,
+  styles = '',
+  page = 'movie',
+}: Props) {
+  const router = useRouter();
+
+  const navigate = (to: string) => {
+    router.push(to);
+  };
   if (type === 'with-id')
     return (
-      <ul
-        className={merge(
-          'list-inside list-disc flex gap-2 flex-wrap items-center',
-          styles
-        )}
-      >
+      <ul className={merge('flex gap-x-1 flex-wrap items- gap-y-2', styles)}>
         {genres.map(({ id, name }) => {
           return (
-            <li key={id} className='text-xs min-w-fit'>
-              {name}
+            <li
+              key={id}
+              className='text-sm min-w-max bg-dull text-dullText rounded-md px-2 py-1 hover:bg-body transition-colors duration-200'
+              onClick={() => navigate(`/${page}/genre/${id}`)}
+            >
+              <Button onClick={() => navigate(`/${page}/genre/${id}`)}>
+                {name}
+              </Button>
             </li>
           );
         })}
@@ -33,18 +49,16 @@ export default function GenreList({ genres, type, styles = '' }: Props) {
     );
 
   return (
-    <ul className={merge('flex gap-2 min-w-max text-xs lowercase', styles)}>
+    <ul className={merge('flex gap-2 text-xs lowercase', styles)}>
       {genres.map((id) => {
         return (
           <li
             key={id}
-            className='border even:border-e-blue-500
-                  even:border-s-red-500
-                  border-e-red-500
-                  border-purple-500
-                  border-s-blue-500 rounded-md px-1'
+            className='bg-dull text-dullText rounded-md p-1 hover:bg-body transition-colors duration-200'
           >
-            {GENRES[id]}
+            <Button onClick={() => navigate(`/${page}/genre/${id}`)}>
+              {GENRES[id]}
+            </Button>
           </li>
         );
       })}

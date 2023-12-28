@@ -56,6 +56,10 @@ body {
     display: none;
   }
 
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   .scrollbar:hover::-webkit-scrollbar {
     display: inline;
   }

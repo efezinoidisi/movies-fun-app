@@ -88,6 +88,23 @@ type Reviews = {
   total_results: number;
 };
 
+type MovieImage = {
+  aspect_ratio: number;
+  height: number;
+  iso_639_1: string;
+  file_path: string;
+  vote_average: number;
+  vote_count: number;
+  width: number;
+};
+
+type MovieImages = {
+  backdrops: MovieImage[];
+  id: number;
+  logos: [];
+  posters: MovieImage[];
+};
+
 type MovieDetail = {
   adult: boolean;
   backdrop_path: string;
@@ -132,6 +149,7 @@ type MovieDetail = {
   credits: Credits;
   reviews: Reviews;
   similar: FetchData;
+  images: MovieImages;
 };
 
 type WatchProvider = {
@@ -205,7 +223,7 @@ type SeriesDetail = {
     gender: number;
     profile_path: string;
   }[];
-  episode_run_time: [];
+  episode_run_time: number[];
   first_air_date: string;
   genres: Genre[];
   homepage: string;
@@ -269,6 +287,7 @@ type SeriesDetail = {
   credits: Credits;
   reviews: Reviews;
   similar: FetchData;
+  images: MovieImages;
 };
 
 type Language = {

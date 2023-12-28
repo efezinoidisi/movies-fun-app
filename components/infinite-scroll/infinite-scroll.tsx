@@ -6,6 +6,7 @@ import { merge } from '@/utils/merge';
 import Loader from '../loaders/loader';
 import Ring from '../loaders/ring';
 import NewReleaseCard from '../Cards/NewRelease';
+import MovieCard from '../Cards/MovieCard';
 
 type Props = {
   endpoint: string;
@@ -60,14 +61,16 @@ export default function InfiniteScroll(props: Props) {
 
   const content = data?.pages?.map((pg) => {
     return pg?.results?.map((movie: MovieList) => {
-      return <NewReleaseCard key={movie.id} {...movie} type={type} />;
+      return <MovieCard key={movie.id} {...movie} />;
     });
   });
 
   return (
     <section>
-      <h2>{title}</h2>
-      <div className='grid md:grid-cols-3 lg:grid-cols-5 gap-y-7 gap-x-3'>
+      {title && (
+        <h2 className='text-white font-bold capitalize mb-5'>{title}</h2>
+      )}
+      <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 sl:grid-cols-3 gap-2 gap-y-4 sl:gap-7 md:gap-5'>
         {content}
       </div>
       <div

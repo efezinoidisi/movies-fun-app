@@ -72,10 +72,12 @@ export function checkTrimString(originalString: string, maxLength: number) {
 
 // covert time in seconds to hours and minutes
 export function getRuntime(minutes: number) {
+  if (minutes === 0) return '';
+
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
-
-  return `${hours}h${remainingMinutes}m`;
+  const hoursStr = hours ? `${hours}h` : '';
+  return `${hoursStr}${remainingMinutes}m`;
 }
 
 // get english name of language
@@ -136,5 +138,16 @@ export function numberToDollarString(value: number) {
     style: 'currency',
     currency: 'USD',
     minimumFractionDigits: 2,
+  });
+}
+
+export function getReleaseDate(value: string) {
+  if (!value) return '';
+
+  const date = new Date(value);
+  return date.toLocaleDateString('en-Us', {
+    month: 'long',
+    year: 'numeric',
+    day: '2-digit',
   });
 }

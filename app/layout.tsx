@@ -5,6 +5,7 @@ import Providers from './providers';
 import { Toaster } from 'react-hot-toast';
 import NavHeader from '@/components/NavHeader';
 import BackToTop from '@/components/Buttons/back-to-top';
+import Sidebar from '@/components/navigation/sidebar';
 
 export const metadata: Metadata = {
   title: 'Zmovies',
@@ -26,7 +27,10 @@ export default function RootLayout({
         <Providers>
           <Toaster />
           <NavHeader />
-          {children}
+          <main className='md:grid md:grid-cols-12'>
+            <Sidebar />
+            <section className='md:col-span-11'>{children}</section>
+          </main>
           <BackToTop />
           {modals}
         </Providers>

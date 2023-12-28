@@ -54,9 +54,9 @@ export default async function page({
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div className='py-12 bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500'></div>
-      <main className='px-5 md:px-10 pt-10  flex flex-col gap-5'>
-        <h2 className='capitalize font-bold pb-5 text-center text-xl'>{`${tab.replace(
+      <div className='py-10 bg-[#0e2439]'></div>
+      <section className='px-5 md:px-10 pt-10  flex flex-col gap-5'>
+        <h2 className='capitalize font-bold pb-5 text-center text-xl text-white'>{`${tab.replace(
           '_',
           ' '
         )} movies`}</h2>
@@ -68,7 +68,7 @@ export default async function page({
           activeStyles='border-accent  text-accent'
         />
         <InfiniteScroll endpoint={endpoint} passkey={queryKey} />
-      </main>
+      </section>
     </HydrationBoundary>
   );
 }

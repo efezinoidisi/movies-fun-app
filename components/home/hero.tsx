@@ -33,7 +33,7 @@ export default function Hero({ movies }: { movies: MovieList[] }) {
       style={{
         background: `linear-gradient(0deg, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.70) 100%),url(${IMG_URL}${currentMovie.backdrop_path})`,
       }}
-      className='h-screen w-full hero lg:header text-white bg-opacity-30 flex flex-col justify-between gap-10 md:px-20  px-5 pt-40 lg:pt-64 pb-20'
+      className='min-h-screen w-full hero lg:header text-white bg-opacity-30 flex flex-col justify-between gap-10 md:px-20  px-5 pt-40 lg:pt-64 pb-20'
     >
       <div className='flex flex-col justify-between gap-10 md:gap-0 md:flex-row'>
         <div className='flex flex-col gap-3'>
@@ -81,8 +81,8 @@ export default function Hero({ movies }: { movies: MovieList[] }) {
             <span
               key={id}
               className={`transition-transform duration-100 ease-linear ${
-                index === currentIndex ? 'bg-white w-4' : 'bg-grey-600'
-              } cursor-pointer w-2 h-2 rounded-full`}
+                index === currentIndex ? 'bg-white w-6' : 'bg-white/50'
+              } cursor-pointer w-2 h-2 rounded-full hover:bg-white/80`}
               onClick={() => setCurrentIndex(index)}
             ></span>
           ))}

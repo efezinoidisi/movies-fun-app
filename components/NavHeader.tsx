@@ -18,15 +18,12 @@ export default async function NavHeader(props: Props) {
   const isLoggedIn = session !== null;
   return (
     <header
-      className={`flex justify-between items-center absolute w-full top-9 font-bold px-5 md:px-20 z-50 text-white ${styles} capitalize`}
+      className={`flex justify-between items-center absolute w-5/6 md:w-3/4 top-9 font-bold md:px-10 lg:px-20 z-50 text-white text-opacity-90 ${styles} capitalize left-1/2 -translate-x-1/2`}
     >
       <Link href={'/'}>
         {' '}
         <h1 className=''>zmovies</h1>
       </Link>
-      <div className='hidden lg:flex w-fit'>
-        <NavBar />
-      </div>
       <div className='flex justify-between items-center gap-3'>
         <NavSearchInput />
         {isLoggedIn ? (

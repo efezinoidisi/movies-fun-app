@@ -3,6 +3,7 @@ import Lists from '../components/home/Lists';
 import { fetchList } from '@/utils/fetchList';
 import { getRandomMovies } from '@/utils/helpers';
 import Footer from '@/components/Footer';
+import List from '@/components/List';
 
 export default async function Home() {
   const trendingMoviesEndpoint = 'trending/movie/day';
@@ -40,7 +41,7 @@ export default async function Home() {
 
   const allData: {
     id: number;
-    variant: 'new' | 'show' | 'popular';
+    variant: 'new' | 'show' | 'popular' | 'movie';
     results: MovieList[];
     href: string;
     title: string;
@@ -64,22 +65,14 @@ export default async function Home() {
     },
     {
       id: 2,
-      variant: 'show',
-      results: movies,
-      href: '/movies?tab=upcoming',
-      title: 'upcoming',
-      type: 'movie',
-    },
-    {
-      id: 3,
-      variant: 'popular',
+      variant: 'movie',
       results: series,
       href: '/tv?tab=popular',
       title: 'popular tv shows',
       type: 'tv',
     },
     {
-      id: 4,
+      id: 3,
       variant: 'show',
       results: trendingSeries,
       href: '/tv?tab=trending',
@@ -91,10 +84,16 @@ export default async function Home() {
   const randomFive = getRandomMovies(results, 5);
   return (
     <>
-      <main className={' flex flex-col '}>
+      <section className={' flex flex-col '}>
         <Hero movies={randomFive} />
+        <List
+          list={movies}
+          link='/movies?tab=upcoming'
+          title='upcoming movies'
+          styles='px-5 md:px-10 lg:px-16 xl:px-20 border-b mt-10 border-body'
+        />
         <Lists moviesData={allData} />
-      </main>
+      </section>
       <Footer />
     </>
   );

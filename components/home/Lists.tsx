@@ -4,13 +4,14 @@ import CustomCarousel from '../Slider/carousel';
 import NewReleaseCard from '../Cards/NewRelease';
 import PopularMovieCard from '../Cards/PopularMovieCard';
 import { popularMoviesOptions } from '@/constants/data';
+import MovieCard from '../Cards/MovieCard';
 
 export default async function Lists({
   moviesData,
 }: {
   moviesData: {
     id: number;
-    variant: 'new' | 'show' | 'popular';
+    variant: 'new' | 'show' | 'popular' | 'movie';
     results: MovieList[];
     href: string;
     title: string;
@@ -18,16 +19,11 @@ export default async function Lists({
   }[];
 }) {
   return (
-    <section className='px-5 md:px-20 flex flex-col gap-1 pb-10'>
+    <div className='px-5 md:px-10 lg:px-16 xl:px-20'>
       {moviesData.map(({ id, ...others }) => (
         <Section key={id} {...others} />
       ))}
-      {/* <InfiniteScroll
-        endpoint='trending/movie/day'
-        key='trending'
-        pageTitle='infinite scrolling'
-      /> */}
-    </section>
+    </div>
   );
 }
 
@@ -42,8 +38,10 @@ type SectionProps = {
 const Section = (props: SectionProps) => {
   const { title, variant, results, href, type = 'movie' } = props;
   return (
-    <section className='border-b border-main py-5 lg:py-10 flex flex-col gap-4 border-opacity-40 last:border-none'>
-      <h2 className='font-semibold capitalize lg text-2xl'>{title}</h2>
+    <section className='border-b border-body flex flex-col gap-4 last:border-none pt-4'>
+      <h3 className='font-semibold capitalize lg text-2xl text-white'>
+        {title}
+      </h3>
       <CustomCarousel
         options={variant === 'popular' ? popularMoviesOptions : null}
       >
@@ -53,22 +51,22 @@ const Section = (props: SectionProps) => {
           }
           if (variant === 'popular') {
             return (
-              <PopularMovieCard
-                index={index}
-                key={result.id}
-                {...result}
-                type={type}
-              />
+              <PopularMovieCard index={index} key={result.id} {...result} />
             );
           }
+
+          if (variant === 'movie') {
+            return <MovieCard key={result.id} {...result} />;
+          }
+
           return <Card key={result.id} {...result} type={type} />;
         })}
       </CustomCarousel>
       <Link
         href={href}
-        className='hover:scale-110 transition-transform duration-150 ease-out self-end'
+        className='self-end border border-body px-4 py-3 bg-body hover:bg-dull text-dullText'
       >
-        view all...
+        view more
       </Link>
     </section>
   );

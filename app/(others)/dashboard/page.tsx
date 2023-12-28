@@ -16,8 +16,8 @@ export default function Page() {
   };
   return (
     <main className='py-10 px-5 md:px-10'>
-      <NavHeader />
-      <button onClick={handleLogout}>signout</button>
+      <h2>dashboard</h2>
+      <p>coming soon</p>
     </main>
   );
 }

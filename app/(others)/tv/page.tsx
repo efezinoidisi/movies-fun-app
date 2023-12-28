@@ -1,6 +1,4 @@
 import { fetchList } from '@/utils/fetchList';
-import Link from 'next/link';
-import List from '@/components/List';
 import { TV_ENDPOINTS } from '@/constants/data';
 import {
   HydrationBoundary,
@@ -52,9 +50,9 @@ export default async function page({
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div className='py-12 bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500'></div>
-      <main className='px-5 md:px-10 pt-10 flex flex-col gap-5'>
-        <h2 className='capitalize font-bold pb-5'>{`${tab.replace(
+      <div className='py-10'></div>
+      <section className='px-5 md:px-10 pt-10 flex flex-col gap-5'>
+        <h2 className='capitalize font-bold text-white'>{`${tab.replace(
           '_',
           ' '
         )} tv shows`}</h2>
@@ -62,11 +60,11 @@ export default async function page({
         <Tab
           tabItems={tabList}
           defaultTab='top_rated'
-          styles='self-end rounded-md border-white bg-white sticky top-7 bg-opacity-80 z-50'
+          styles='self-end rounded-md border-white bg-white bg-opacity-90 z-50'
           activeStyles='border-accent  text-accent'
         />
         <InfiniteScroll endpoint={endpoint} passkey={queryKey} type='tv' />
-      </main>
+      </section>
     </HydrationBoundary>
   );
 }

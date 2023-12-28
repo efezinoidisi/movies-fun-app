@@ -8,7 +8,7 @@ type Props = {
   id: number;
 };
 
-export default function CarouselWithHeading({ movies, title,type }: Props) {
+export default function CarouselWithHeading({ movies, title, type }: Props) {
   if (movies.length === 0) return null;
 
   return (
@@ -18,7 +18,7 @@ export default function CarouselWithHeading({ movies, title,type }: Props) {
       </h2>
       <CustomCarousel>
         {movies.map((movie) => (
-          <MovieCard key={movie.id} {...movie} type={type}/>
+          <MovieCard key={movie.id} {...movie} />
         ))}
       </CustomCarousel>
     </article>
