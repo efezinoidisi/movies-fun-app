@@ -27,7 +27,7 @@ export default function Casts({ casts }: Props) {
             <Icons.person className=' w-full h-52 md:h-44 overflow-x-hidden rounded-t-lg' />
           );
           return (
-            <Link href={``} key={id} className='w-full block'>
+            <Link href={`/people/${id}`} key={id} className='w-full block'>
               <div
                 className=' flex flex-col items-center gap-1 pb-7 md:pb-2 rounded-lg mr-2 snap-start whitespace-normal  border-text h-max bg-body border-b-[.2rem] border-l-[.1rem] border-t-[.1rem]
               border-r-[.2rem]  border-opacity-60  hover:border-opacity-100 transition-colors ease-in-out duration-200'

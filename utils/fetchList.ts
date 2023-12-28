@@ -1,4 +1,5 @@
 import { API_BASE_URL, OPTIONS } from '@/constants/data';
+import toast from 'react-hot-toast';
 
 export async function fetchList(endpoint: string) {
   const query = `${
@@ -13,11 +14,7 @@ export async function fetchList(endpoint: string) {
   return data;
 }
 
-export async function fetchClientList(
-  endpoint: string,
-  page: number = 1,
-  signal?: AbortSignal
-) {
+export async function fetchClientList(endpoint: string, page: number = 1) {
   try {
     const res = await fetch(
       `${API_BASE_URL}${endpoint}${endpoint.includes('?') ? '&' : '?'}api_key=${
@@ -28,5 +25,6 @@ export async function fetchClientList(
     return data;
   } catch (error) {
     console.log(error);
+    toast.error('An unknown error occurred!');
   }
 }

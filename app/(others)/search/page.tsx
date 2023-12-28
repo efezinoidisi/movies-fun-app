@@ -25,9 +25,8 @@ export default async function page({ searchParams }: Props) {
   if (results?.length === 0) return <p>nothing found</p>;
 
   return (
-    <main className='min-h-screen '>
-      <div className='py-12'></div>
-      <section className='flex flex-col gap-3 px-5 md:px-14 lg:px-20 py-5'>
+    <main className='min-h-screen pt-20'>
+      <section className='flex flex-col gap-3 px-5 md:px-14 lg:px-20 pt-5'>
         <h2 className='capitalize text-xl text-center font-semibold tracking-wider sr-only'>
           search page
         </h2>

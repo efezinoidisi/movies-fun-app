@@ -45,7 +45,7 @@ export default function Details(props: Props) {
     },
     {
       name: 'runtime',
-      value: runtime,
+      value: runtime || '-',
     },
     {
       name: 'rating',
@@ -62,7 +62,7 @@ export default function Details(props: Props) {
       },
       {
         name: 'release',
-        value: getReleaseDate(release),
+        value: getReleaseDate(release) || '-',
       },
 
       {
@@ -124,13 +124,13 @@ export default function Details(props: Props) {
         overview
       </h2>
       <p>{overview}</p>
-      <GenreList genres={genres} type='with-id' />
+      <GenreList genres={genres} type='with-id' page={type} />
       <div className='grid md:grid-cols-2 justify-items-center md:justify-items-stretch gap-y-5 w-full mt-4'>
         <div>
           {items.map(({ name, value }) => {
             return (
-              <div className='py-2 flex gap-x-10 items-center' key={name}>
-                <p className='min-w-[6rem] md:min-w-[8rem] capitalize'>
+              <div className='py-2 flex gap-x-10 items-start' key={name}>
+                <p className={`min-w-[6rem] md:min-w-[8rem] capitalize`}>
                   {name}
                 </p>
                 <p>{value}</p>

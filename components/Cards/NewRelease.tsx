@@ -8,7 +8,7 @@ import Rating from '../common/rating';
 export default function NewReleaseCard(props: MovieList) {
   const { backdrop_path, title, vote_average, genre_ids, id, name } = props;
   const type = name ? 'tv' : 'movie';
-  const genres = genre_ids.slice(0, 2);
+  const genres = genre_ids.slice(0, 1);
 
   const page = name ? 'tv' : 'movies';
   return (

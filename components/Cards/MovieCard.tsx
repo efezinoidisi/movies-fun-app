@@ -18,7 +18,7 @@ export default function MovieCard(props: MovieList) {
 
   const type = name ? 'tv' : 'movie';
   const date = new Date(release_date);
-  const genres = genre_ids.slice(0, 2);
+  const genres = genre_ids.slice(0, 1);
 
   const firstAirDate = new Date(first_air_date);
   const releaseYear = title ? date.getFullYear() : firstAirDate.getFullYear();
@@ -40,7 +40,7 @@ export default function MovieCard(props: MovieList) {
             {name || title}
           </h3>
 
-          <div className='flex justify-between items-center text-xs md:text-sm'>
+          <div className='flex justify-between items-center text-xs md:text-sm min-w-max'>
             <p>{releaseYear || ''}</p>
             <p className='flex items-center gap-1'>
               <Rating rating={vote_average} />

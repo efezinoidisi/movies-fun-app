@@ -8,7 +8,7 @@ type Props = {
 
 export default function Pagination({ totalPages, page, searchParams }: Props) {
   return (
-    <div className='flex gap-5 w-2/5 mx-auto items-center px-8 md:px-20 py-2 mt-7'>
+    <div className='flex gap-5 w-2/5 mx-auto items-center pt-2 mt-7 justify-center'>
       <Link
         href={{
           pathname: '/search',

@@ -30,7 +30,7 @@ export default function Tab({
   };
 
   return (
-    <div className={merge('flex items-center py-3 px-5 gap-4', styles)}>
+    <div className={merge('flex items-center px-5 gap-4 mb-5', styles)}>
       {tabItems.map(({ title, query }) => {
         const activeTab = query === tab;
         return (
@@ -38,9 +38,9 @@ export default function Tab({
             key={title}
             onClick={() => updateTab(query)}
             className={merge(
-              'uppercase hover:text-accent hover:border-accent hover:opacity-70',
+              'uppercase hover:text-accent hover:border-accent/70 hover:opacity-70 text-sm min-w-max md:text-base py-4 hover:border-b-4',
               activeTab
-                ? `border-b-4 scale-105 transition-colors duration-200 ease-in  ${activeStyles}`
+                ? `border-b-4  transition-colors duration-200 ease-in-out font-bold  ${activeStyles}`
                 : 'text-black/80'
             )}
           >

@@ -9,12 +9,15 @@ export default async function page() {
 
   if (session) redirect('/dashboard');
   return (
-    <main className='bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100 flex flex-col items-center  py-5 px-5 md:pt-20'>
+    <main className='flex flex-col items-center  py-5 px-5 md:pt-20'>
       <h2 className='capitalize'>registration form</h2>
       <SignUpForm />
-      <div className='mt-7 text-xs'>
+      <div className='mt-7 text-sm'>
         <p>
-          already have an account? <Link href={'/login'}>login</Link>
+          already have an account?{' '}
+          <Link href={'/login'} className='underline capitalize text-accent'>
+            login
+          </Link>
         </p>
       </div>
     </main>

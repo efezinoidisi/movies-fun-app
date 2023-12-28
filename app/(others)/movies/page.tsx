@@ -64,7 +64,7 @@ export default async function page({
         <Tab
           tabItems={tabList}
           defaultTab='top_rated'
-          styles='self-end rounded-md border-white bg-white sticky top-7 bg-opacity-80 z-50'
+          styles='self-center md:self-end rounded-md border-white bg-white bg-opacity-90'
           activeStyles='border-accent  text-accent'
         />
         <InfiniteScroll endpoint={endpoint} passkey={queryKey} />

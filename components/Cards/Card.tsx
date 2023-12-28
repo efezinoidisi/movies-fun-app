@@ -10,7 +10,7 @@ type CardProps = MovieList & {
 
 export default function Card(props: CardProps) {
   const { poster_path, title, vote_average, type, id, name, genre_ids } = props;
-  const genres = genre_ids.slice(0, 2);
+  const genres = genre_ids.slice(0, 1);
   const path = name ? 'tv' : 'movies';
 
   return (

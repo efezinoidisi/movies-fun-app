@@ -62,7 +62,6 @@ export default async function page({ params: { id } }: Props) {
     ? await getLanguage(original_language)
     : '';
 
-  const average = getAverage(vote_average);
   const listItems = [
     {
       title: 'more like this',
@@ -94,7 +93,7 @@ export default async function page({ params: { id } }: Props) {
         trailer={trailerKey as string}
         id={seriesId}
         type={'tv'}
-        runtime={null}
+        runtime={runtime}
         poster={poster_path}
         backdrop={backdrop_path}
       />

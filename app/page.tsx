@@ -12,32 +12,32 @@ export default async function Home() {
   const seriesEndpoint = 'tv/popular';
   const trendingSeriesEndpoint = 'trending/tv/day';
 
-  const popularMoviesData: Promise<FetchData> = fetchList(popularEndpoint);
+  // const popularMoviesData: Promise<FetchData> = fetchList(popularEndpoint);
 
-  const trendingMoviesData: Promise<FetchData> = fetchList(
-    trendingMoviesEndpoint
-  );
+  // const trendingMoviesData: Promise<FetchData> = fetchList(
+  //   trendingMoviesEndpoint
+  // );
 
-  const moviesData: Promise<FetchData> = fetchList(moviesEndpoint);
-  const seriesData: Promise<FetchData> = fetchList(seriesEndpoint);
+  // const moviesData: Promise<FetchData> = fetchList(moviesEndpoint);
+  // const seriesData: Promise<FetchData> = fetchList(seriesEndpoint);
 
-  const trendingSeriesData: Promise<FetchData> = fetchList(
-    trendingSeriesEndpoint
-  );
+  const allResults: Promise<
+    [FetchData, FetchData, FetchData, FetchData, FetchData]
+  > = Promise.all([
+    fetchList(seriesEndpoint),
+    fetchList(moviesEndpoint),
+    fetchList(trendingMoviesEndpoint),
+    fetchList(popularEndpoint),
+    fetchList(trendingSeriesEndpoint),
+  ]);
 
   const [
-    { results: popularResults },
-    { results: trendingResults },
-    { results: movies },
     { results: series },
+    { results: movies },
+    { results: trendingResults },
+    { results: popularResults },
     { results: trendingSeries },
-  ] = await Promise.all([
-    popularMoviesData,
-    trendingMoviesData,
-    moviesData,
-    seriesData,
-    trendingSeriesData,
-  ]);
+  ] = await allResults;
 
   const allData: {
     id: number;
@@ -80,14 +80,14 @@ export default async function Home() {
       type: 'tv',
     },
   ];
-  const { results } = await moviesData;
-  const randomFive = getRandomMovies(results, 5);
+
+  const randomFive = getRandomMovies(trendingResults, 5);
   return (
     <>
       <section className={' flex flex-col '}>
         <Hero movies={randomFive} />
         <List
-          list={movies}
+          list={movies.slice(0, 10)}
           link='/movies?tab=upcoming'
           title='upcoming movies'
           styles='px-5 md:px-10 lg:px-16 xl:px-20 border-b mt-10 border-body'

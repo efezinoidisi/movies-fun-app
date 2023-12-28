@@ -41,7 +41,7 @@ const config: Config = {
         ul: '0px 10px 20px 0px rgba(140, 6, 116, 0.50)',
         zl: 'rgba(255, 184, 0, 0.24) 0px 3px 8px',
         cl: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
-        al: 'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
+        al: 'rgba(152 ,179 ,205, 0.4) 0px 2px 4px, rgba(152, 179, 205, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
       },
       animation: {
         search: 'search 2s linear 1',

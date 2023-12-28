@@ -60,7 +60,7 @@ export default async function page({
         <Tab
           tabItems={tabList}
           defaultTab='top_rated'
-          styles='self-end rounded-md border-white bg-white bg-opacity-90 z-50'
+          styles='self-end rounded-md border-white bg-white bg-opacity-90 text-sm md:text-base'
           activeStyles='border-accent  text-accent'
         />
         <InfiniteScroll endpoint={endpoint} passkey={queryKey} type='tv' />

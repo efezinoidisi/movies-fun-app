@@ -26,9 +26,11 @@ export default function GenreList({
 }: Props) {
   const router = useRouter();
 
+  const path = `${page}${page === 'movie' ? 's' : ''}`;
   const navigate = (to: string) => {
     router.push(to);
   };
+
   if (type === 'with-id')
     return (
       <ul className={merge('flex gap-x-1 flex-wrap items- gap-y-2', styles)}>
@@ -36,10 +38,16 @@ export default function GenreList({
           return (
             <li
               key={id}
-              className='text-sm min-w-max bg-dull text-dullText rounded-md px-2 py-1 hover:bg-body transition-colors duration-200'
+              className='text-sm min-w-max bg-dull text-dullText rounded-md px-2 py-1 hover:bg-body transition-colors duration-200 group'
               onClick={() => navigate(`/${page}/genre/${id}`)}
             >
-              <Button onClick={() => navigate(`/${page}/genre/${id}`)}>
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate(`/${path}/genre/${id}`);
+                }}
+                className='group-hover:underline'
+              >
                 {name}
               </Button>
             </li>
@@ -54,9 +62,15 @@ export default function GenreList({
         return (
           <li
             key={id}
-            className='bg-dull text-dullText rounded-md p-1 hover:bg-body transition-colors duration-200'
+            className='bg-dull text-dullText rounded-md p-1 hover:bg-body transition-colors duration-200 group'
           >
-            <Button onClick={() => navigate(`/${page}/genre/${id}`)}>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(`/${path}/genre/${id}`);
+              }}
+              className='group-hover:underline'
+            >
               {GENRES[id]}
             </Button>
           </li>

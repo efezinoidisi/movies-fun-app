@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import { GENRES, IMG_URL } from '@/constants/data';
-import AddWatchlistButton from '../Buttons/AddWatchlistButton';
+import { IMG_URL } from '@/constants/data';
 import Favourite from '../Buttons/Favourite';
 import GenreList from '../common/genre-list';
 import MoviePoster from '../common/movie-poster';
@@ -25,9 +24,9 @@ export default function PopularMovieCard(props: CardProps) {
   const type = name ? 'tv' : 'movie';
   const page = `${type}${type === 'tv' ? '' : 's'}`;
 
-  const genres = genre_ids.slice(0, 2);
+  const genres = genre_ids.slice(0, 1);
   return (
-    <Link href={`/${page}/${id}`} className=''>
+    <Link href={`/${page}/${id}`} className='block'>
       <div
         style={{
           background: `linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%),url(${IMG_URL}${backdrop_path})`,
@@ -58,7 +57,6 @@ export default function PopularMovieCard(props: CardProps) {
             <Rating rating={vote_average} />
             <span className='opacity-80'>|</span>
             <span className='capitalize text-xs opacity-80'>{type}</span>
-            <AddWatchlistButton id={id} />
           </div>
         </div>
       </div>

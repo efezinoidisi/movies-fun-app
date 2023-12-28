@@ -315,3 +315,56 @@ type Person = {
   profile_path: string;
   known_for: MovieList[];
 };
+
+type PersonDetail = {
+  adult: false;
+  also_known_as: string[];
+  biography: string;
+  birthday: string;
+  deathday: string;
+  gender: number;
+  homepage: string;
+  id: number;
+  imdb_id: string;
+  known_for_department: string;
+  name: string;
+  place_of_birth: string;
+  popularity: number;
+  profile_path: string;
+  images: {
+    id: number;
+    profiles: {
+      aspect_ratio: number;
+      height: number;
+      iso_639_1: string;
+      file_path: string;
+      vote_average: number;
+      vote_count: number;
+      width: number;
+    }[];
+  };
+  combined_credits: {
+    cast: {
+      adult: boolean;
+      backdrop_path: string;
+      genre_ids: number[];
+      id: number;
+      original_language: string;
+      original_title: string;
+      overview: string;
+      popularity: number;
+      poster_path: number;
+      release_date: string;
+      title: string;
+      video: boolean;
+      vote_average: number;
+      vote_count: number;
+      character: string;
+      credit_id: string;
+      order: number;
+      media_type: 'movie' | 'tv';
+    }[];
+    crew: [];
+    id: 2349944;
+  };
+};

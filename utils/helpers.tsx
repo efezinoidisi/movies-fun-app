@@ -72,12 +72,13 @@ export function checkTrimString(originalString: string, maxLength: number) {
 
 // covert time in seconds to hours and minutes
 export function getRuntime(minutes: number) {
-  if (minutes === 0) return '';
+  if (minutes === 0) return '-';
 
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
   const hoursStr = hours ? `${hours}h` : '';
-  return `${hoursStr}${remainingMinutes}m`;
+  const minsStr = remainingMinutes ? `${remainingMinutes}m` : '';
+  return hoursStr + minsStr;
 }
 
 // get english name of language
@@ -111,6 +112,7 @@ export async function getCountry(isoKey: string) {
 }
 
 export function numberToDollarString(value: number) {
+  if (!value) return '-';
   const units = [
     { unit: 'quadrillion', divisor: 1e15 },
     { unit: 'trillion', divisor: 1e12 },
@@ -142,7 +144,7 @@ export function numberToDollarString(value: number) {
 }
 
 export function getReleaseDate(value: string) {
-  if (!value) return '';
+  if (!value) return '-';
 
   const date = new Date(value);
   return date.toLocaleDateString('en-Us', {

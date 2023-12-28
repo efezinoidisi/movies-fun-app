@@ -1,14 +1,14 @@
 'use client';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, useRef } from 'react';
 import Ratings from '@/components/common/ratings';
 import { checkTrimString } from '@/utils/helpers';
 import Button from '@/components/Button';
 import Icons from '@/lib/icons';
 import { merge } from '@/utils/merge';
 import { sanitize } from 'isomorphic-dompurify';
-import toast from 'react-hot-toast';
-import { API_BASE_URL, IMG_URL } from '@/constants/data';
+import { IMG_URL } from '@/constants/data';
 import Image from 'next/image';
+import { fetchClientList } from '@/utils/fetchList';
 
 export default function Review(props: Props) {
   const { reviews, pages, movieId } = props;
@@ -18,25 +18,20 @@ export default function Review(props: Props) {
   const [currentPage, setCurrentPage] = useState(1);
 
   const updateCurrentPage = (num: number) => {
-    if (currentPage === pages) return;
     setCurrentPage(num);
+    getPage(num);
   };
 
-  const getPage = useCallback(async () => {
-    try {
-      const res = await fetch(
-        `${API_BASE_URL}movie/${movieId}/reviews?page=${currentPage}&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-      );
-      if (res.ok) {
-        const body = await res.json();
-        setMovieReviews(body.results);
-        console.log('test next page', body);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error('unable to fetch more reviews');
-    }
-  }, [currentPage, movieId]);
+  const getPage = useCallback(
+    async (num: number) => {
+      const res = await fetchClientList(`movie/${movieId}/reviews`, num);
+      setMovieReviews(res?.results);
+      ref.current?.scrollIntoView({ behavior: 'smooth' });
+    },
+    [movieId]
+  );
+
+  const ref = useRef<HTMLDivElement | null>(null);
 
   if (!movieReviews || movieReviews.length === 0) return null;
   return (
@@ -44,7 +39,7 @@ export default function Review(props: Props) {
       <h2 className='text-white text-xl font-semibold capitalize mb-4'>
         reviews
       </h2>
-      <div>
+      <div ref={ref}>
         {movieReviews.map(
           ({ id, author, content, author_details, created_at }) => {
             const sanitizedReview = sanitize(content);
@@ -63,18 +58,27 @@ export default function Review(props: Props) {
       </div>
 
       {pages > 1 && (
-        <div className='flex justify-center items-center gap-7 border border-text w-fit mx-auto px-3 rounded-md py-1'>
+        <div className='flex justify-center items-center gap-7  bg-dull text-dullText w-fit mx-auto rounded-md py-1'>
           <Button
-            className={merge('', currentPage !== 1 ? 'visible' : 'invisible')}
+            className={merge(
+              'hover:bg-body border-r-2 px-3 py-1 border-body',
+              currentPage !== 1
+                ? 'cursor-pointer'
+                : 'pointer-events-none opacity-50'
+            )}
+            onClick={() => updateCurrentPage(currentPage - 1)}
           >
             prev
           </Button>
-          <span>{currentPage}</span>
+          <span className='min-w-max text-xs'>{`${currentPage} of ${pages}`}</span>
           <Button
             className={merge(
-              '',
-              currentPage === pages ? 'invisible' : 'visible'
+              'hover:bg-body border-l-2 px-3 py-1 border-body',
+              currentPage === pages
+                ? 'pointer-events-none opacity-50'
+                : 'cursor-pointer'
             )}
+            onClick={() => updateCurrentPage(currentPage + 1)}
           >
             next
           </Button>
@@ -104,8 +108,15 @@ function ReviewCard(props: ReviewCardProps) {
     return checkTrimString(content, MAX_CONTENT);
   }, [showFullContent, content]);
 
+  const ref = useRef<HTMLParagraphElement | null>(null);
+
   const toggleContent = () => {
-    setShowFullContent((prev) => !prev);
+    setShowFullContent((prev) => {
+      if (prev) {
+        ref.current?.scrollIntoView({ behavior: 'instant' });
+      }
+      return !prev;
+    });
   };
 
   const publishedDate = new Date(created);
@@ -122,7 +133,10 @@ function ReviewCard(props: ReviewCardProps) {
     <Icons.person className='rounded-full w-12 h-12' />
   );
   return (
-    <div className=' border-b last:border-b-0 py-7 flex flex-col gap-2 border-text border-opacity-40'>
+    <div
+      className=' border-b last:border-b-0 py-7 flex flex-col gap-2 border-text border-opacity-40'
+      ref={ref}
+    >
       <div className='flex items-center gap-2'>
         {authorImage}
         <p className='flex flex-col'>
@@ -141,6 +155,7 @@ function ReviewCard(props: ReviewCardProps) {
           className={merge(
             content.length > MAX_CONTENT && !showFullContent && 'mask'
           )}
+          ref={ref}
         ></p>
         {content.length > MAX_CONTENT && (
           <Button

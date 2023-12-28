@@ -161,7 +161,7 @@ export default function SignUpForm() {
       </InputWrap>
       <Button
         type='submit'
-        className='bg-deep-purple rounded-lg mt-3 px-6 py-2 text-white capitalize'
+        className='bg-accent rounded-lg mt-3 px-6 py-2 text-white capitalize'
       >
         sign up
       </Button>

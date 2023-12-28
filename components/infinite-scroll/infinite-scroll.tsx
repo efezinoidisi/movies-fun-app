@@ -5,9 +5,9 @@ import { useCallback, useRef } from 'react';
 import { merge } from '@/utils/merge';
 import Loader from '../loaders/loader';
 import Ring from '../loaders/ring';
-import NewReleaseCard from '../Cards/NewRelease';
 import MovieCard from '../Cards/MovieCard';
 import Person from '../Cards/person';
+import Error from '../error/error';
 
 type Props = {
   endpoint: string;
@@ -24,14 +24,16 @@ export default function InfiniteScroll(props: Props) {
       queryFn: ({ pageParam = 1 }) => fetchClientList(endpoint, pageParam),
       initialPageParam: 1,
       getNextPageParam: (lastPage, _, lastPageParam) => {
-        if (lastPage?.page === lastPage?.total_pages) {
+        if (
+          lastPage?.page === lastPage?.total_pages ||
+          lastPage.total_pages === 0
+        ) {
           return undefined;
         }
         return lastPageParam + 1;
       },
       staleTime: Infinity,
     });
-
   const intObserver = useRef<IntersectionObserver | null>(null);
 
   const lastNodeRef = useCallback(
@@ -58,7 +60,7 @@ export default function InfiniteScroll(props: Props) {
       </div>
     );
 
-  if (status === 'error') return <p>An error occurred please try again!</p>;
+  if (status === 'error') return <Error message='error fetching data' />;
 
   const content =
     type === 'person'
