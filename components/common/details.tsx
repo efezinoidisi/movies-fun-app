@@ -125,7 +125,7 @@ export default function Details(props: Props) {
       </h2>
       <p>{overview}</p>
       <GenreList genres={genres} type='with-id' page={type} />
-      <div className='grid md:grid-cols-2 justify-items-center md:justify-items-stretch gap-y-5 w-full mt-4'>
+      <div className='grid md:grid-cols-2 justify-items-center md:justify-items-stretch gap-y-5 w-full mt-4 gap-x-2'>
         <div>
           {items.map(({ name, value }) => {
             return (

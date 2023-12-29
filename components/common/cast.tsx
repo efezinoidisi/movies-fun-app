@@ -28,10 +28,7 @@ export default function Casts({ casts }: Props) {
           );
           return (
             <Link href={`/people/${id}`} key={id} className='w-full block'>
-              <div
-                className=' flex flex-col items-center gap-1 pb-7 md:pb-2 rounded-lg mr-2 snap-start whitespace-normal  border-text h-max bg-body border-b-[.2rem] border-l-[.1rem] border-t-[.1rem]
-              border-r-[.2rem]  border-opacity-60  hover:border-opacity-100 transition-colors ease-in-out duration-200'
-              >
+              <div className=' flex flex-col items-center gap-1 pb-7 md:pb-2 rounded-lg mr-2 snap-start whitespace-normal border border-dull bg-body  border-opacity-60  hover:border-main/50 transition-colors ease-in-out duration-200'>
                 <div className='w-full'>{picture}</div>
                 <div className='flex flex-col'>
                   <p className='font-semibold text-base text-center min-w-min'>

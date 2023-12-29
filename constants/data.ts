@@ -112,3 +112,10 @@ export const TV_ENDPOINTS = {
   trending: 'trending/tv/day',
   top_rated: 'tv/top_rated',
 };
+
+export const GENDERS: { [key: number]: string } = {
+  0: 'not specified',
+  1: 'female',
+  2: 'male',
+  3: 'non-binary',
+};

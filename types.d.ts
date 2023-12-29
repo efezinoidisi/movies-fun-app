@@ -316,6 +316,47 @@ type Person = {
   known_for: MovieList[];
 };
 
+type CastMovie = {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: number;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+  character: string;
+  credit_id: string;
+  order: number;
+  media_type: 'movie';
+};
+
+type CastTv = {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  origin_country: string[];
+  original_language: string;
+  original_name: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  first_air_date: string;
+  name: string;
+  vote_average: number;
+  vote_count: number;
+  character: string;
+  credit_id: string;
+  episode_count: number;
+};
+
 type PersonDetail = {
   adult: false;
   also_known_as: string[];
@@ -343,28 +384,14 @@ type PersonDetail = {
       width: number;
     }[];
   };
-  combined_credits: {
-    cast: {
-      adult: boolean;
-      backdrop_path: string;
-      genre_ids: number[];
-      id: number;
-      original_language: string;
-      original_title: string;
-      overview: string;
-      popularity: number;
-      poster_path: number;
-      release_date: string;
-      title: string;
-      video: boolean;
-      vote_average: number;
-      vote_count: number;
-      character: string;
-      credit_id: string;
-      order: number;
-      media_type: 'movie' | 'tv';
-    }[];
+  tv_credits: {
+    cast: CastTv[];
     crew: [];
-    id: 2349944;
+    id: number;
+  };
+  movie_credits: {
+    cast: CastMovie[];
+    crew: [];
+    id: number;
   };
 };

@@ -12,16 +12,19 @@ export default function Seasons({ seasons }: Prop) {
 
   return (
     <article>
-      <h3 className='capitalize font-bold pb-7'>seasons</h3>
+      <h3 className='capitalize font-bold pb-7 text-white'>seasons</h3>
       <CustomCarousel>
         {seasons.map((season) => {
           const seasonAverage = getAverage(season.vote_average);
           return (
             <div
               key={season.id}
-              className='mr-2 border-t-2 border-r-2 border-text rounded-xl min-h-[27rem] border hover:border-accent transition-all duration-300 ease-out '
+              className='mr-2 rounded-xl pb-3 border-main/20 border hover:border-accent transition-all duration-300 ease-out bg-body'
             >
-              <MoviePoster posterPath={season.poster_path} />
+              <MoviePoster
+                posterPath={season.poster_path}
+                className='h-44 w-full'
+              />
               <div className='px-2 py-1 flex flex-col gap-2'>
                 <h4 className=' truncate text-lg font-semibold'>
                   {season.name}

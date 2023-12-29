@@ -21,6 +21,8 @@ export default function MoviePoster({
       width={500}
       height={600}
       className={imageStyles}
+      loading='lazy'
+      unoptimized
     />
   ) : (
     <Icons.unknown className={merge('border-b border-text/50', imageStyles)} />

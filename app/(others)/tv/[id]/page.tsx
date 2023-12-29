@@ -56,7 +56,10 @@ export default async function page({ params: { id } }: Props) {
   const runtime = getRuntime(episode_run_time[0]);
   const firstAirDate = new Date(first_air_date);
   const lastAirDate = new Date(last_air_date);
-  const duration = `${firstAirDate.getFullYear()}-${lastAirDate.getFullYear()}`;
+  const firstYear = firstAirDate.getFullYear();
+  const lastYear = lastAirDate.getFullYear();
+  const duration =
+    firstYear === lastYear ? `${firstYear}` : `${firstYear}-${lastYear}`;
 
   const language = original_language
     ? await getLanguage(original_language)
