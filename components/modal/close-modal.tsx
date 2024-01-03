@@ -13,9 +13,9 @@ export default function CloseModal() {
   return (
     <Button
       onClick={goBack}
-      className='absolute right-5 bg-black bg-opacity-50'
+      className='absolute right-3 bg-black/50 top-3 text-2xl p-2 rounded-full'
     >
-      <Icons.close className={'text-4xl text-white'} />
+      <Icons.close className={' text-white'} />
     </Button>
   );
 }

@@ -1,11 +1,11 @@
 'use client';
 import { IMG_URL, GENRES } from '@/constants/data';
-import NavHeader from '../NavHeader';
+import NavHeader from '../navigation/NavHeader';
 import WatchTrailerButton from '../Buttons/WatchTrailerButton';
 import AddWatchlistButton from '../Buttons/AddWatchlistButton';
 import { Suspense, useEffect, useState } from 'react';
 import SimpleLoader from '../loaders/loader';
-import { checkTrimString } from '@/utils/helpers';
+import { checkTrimString, getReleaseDate } from '@/utils/helpers';
 import Link from 'next/link';
 
 export default function Hero({ movies }: { movies: MovieList[] }) {
@@ -14,8 +14,7 @@ export default function Hero({ movies }: { movies: MovieList[] }) {
   // movie currently shown;
   let currentMovie = movies[currentIndex];
 
-  const date = new Date(currentMovie.release_date);
-  const releaseYear = date.getFullYear();
+  const releaseYear = getReleaseDate(currentMovie.release_date, 'short');
   useEffect(() => {
     const unSub = setInterval(() => {
       setCurrentIndex((prev) => {
@@ -28,10 +27,21 @@ export default function Hero({ movies }: { movies: MovieList[] }) {
   const MAX = 200;
   const overview = checkTrimString(currentMovie.overview, MAX);
 
+  const { id, genre_ids, backdrop_path, name, title, vote_average } =
+    currentMovie;
+  const moviePayload: MediaItem = {
+    id,
+    genre_ids,
+    backdrop_path,
+    vote_average,
+    name,
+    title,
+  };
+
   return (
     <section
       style={{
-        background: `linear-gradient(0deg, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.70) 100%),url(${IMG_URL}${currentMovie.backdrop_path})`,
+        background: `linear-gradient(0deg, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.70) 100%),url(${IMG_URL}${backdrop_path})`,
       }}
       className='min-h-screen w-full hero lg:header text-white bg-opacity-30 flex flex-col justify-between gap-10 md:px-20  px-5 pt-40 lg:pt-64 pb-20'
     >
@@ -40,12 +50,12 @@ export default function Hero({ movies }: { movies: MovieList[] }) {
           <span className='bg-opacity-50 bg-black py-1 px-2 rounded-full capitalize w-fit text-xs'>
             movie
           </span>
-          <Link href={`/movies/${currentMovie.id}?type=movie`}>
-            <h2 className='capitalize text-4xl'>{currentMovie.title}</h2>
+          <Link href={`/movies/${id}?type=movie`}>
+            <h2 className='capitalize text-4xl'>{title}</h2>
           </Link>
           <ul className='list-inside flex gap-3 text-sm text-white opacity-70 flex-wrap'>
             <li className=''>{releaseYear || ''}</li>
-            {currentMovie.genre_ids.map((id) => {
+            {genre_ids.map((id) => {
               return (
                 <li key={id} className='list-disc'>
                   {GENRES[id]}
@@ -56,7 +66,7 @@ export default function Hero({ movies }: { movies: MovieList[] }) {
           <p className='md:max-w-md leading-5 tracking-wide opacity-90'>
             {overview}
             <Link
-              href={`/movies/${currentMovie.id}?type=movie`}
+              href={`/movies/${id}?type=movie`}
               className='underline pl-2 text-blue-500'
             >
               more
@@ -66,12 +76,12 @@ export default function Hero({ movies }: { movies: MovieList[] }) {
           <div className='flex gap-2 items-center'>
             <Suspense fallback={<SimpleLoader />}>
               <WatchTrailerButton
-                path={`/trailer?movieId=${currentMovie.id}`}
+                path={`/trailer?movieId=${id}&title=${title}`}
               />
             </Suspense>
-            <Suspense fallback={<p>loading</p>}>
+            <Suspense fallback={<SimpleLoader />}>
               <AddWatchlistButton
-                id={currentMovie.id}
+                movie={moviePayload}
                 showText={true}
                 border={true}
               />

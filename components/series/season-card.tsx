@@ -1,6 +1,6 @@
 import { checkTrimString, getAverage } from '@/utils/helpers';
 import CustomCarousel from '../Slider/carousel';
-import MoviePoster from '../common/movie-poster';
+import MoviePoster from '../common/poster';
 import Icons from '@/lib/icons';
 
 type Prop = {

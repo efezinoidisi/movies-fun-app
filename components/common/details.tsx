@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { IMG_URL } from '@/constants/data';
 import Icons from '@/lib/icons';
 import Rating from './rating';
+import MoviePoster from './poster';
 
 type Common = {
   runtime: string;
@@ -106,27 +107,17 @@ export default function Details(props: Props) {
     ];
   }
 
-  const picture = poster ? (
-    <Image
-      src={`${IMG_URL}${poster}`}
-      width={500}
-      height={500}
-      className=' w-full h-full rounded-lg'
-      alt={`profile of ${name}`}
-    />
-  ) : (
-    <Icons.person className=' w-full h-full rounded-lg' />
-  );
-
   return (
     <article className=' flex flex-col gap-y-3 md:gap-y-5 justify-start items-start'>
       <h2 className='capitalize text-xl font-semibold py-3 text-white'>
         overview
       </h2>
-      <p>{overview}</p>
+      <p className='tracking-wide leading-6 md:leading-7 lg:leading-8'>
+        {overview}
+      </p>
       <GenreList genres={genres} type='with-id' page={type} />
       <div className='grid md:grid-cols-2 justify-items-center md:justify-items-stretch gap-y-5 w-full mt-4 gap-x-2'>
-        <div>
+        <div className=''>
           {items.map(({ name, value }) => {
             return (
               <div className='py-2 flex gap-x-10 items-start' key={name}>
@@ -138,9 +129,13 @@ export default function Details(props: Props) {
             );
           })}
         </div>
-        <div className='w-full border border-accent rounded-lg max-w-xs'>
-          {picture}
-        </div>
+
+        <MoviePoster
+          posterPath={poster}
+          className='w-full border border-accent rounded-lg max-w-xs row-start-1 md:col-start-2'
+          imageStyles='w-full h-full rounded-lg'
+          alt={`poster for ${name}`}
+        />
       </div>
     </article>
   );

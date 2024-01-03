@@ -6,7 +6,7 @@ export default function page({
   params: { email: string };
 }) {
   return (
-    <div>
+    <div className='px-5 md:px-10'>
       <h2>password reset</h2>
       <ResetPasswordForm email={email} />
     </div>

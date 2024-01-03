@@ -1,13 +1,13 @@
-import CloseModal from '@/components/Buttons/close-modal';
+import CloseModal from '@/components/modal/close-modal';
 import { fetchList } from '@/utils/fetchList';
 import { getTrailerKey } from '@/utils/helpers';
 
 export default async function page({
   searchParams,
 }: {
-  searchParams: { videoKey?: string; movieId: string };
+  searchParams: { videoKey?: string; movieId: string; title: string };
 }) {
-  const { videoKey = '', movieId } = searchParams;
+  const { videoKey = '', movieId, title } = searchParams;
   let key = videoKey || '';
 
   if (!videoKey) {
@@ -20,8 +20,8 @@ export default async function page({
       <CloseModal />
       <iframe
         height={500}
-        src={`https://www.youtube.com/embed/${key}?&autoplay=1`}
-        title='YouTube video player'
+        src={`https://www.youtube.com/embed/${key}?autoplay=1`}
+        title={title}
         allowFullScreen
         className='w-full'
       ></iframe>

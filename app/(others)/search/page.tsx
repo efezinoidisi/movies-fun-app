@@ -2,12 +2,13 @@ import { Suspense } from 'react';
 import Search from '@/components/Search';
 import Image from 'next/image';
 import { IMG_URL } from '@/constants/data';
-import List from '@/components/List';
+import List from '@/components/List/List';
 import Link from 'next/link';
 import { fetchList } from '@/utils/fetchList';
 import NewReleaseCard from '@/components/Cards/NewRelease';
 import Ring from '@/components/loaders/ring';
 import Pagination from '@/components/common/pagination';
+import { pages } from 'next/dist/build/templates/app-page';
 type Props = {
   searchParams?: { query?: string; page?: string };
 };
@@ -22,8 +23,6 @@ export default async function page({ searchParams }: Props) {
 
   const { results, total_pages } = await res;
 
-  if (results?.length === 0) return <p>nothing found</p>;
-
   return (
     <main className='min-h-screen pt-20'>
       <section className='flex flex-col gap-3 px-5 md:px-14 lg:px-20 pt-5'>
@@ -37,14 +36,19 @@ export default async function page({ searchParams }: Props) {
           <section className=''>
             <h3 className='pb-7'>{`showing results for "${query}"`}</h3>
             <List list={results} mode='full' />
-            <Pagination
-              page={page}
-              totalPages={total_pages}
-              searchParams={searchParams}
-            />
+            {total_pages > 1 && (
+              <Pagination
+                page={page}
+                totalPages={total_pages}
+                searchParams={searchParams}
+              />
+            )}
           </section>
         ) : (
           <p className='text-center'>search for movie,tv show or person</p>
+        )}
+        {query && results?.length === 0 && (
+          <p className='text-center'>empty search result...</p>
         )}
       </section>
     </main>

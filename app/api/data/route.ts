@@ -7,22 +7,23 @@ import authOptions from 'config/authOptions';
 export async function GET() {
   const session = await getServerSession(authOptions);
   if (!session) {
-    return NextResponse.json({ message: 'fail' }, { status: 400 });
+    return NextResponse.json({ message: 'unauthorized' }, { status: 401 });
   }
   await connectDb();
-  const email = session.user.email;
+  const email = session?.user?.email;
   const user = await User.findOne({ email });
   if (!user) {
-    return NextResponse.json({ message: 'fail' }, { status: 400 });
+    return NextResponse.json(
+      { message: 'user does not exist' },
+      { status: 400 }
+    );
   }
-  const favourites = user.favourites;
+  const favorites = user.favorites;
   const watchlist = user.watchlist;
   return NextResponse.json(
     {
-      data: {
-        favourites,
-        watchlist,
-      },
+      favorites,
+      watchlist,
     },
     { status: 201 }
   );

@@ -14,10 +14,12 @@ export default function Person({ picture, name, id }: Props) {
       style={{
         background: `url(${image})`,
       }}
-      className={`hero relative justify-end flex flex-col min-h-[16rem] rounded-lg text-white overflow-x-hidden w-full`}
+      className={`hero relative justify-end flex flex-col min-h-[16rem] rounded-lg  overflow-x-hidden w-full`}
     >
-      <div className='bg-black/50 w-full px-5 py-3'>
-        <p className='text-center truncate'>{name}</p>
+      <div className='bg-black/60 w-full px-5 py-4'>
+        <p className='text-center truncate text-white font-bold capitalize tracking-wide'>
+          {name}
+        </p>
       </div>
     </Link>
   );

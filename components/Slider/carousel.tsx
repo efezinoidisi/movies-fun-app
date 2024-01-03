@@ -99,13 +99,13 @@ const ButtonGroup = ({
   return (
     <div className='absolute top-1/2 -translate-y-1/2 flex justify-between w-full'>
       <Button
-        className={`bg-text bg-opacity-25 rounded-full hover:bg-opacity-60 group`}
+        className={`bg-black bg-opacity-30 rounded-full hover:bg-opacity-60 group`}
         onClick={() => previous()}
       >
         <Icons.prev className='text-7xl opacity-50 text-white group-hover:opacity-100' />
       </Button>
       <Button
-        className={`bg-text bg-opacity-25 rounded-full hover:bg-opacity-60 group`}
+        className={`bg-black bg-opacity-30 rounded-full hover:bg-opacity-60 group`}
         onClick={() => next()}
       >
         <Icons.next className='text-7xl opacity-50 text-white group-hover:opacity-100' />

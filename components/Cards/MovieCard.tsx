@@ -2,10 +2,11 @@ import Link from 'next/link';
 import Favourite from '../Buttons/Favourite';
 import GenreList from '../common/genre-list';
 import Rating from '../common/rating';
-import MoviePoster from '../common/movie-poster';
+import MoviePoster from '../common/poster';
 
 export default function MovieCard(props: MovieList) {
   const {
+    backdrop_path,
     poster_path,
     title,
     vote_average,
@@ -23,16 +24,30 @@ export default function MovieCard(props: MovieList) {
   const firstAirDate = new Date(first_air_date);
   const releaseYear = title ? date.getFullYear() : firstAirDate.getFullYear();
 
+  const moviePayload: MediaItem = {
+    id,
+    genre_ids,
+    backdrop_path,
+    vote_average,
+    name,
+    title,
+  };
   const page = `${type}${type === 'tv' ? '' : 's'}`;
   return (
     <div
-      className={`flex flex-col gap-3 items-start rounded-lg  transition-colors ease-in relative bg-body mr-1 pb-4 md:pb-0  min-h-[18rem] border border-y-main border-x-accent hover:border-2 hover:shadow-ul overflow-x-hidden w-full`}
+      className={`flex flex-col gap-3 items-start rounded-lg  transition-colors ease-in relative bg-body mr-1 pb-4 md:pb-0  min-h-[18rem] border border-y-main/50 border-x-accent/50 hover:border-2 hover:shadow-al overflow-x-hidden w-full`}
     >
-      <Favourite id={id} position='absolute' extraStyles='right-2 top-5' />
+      <Favourite
+        movie={moviePayload}
+        position='absolute'
+        extraStyles='right-2 top-5'
+      />
       <Link href={`/${page}/${id}`} className='w-full h-full block pb-3'>
         <MoviePoster
           posterPath={poster_path}
           imageStyles='w-full h-full rounded-t-lg bg-cover'
+          className='w-full aspect-square'
+          alt={`poster for ${name || title}`}
         />
 
         <div className={'flex flex-col col-span-2 gap-2 pt-3 px-3'}>

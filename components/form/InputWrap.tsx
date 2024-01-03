@@ -1,9 +1,8 @@
-type InputProps = {
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
   id: string;
   children: React.ReactNode;
   error?: string;
-  placeholder?: string;
 };
 
 export default function InputWrap(props: InputProps) {

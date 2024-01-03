@@ -7,25 +7,30 @@ type Props = {
   posterPath: string;
   className?: string;
   imageStyles?: string;
+  alt?: string;
+  type?: 'movie' | 'person';
 };
 
-export default function MoviePoster({
+export default function Poster({
   posterPath,
   className = 'w-full  overflow-hidden h-80 sl:h-64',
   imageStyles = 'w-full h-full rounded-t-lg bg-cover',
+  alt = '',
+  type = 'movie',
 }: Props) {
   const picture = posterPath ? (
     <Image
       src={`${IMG_URL}${posterPath}`}
-      alt=''
+      alt={alt}
       width={500}
       height={600}
       className={imageStyles}
-      loading='lazy'
       unoptimized
     />
+  ) : type === 'movie' ? (
+    <Icons.unknown className={merge('border-b border-text/30', imageStyles)} />
   ) : (
-    <Icons.unknown className={merge('border-b border-text/50', imageStyles)} />
+    <Icons.person className={merge('border-b border-text/50', imageStyles)} />
   );
   return <div className={merge('aspect-[2/3]', className)}>{picture}</div>;
 }

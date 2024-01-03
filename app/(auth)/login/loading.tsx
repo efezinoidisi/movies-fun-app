@@ -1,5 +1,10 @@
-import React from 'react';
+import Loader from '@/components/loaders/loader';
 
 export default function loading() {
-  return <div>loading</div>;
+  return (
+    <div>
+      <div className='py-12'></div>
+      <Loader />
+    </div>
+  );
 }

@@ -15,7 +15,7 @@ import {
 import { CgCloseR } from 'react-icons/cg';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import { FiSearch } from 'react-icons/fi';
-import { BiSolidMoviePlay } from 'react-icons/bi';
+import { BiSolidMoviePlay, BiLoaderAlt } from 'react-icons/bi';
 import { PiTelevisionSimpleFill } from 'react-icons/pi';
 import { FaTag } from 'react-icons/fa6';
 
@@ -38,6 +38,7 @@ const Icons = {
   home: MdHome,
   unknown: AiOutlineFileUnknown,
   people: HiUserGroup,
+  loader: BiLoaderAlt,
 };
 
 export default Icons;

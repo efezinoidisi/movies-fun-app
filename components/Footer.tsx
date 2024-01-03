@@ -7,7 +7,12 @@ export default function Footer() {
   return (
     <footer className=' pt-10 pb-20 md:py-10 border-t border-gray-700 px-5 flex flex-col gap-5 justify-center items-center'>
       <div>
-        <h5>Zmovies</h5>
+        <h5 className='font-bold text-md md:text-lg'>
+          movies
+          <span className='uppercase bg-clip-text text-transparent bg-gradient-to-bl from-accent to-white'>
+            fun
+          </span>
+        </h5>
       </div>
       <div className='flex items-center md:items-end gap-2'>
         <Image

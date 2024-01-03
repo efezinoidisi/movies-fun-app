@@ -1,8 +1,8 @@
 'use client';
-import { UserMoviesProvider } from 'app/context/user-movie-data';
 import AuthProvider from './context/SessionContext';
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import DataProvider from './context/user-favorites';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -21,7 +21,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <UserMoviesProvider>{children}</UserMoviesProvider>
+        <DataProvider>{children}</DataProvider>
       </AuthProvider>
     </QueryClientProvider>
   );

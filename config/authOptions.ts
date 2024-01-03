@@ -23,6 +23,7 @@ const authOptions: NextAuthOptions = {
           if (!isValid) {
             return null;
           }
+          console.log(user);
           return user;
         } catch (error) {
           return null;
@@ -31,14 +32,15 @@ const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    // async jwt({ token, user }) {
-    //   return { ...token, ...user };
-    // },
+    async jwt({ token, user, profile }) {
+      return token;
+    },
     async session({ session, user, token }) {
-      // if (session.user) {
-      //   session.user.id = token?._doc?._id;
-      //   session.user.username = token?._doc.username;
-      // }
+      if (session.user) {
+        // console.log(`user:${user} token:${token}`);
+        // session.user.id = token?._doc?._id;
+        // session.user.username = token?._doc.username;
+      }
       return session;
     },
   },

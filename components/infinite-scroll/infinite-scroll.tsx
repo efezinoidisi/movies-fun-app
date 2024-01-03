@@ -77,9 +77,13 @@ export default function InfiniteScroll(props: Props) {
           });
         })
       : data?.pages?.map((pg) => {
-          return pg?.results?.map((movie: MovieList) => {
-            return <MovieCard key={movie.id} {...movie} />;
-          });
+          return pg?.results
+            ?.toSorted(
+              (a: MovieList, b: MovieList) => b.popularity - a.popularity
+            )
+            .map((movie: MovieList) => {
+              return <MovieCard key={movie.id} {...movie} />;
+            });
         });
 
   return (

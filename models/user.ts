@@ -1,5 +1,25 @@
 import mongoose, { Schema, models } from 'mongoose';
 
+const mediaSchema = new Schema({
+  backdrop_path: { type: String, default: '' },
+  title: { type: String, default: '' },
+  vote_average: { type: Number, default: 0 },
+  genre_ids: { type: [Number], default: [] },
+  id: { type: Number },
+  name: { type: String, default: '' },
+});
+
+const listSchema = new Schema({
+  tv: {
+    type: [mediaSchema],
+    default: [],
+  },
+  movies: {
+    type: [mediaSchema],
+    default: [],
+  },
+});
+
 const userSchema = new Schema(
   {
     username: {
@@ -20,13 +40,10 @@ const userSchema = new Schema(
       trim: true,
     },
     watchlist: {
-      required: false,
-      type: [Number],
+      type: listSchema,
+      default: {},
     },
-    favourites: {
-      required: false,
-      type: [Number],
-    },
+    favorites: { type: listSchema, default: {} },
   },
   { timestamps: true }
 );

@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import MovieCard from './Cards/MovieCard';
-import NewReleaseCard from './Cards/NewRelease';
+import MovieCard from '@/components/Cards/MovieCard';
+import NewReleaseCard from '@/components/Cards/NewRelease';
 import { merge } from '@/utils/merge';
-import Person from './Cards/person';
+import Person from '@/components/Cards/person';
 
 export default function List({
   list,

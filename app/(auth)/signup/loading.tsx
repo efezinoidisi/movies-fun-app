@@ -1,3 +1,10 @@
+import Loader from '@/components/loaders/loader';
+
 export default function loading() {
-  return <div>loading signup page</div>;
+  return (
+    <div>
+      <div className='py-12'></div>
+      <Loader />
+    </div>
+  );
 }

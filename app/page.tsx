@@ -3,7 +3,7 @@ import Lists from '../components/home/Lists';
 import { fetchList } from '@/utils/fetchList';
 import { getRandomMovies } from '@/utils/helpers';
 import Footer from '@/components/Footer';
-import List from '@/components/List';
+import List from '@/components/List/List';
 
 export default async function Home() {
   const trendingMoviesEndpoint = 'trending/movie/day';
@@ -41,7 +41,7 @@ export default async function Home() {
 
   const allData: {
     id: number;
-    variant: 'new' | 'show' | 'popular' | 'movie';
+    variant: 'new' | 'popular' | 'movie';
     results: MovieList[];
     href: string;
     title: string;
@@ -58,7 +58,7 @@ export default async function Home() {
     {
       id: 1,
       variant: 'popular',
-      results: popularResults,
+      results: popularResults.toSorted((a, b) => b.popularity - a.popularity),
       href: '/movies?tab=popular',
       title: 'popular',
       type: 'movie',
@@ -66,14 +66,14 @@ export default async function Home() {
     {
       id: 2,
       variant: 'movie',
-      results: series,
+      results: series.toSorted((a, b) => b.popularity - a.popularity),
       href: '/tv?tab=popular',
       title: 'popular tv shows',
       type: 'tv',
     },
     {
       id: 3,
-      variant: 'show',
+      variant: 'new',
       results: trendingSeries,
       href: '/tv?tab=trending',
       title: 'trending tv shows',

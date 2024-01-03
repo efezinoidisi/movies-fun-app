@@ -1,11 +1,10 @@
 import { IMG_URL } from '@/constants/data';
 import Link from 'next/link';
 import Favourite from '../Buttons/Favourite';
-import AddWatchlistButton from '../Buttons/AddWatchlistButton';
 import GenreList from '../common/genre-list';
 import Rating from '../common/rating';
 
-export default function NewReleaseCard(props: MovieList) {
+export default function MediaItemCard(props: MediaItem) {
   const { backdrop_path, title, vote_average, genre_ids, id, name } = props;
   const type = name ? 'tv' : 'movie';
   const genres = genre_ids.slice(0, 1);

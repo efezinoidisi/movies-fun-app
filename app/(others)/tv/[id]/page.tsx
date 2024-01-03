@@ -5,6 +5,7 @@ import {
   getAverage,
   getCountry,
   getLanguage,
+  getReleaseDate,
   getRuntime,
   getTrailerKey,
 } from '@/utils/helpers';
@@ -13,11 +14,11 @@ import Review from '@/components/common/review';
 import Casts from '@/components/common/cast';
 import Icons from '@/lib/icons';
 import CustomCarousel from '@/components/Slider/carousel';
-import MoviePoster from '@/components/common/movie-poster';
+import MoviePoster from '@/components/common/poster';
 import Seasons from '@/components/series/season-card';
 import Link from 'next/link';
 import Details from '@/components/common/details';
-import List from '@/components/List';
+import List from '@/components/List/List';
 
 type Props = {
   params: { id: string };
@@ -54,10 +55,9 @@ export default async function page({ params: { id } }: Props) {
 
   const trailerKey = getTrailerKey(videos?.results);
   const runtime = getRuntime(episode_run_time[0]);
-  const firstAirDate = new Date(first_air_date);
-  const lastAirDate = new Date(last_air_date);
-  const firstYear = firstAirDate.getFullYear();
-  const lastYear = lastAirDate.getFullYear();
+
+  const firstYear = getReleaseDate(first_air_date, 'short');
+  const lastYear = getReleaseDate(last_air_date, 'short');
   const duration =
     firstYear === lastYear ? `${firstYear}` : `${firstYear}-${lastYear}`;
 
@@ -87,18 +87,27 @@ export default async function page({ params: { id } }: Props) {
   //   return str;
   // });
 
+  const genre_ids = genres.map((genre) => genre.id);
+
+  const payload: MediaItem = {
+    id: seriesId,
+    backdrop_path,
+    genre_ids,
+    title: '',
+    vote_average,
+    name,
+  };
+
   const creators = created_by?.map((creator) => creator.name).toString();
   return (
     <>
       <HeroContent
-        title={name}
+        payload={payload}
         releaseYear={duration}
         trailer={trailerKey as string}
-        id={seriesId}
         type={'tv'}
         runtime={runtime}
         poster={poster_path}
-        backdrop={backdrop_path}
       />
 
       <section className='flex flex-col gap-5 md:gap-7 lg:gap-10 w-4/5 mx-auto'>

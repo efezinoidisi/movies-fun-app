@@ -46,11 +46,6 @@ const sidebarItems: {
     href: '/genres',
     icon: <Icons.genre />,
   },
-  {
-    title: 'profile',
-    href: '/profile',
-    icon: <Icons.person />,
-  },
 ];
 
 export default function Sidebar() {

@@ -118,7 +118,6 @@ export function numberToDollarString(value: number) {
     { unit: 'trillion', divisor: 1e12 },
     { unit: 'billion', divisor: 1e9 },
     { unit: 'million', divisor: 1e6 },
-    { unit: 'thousand', divisor: 1e3 },
     { unit: '', divisor: 1 },
   ];
 
@@ -143,10 +142,13 @@ export function numberToDollarString(value: number) {
   });
 }
 
-export function getReleaseDate(value: string) {
+export function getReleaseDate(value: string, type: 'full' | 'short' = 'full') {
   if (!value) return '-';
 
   const date = new Date(value);
+  if (type === 'short') {
+    return date.getFullYear().toString();
+  }
   return date.toLocaleDateString('en-Us', {
     month: 'long',
     year: 'numeric',

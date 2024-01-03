@@ -5,42 +5,67 @@ import { getServerSession } from 'next-auth';
 import authOptions from 'config/authOptions';
 import { redirect } from 'next/navigation';
 
-export async function addToWatchList(id: number) {
-  const user = await fetchUser();
-  if (user.watchlist.includes(id)) {
-    return;
+export async function addToWatchList(movie: MediaItem) {
+  try {
+    const user = await fetchUser();
+    const type = movie?.name ? 'tv' : 'movies';
+    if (user.watchlist[type].includes(movie.id)) {
+      return;
+    }
+    user.watchlist[type].push(movie);
+    await user.save();
+    return { status: 'success' };
+  } catch (error) {
+    return { status: 'error' };
   }
-  user.watchlist.push(id);
-  await user.save();
 }
 
-export async function removeFromWatchList(id: number) {
-  const user = await fetchUser();
-  const updatedWatchlist = user.watchlist.filter(
-    (movieId: number) => movieId !== id
-  );
-  user.watchlist = updatedWatchlist;
-  await user.save();
-}
-export async function addToFavourites(id: number) {
-  const user = await fetchUser();
-  if (user.favourites.includes(id)) {
-    return;
+export async function removeFromWatchList(movie: MediaItem) {
+  try {
+    const user = await fetchUser();
+    const type = movie?.name ? 'tv' : 'movies';
+
+    const updatedWatchlist = user.watchlist[type].filter(
+      (film: MediaItem) => film.id !== movie.id
+    );
+    user.watchlist[type] = updatedWatchlist;
+    await user.save();
+    return { status: 'success' };
+  } catch (error) {
+    return { status: 'error' };
   }
-  user.favourites.push(id);
-  await user.save();
+}
+export async function addToFavorites(movie: MediaItem) {
+  try {
+    const user = await fetchUser();
+    const type = movie.name ? 'tv' : 'movies';
+    if (user.favorites[type].includes(movie.id)) {
+      return;
+    }
+    user.favorites[type].push(movie);
+    await user.save();
+    return { status: 'success' };
+  } catch (error) {
+    return { status: 'error' };
+  }
 }
 
-export async function removeFromFavourites(id: number) {
-  const user = await fetchUser();
-  const updatedFavourites = user.favourites.filter(
-    (movieId: number) => movieId !== id
-  );
-  user.favourites = updatedFavourites;
-  await user.save();
+export async function removeFromFavorites(movie: MediaItem) {
+  try {
+    const user = await fetchUser();
+    const type = movie.name ? 'tv' : 'movies';
+    const updatedFavorites = user.favorites[type].filter(
+      (film: MediaItem) => film.id !== movie.id
+    );
+    user.favorites[type] = updatedFavorites;
+    await user.save();
+    return { status: 'success' };
+  } catch (error) {
+    return { status: 'error' };
+  }
 }
 
-export async function getFavourites() {
+export async function getFavorites() {
   const user = await fetchUser();
   return user.favourites;
 }
@@ -50,13 +75,13 @@ export async function getWatchList() {
   return user.watchlist;
 }
 
-async function fetchUser() {
+export async function fetchUser() {
   const session = await getServerSession(authOptions);
   if (!session) {
-    throw new Error('please login in!');
+    throw new Error('unauthorized');
   }
 
-  const email = session.user.email;
+  const email = session?.user?.email;
   const user = await User.findOne({ email });
   if (!user) {
     throw new Error('user not found');
@@ -65,7 +90,64 @@ async function fetchUser() {
   return user;
 }
 
+export async function fetchUserDetails() {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    throw new Error('unauthorized');
+  }
+
+  const email = session?.user?.email;
+  const user: null | {
+    _id: string;
+    favorites: { tv: MediaItem[]; movies: MediaItem[] };
+    username: string;
+    watchlist: { tv: MediaItem[]; movies: MediaItem[] };
+    createdAt: string;
+    email: string;
+  } = await User.findOne({ email }).lean();
+  if (!user) {
+    throw new Error('user not found');
+  }
+
+  return {
+    id: JSON.parse(JSON.stringify(user._id)),
+    username: user.username,
+    favorites: { tv: user.favorites.tv, movies: user.favorites.movies },
+    watchlist: { tv: user.watchlist.tv, movies: user.watchlist.movies },
+    email: user.email,
+    created_at: user.createdAt,
+  };
+}
+
 export async function handleSearchSubmit(query: string) {
   if (!query) return;
   redirect(`/search?query=${query}`);
+}
+
+export async function updateUser({
+  email,
+  username,
+}: {
+  email: string;
+  username: string;
+}) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    throw new Error('unauthorized');
+  }
+
+  const userEmail = session?.user?.email;
+  const user = await User.findOne({ userEmail });
+  if (!user) {
+    throw new Error('user not found');
+  }
+
+  if (email) {
+    user.email = email;
+  }
+
+  if (username) {
+    user.username = username;
+  }
+  await user.save();
 }

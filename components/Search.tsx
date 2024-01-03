@@ -25,13 +25,14 @@ export default function Search() {
 
   return (
     <input
+      autoFocus
       type='search'
       defaultValue={searchParams.get('query')?.toString()}
       onChange={(e) => {
         handleSearch(e.target.value);
       }}
       placeholder='search movie,tv or person'
-      className='text-black px-5 py-2 rounded-lg mx-7 md:mx-14 lg:mx-32 outline-none focus:border-blue-500/50 focus:border'
+      className='text-white bg-inherit px-5 py-2 rounded-lg mx-7 md:mx-14 lg:mx-32 outline-none  focus:border-opacity-100 border border-opacity-90'
     />
   );
 }
@@ -50,7 +51,7 @@ export function NavSearchInput() {
   };
 
   return (
-    <div className={'w-full flex gap-1 relative'}>
+    <div className={'w-full md:flex gap-1 relative hidden'}>
       {showSearch && (
         <form action={submitSearch} className='w-full relative  py-2'>
           <input

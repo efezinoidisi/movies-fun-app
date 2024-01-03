@@ -1,4 +1,5 @@
-import MoviePoster from '@/components/common/movie-poster';
+import Poster from '@/components/common/poster';
+import MoviePoster from '@/components/common/poster';
 import { GENDERS } from '@/constants/data';
 import { fetchList } from '@/utils/fetchList';
 import { checkTrimString, getReleaseDate } from '@/utils/helpers';
@@ -27,7 +28,22 @@ export default async function page({ params: { id } }: Props) {
     gender,
   } = await person;
 
-  const date = new Date();
+  const movieCredits = movie_credits?.cast?.toSorted((a, b) => {
+    const dateA = getReleaseDate(a.release_date, 'short');
+
+    const dateB = getReleaseDate(b.release_date, 'short');
+
+    return +dateA - +dateB;
+  });
+
+  const tvCredits = tv_credits?.cast?.toSorted((a, b) => {
+    const dateA = getReleaseDate(a.first_air_date, 'short');
+
+    const dateB = getReleaseDate(b.first_air_date, 'short');
+
+    return +dateA - +dateB;
+  });
+
   const details = [
     {
       title: 'also known as',
@@ -51,32 +67,62 @@ export default async function page({ params: { id } }: Props) {
     },
   ];
 
+  const profiles = images?.profiles?.slice(0, 10);
+
   return (
-    <section className='pt-20 px-5 w-full md:w-5/6 mx-auto'>
-      <h2 className='text-white text-center mb-5 text-xl'>{name || ''}</h2>
-      <div className='grid md:grid-cols-2 place-items-stretch  gap-y-4'>
-        <MoviePoster
-          posterPath={profile_path}
-          className='w-full border border-accent rounded-lg max-w-xs'
-          imageStyles='w-full h-full rounded-lg'
-        />
-        <div>
-          <p className='mb-4'>{biography}</p>
+    <section className='px-5 w-full md:w-5/6 mx-auto'>
+      <div className='py-16'></div>
+      <h2 className='text-white text-center mb-5 text-xl md:text-start'>
+        {name || ''}
+      </h2>
+      <div className='grid md:grid-cols-3 gap-y-4 md:place-items-start gap-x-6 place-items-center'>
+        <div className='md:col-span-2'>
+          <p className='mb-4 tracking-wide leading-6 md:leading-7 lg:leading-8'>
+            {biography}
+          </p>
 
           {details.map(({ title, value }) => {
             if (!value) return null;
             return (
               <div className='flex items-start py-2' key={title}>
-                <p className='min-w-[9rem]'>{title}</p>
+                <p className='min-w-[10rem] capitalize'>{title}</p>
                 <p>{value}</p>
               </div>
             );
           })}
         </div>
+        <MoviePoster
+          posterPath={profile_path}
+          className='w-full border border-accent rounded-lg max-w-xs row-start-1 md:col-start-3 md:col-span-1'
+          imageStyles='w-full h-full rounded-lg'
+        />
       </div>
-      <section className='flex flex-col gap-y-10 w-full md:w-3/4 mx-auto py-5'>
-        <Table type='movies' items={movie_credits?.cast} caption='movies' />
-        <Table type='tv' items={tv_credits?.cast} caption='television' />
+      <section className='flex flex-col gap-3 my-5 md:my-10'>
+        <h3 className='capitalize text-white text-xl'>featured images</h3>
+        <div className='flex gap-3 flex-wrap'>
+          {profiles?.length > 0 &&
+            profiles.map((profile) => {
+              return (
+                <Poster
+                  type='person'
+                  posterPath={profile.file_path}
+                  key={profile.iso_639_1}
+                  className='w-32'
+                  imageStyles='border border-dull w-32 rounded-lg'
+                />
+              );
+            })}
+        </div>
+      </section>
+
+      <section className='flex flex-col gap-y-5 w-full md:5/6 lg::w-3/4 mx-auto py-5'>
+        <h3 className='capitalize text-white text-xl'>filmography</h3>
+        {movieCredits.length > 0 && (
+          <Table type='movies' items={movieCredits} caption='movies' />
+        )}
+        {tvCredits.length > 0 && (
+          <Table type='tv' items={tvCredits} caption='television' />
+        )}
       </section>
     </section>
   );
@@ -101,7 +147,7 @@ const Table = (props: TableProps) => {
 
   if (type === 'tv') {
     content = items.map((item) => {
-      const release = `${new Date(item.first_air_date).getFullYear()}` ?? '-';
+      const release = getReleaseDate(item.first_air_date, 'short');
       return (
         <Credit
           key={item.id}
@@ -117,7 +163,7 @@ const Table = (props: TableProps) => {
     });
   } else {
     content = items?.map((movie) => {
-      const release = `${new Date(movie.release_date).getFullYear()}` ?? '-';
+      const release = getReleaseDate(movie.release_date, 'short');
       return (
         <Credit
           key={movie.id}
@@ -180,7 +226,7 @@ const Credit = (props: CreditProps) => {
         </Link>
       </td>
       <td className='col-span-2 text-center py-2'>{character || '-'}</td>
-      <td className='col-span-5 border-t border-t-body px-5 pt-2'>
+      <td className='col-span-5 border-t border-t-body px-5 pt-2 leading-7'>
         {displayedOverview}
       </td>
     </tr>

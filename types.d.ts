@@ -395,3 +395,27 @@ type PersonDetail = {
     id: number;
   };
 };
+
+type MediaItem = {
+  backdrop_path: string;
+  title: string;
+  vote_average: number;
+  genre_ids: number[];
+  id: number;
+  name: string;
+};
+
+type UserDetails = {
+  id: string;
+  username: string;
+  email: string;
+  watchlist: {
+    tv: MediaItem[];
+    movies: MediaItem[];
+  };
+  favorites: {
+    tv: MediaItem[];
+    movies: MediaItem[];
+  };
+  created_at: string;
+};

@@ -2,69 +2,74 @@
 import Icons from '@/lib/icons';
 import Button from '../Button';
 import toast from 'react-hot-toast';
-import useUserMoviesData from 'app/context/user-movie-data';
-import { addToFavourites, removeFromFavourites } from '@/utils/actions';
+import { addToFavorites, removeFromFavorites } from '@/utils/actions';
 import { merge } from '@/utils/merge';
 import { useSession } from 'next-auth/react';
-import { useCallback } from 'react';
+import { useData } from 'app/context/user-favorites';
 
 type Position = 'absolute' | 'relative' | 'static' | 'fixed' | 'sticky';
 
 export default function Favourite({
-  id,
+  movie,
   position = 'static',
   extraStyles = '',
 }: {
-  id: number;
+  movie: MediaItem;
   position?: Position;
   extraStyles?: string;
 }) {
-  const { data, setData } = useUserMoviesData();
+  // const { data, setData } = useUserMoviesData();
+  const { favorites, addFavorite, removeFavorite } = useData();
   const { status } = useSession();
 
-  const isFavourite = data?.favourites?.includes(id) ?? false;
+  const type = movie.name ? 'tv' : 'movie';
 
-  const handleAddtoFavourites = useCallback(
-    async (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      if (status === 'unauthenticated') {
-        toast.error('please login!', {
-          position: 'top-center',
-          duration: 5000,
-        });
-        return;
+  const isFavorite =
+    type === 'tv'
+      ? favorites.tv.find((film) => film.id === movie.id)
+      : favorites.movies.find((film) => film.id === movie.id);
+
+  const handleAddtoFavourites = async (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    e.preventDefault();
+    if (status === 'unauthenticated') {
+      toast.error('please login!', {
+        position: 'top-center',
+        duration: 5000,
+      });
+      return;
+    }
+
+    if (isFavorite === undefined) {
+      addFavorite(movie, type);
+      const res = await addToFavorites(movie);
+      if (!res || res?.status === 'error') {
+        removeFavorite(movie, type);
+        toast.error('failed to add favourite. Please try again!');
       }
-      if (isFavourite) {
-        removeFromFavourites(id);
-        setData((prev) => {
-          const favourites = prev?.favourites?.filter(
-            (movieId) => movieId !== id
-          );
-          return { ...prev, favourites };
-        });
-      } else {
-        addToFavourites(id);
-        setData((prev) => {
-          const favourites = prev?.favourites ?? [];
-          return { ...prev, favourites: [...favourites, id] };
-        });
-      }
-    },
-    [id, isFavourite, status]
-  );
+      return;
+    }
+    removeFavorite(movie, type);
+    const res = await removeFromFavorites(movie);
+    if (!res || res?.status === 'error') {
+      addFavorite(movie, type);
+      toast.error('failed to remove favourite. Please try again!');
+    }
+  };
+
   return (
     <Button
       className={merge(
         'px-2 group bg-black/20 py-2 rounded-full',
         position,
-        extraStyles
+        extraStyles,
+        isFavorite !== undefined ? 'text-pink-500' : 'text-white'
       )}
       onClick={handleAddtoFavourites}
     >
       <Icons.heart
-        className={`${
-          isFavourite ? 'fill-red-500' : 'fill-white'
-        } text-2xl group-hover:fill-red-200 group-active:animate-heart`}
+        className={` text-2xl group-hover:fill-pink-300 group-active:animate-heart`}
       />
     </Button>
   );

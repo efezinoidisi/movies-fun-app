@@ -4,9 +4,13 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Button from '@/components/Button';
 import InputWrap from '@/components/form/InputWrap';
+import Ring from '@/components/loaders/ring';
+import Icons from '@/lib/icons';
+import { merge } from '@/utils/merge';
+import useCustomForm from 'hooks/useForm';
 
 const schema = yup
   .object({
@@ -16,7 +20,7 @@ const schema = yup
       .required('email is required'),
     password: yup
       .string()
-      .min(7, 'password must be at least 6 characters')
+      .min(7, 'password must be at least 7 characters')
       .required('please enter your password'),
     confirmPassword: yup
       .string()
@@ -32,20 +36,21 @@ const schema = yup
 export default function SignUpForm() {
   const [error, setError] = useState<string>('');
   const router = useRouter();
+  const defaultValues = {
+    email: '',
+    password: '',
+    username: '',
+    confirmPassword: '',
+  };
+  const searchParams = useSearchParams();
+  const from = searchParams.get('from') ?? '/';
+
   const {
     reset,
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-    defaultValues: {
-      email: '',
-      password: '',
-      username: '',
-      confirmPassword: '',
-    },
-  });
+    formState: { errors, isSubmitting },
+  } = useCustomForm(schema, defaultValues);
 
   const handleSignUp = async (data: SignUpForm) => {
     if (error) setError('');
@@ -73,9 +78,8 @@ export default function SignUpForm() {
         body: JSON.stringify(data),
       });
       if (res.ok) {
-        const body = await res.json();
         reset();
-        router.push('/login');
+        router.push(`/login?from=${from}`);
       } else {
         setError('An error occurred');
       }
@@ -87,10 +91,13 @@ export default function SignUpForm() {
   return (
     <form
       onSubmit={handleSubmit(handleSignUp)}
-      className='flex flex-col items-center gap-1 justify-center '
+      className={merge(
+        'flex flex-col items-center gap-1 justify-center ',
+        isSubmitting && 'opacity-70'
+      )}
     >
       {error && (
-        <div className='text-red-500 bg-red-100 rounded-md p-2'>
+        <div className='text-red-500 bg-red-100 rounded-md p-2 mt-3'>
           <p>{error}</p>
         </div>
       )}
@@ -102,7 +109,7 @@ export default function SignUpForm() {
       >
         <input
           className={`w-full h-full
-           focus:outline-none peer bg-inherit border-b  text-black placeholder-transparent border-gray group-focus:shadow-zl`}
+           focus:outline-none peer bg-inherit border-b placeholder-transparent border-gray group-focus:shadow-zl`}
           {...register('username')}
           type={'text'}
           id={'username'}
@@ -118,7 +125,7 @@ export default function SignUpForm() {
       >
         <input
           className={`w-full h-full
-           focus:outline-none peer bg-inherit border-b  text-black placeholder-transparent border-gray`}
+           focus:outline-none peer bg-inherit border-b placeholder-transparent border-gray`}
           {...register('email')}
           type={'email'}
           id={'email'}
@@ -161,9 +168,12 @@ export default function SignUpForm() {
       </InputWrap>
       <Button
         type='submit'
-        className='bg-accent rounded-lg mt-3 px-6 py-2 text-white capitalize'
+        className='bg-accent rounded-lg mt-3 px-6 py-2 text-white capitalize flex items-center gap-2'
       >
         sign up
+        {isSubmitting && (
+          <Icons.loader className='w-5 h-5 animate-spin text-lg' />
+        )}
       </Button>
     </form>
   );

@@ -1,58 +1,55 @@
 'use client';
 import { useSession } from 'next-auth/react';
 import Icons from '@/lib/icons';
-import { useCallback } from 'react';
 import Button from '../Button';
 import { addToWatchList, removeFromWatchList } from '@/utils/actions';
-import useUserMoviesData from '../../app/context/user-movie-data';
 import { merge } from '@/utils/merge';
 import toast from 'react-hot-toast';
+import { useData } from 'app/context/user-favorites';
 
 type Props = {
-  id: number;
+  movie: MediaItem;
   showText?: boolean;
   border?: boolean;
   extraStyles?: string;
 };
 
 export default function AddWatchlistButton(props: Props) {
-  const { id, showText = false, border = false, extraStyles = '' } = props;
-  const { data, setData } = useUserMoviesData();
+  const { movie, showText = false, border = false, extraStyles = '' } = props;
+  const { watchlist, addWatchlist, removeWatchlist } = useData();
+
   const { status } = useSession();
+  const type = movie?.name ? 'tv' : 'movies';
+  const movieInWatchList = watchlist[type].find((film) => film.id === movie.id);
 
-  const movieInWatchList = data?.watchlist?.includes(id) ?? false;
-
-  const handleClick = useCallback(
-    async (id: number) => {
-      if (status === 'unauthenticated') {
-        toast.error('please login!', {
-          position: 'top-center',
-          duration: 9000,
-          style: { backgroundColor: '#000', color: '#fff' },
-        });
-        return;
-      }
-
-      if (movieInWatchList) {
-        removeFromWatchList(id);
-        setData((prev) => {
-          const watchlist = prev?.watchlist || [];
-          return {
-            ...prev,
-            watchlist: watchlist.filter((movieId) => movieId !== id),
-          };
-        });
-
-        return;
-      }
-      addToWatchList(id);
-      setData((prev) => {
-        const watchlist = prev?.watchlist || [];
-        return { ...prev, watchlist: [...watchlist, id] };
+  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (status === 'unauthenticated') {
+      toast.error('please login!', {
+        position: 'top-center',
+        duration: 9000,
+        style: { backgroundColor: '#000', color: '#fff' },
       });
-    },
-    [id, movieInWatchList, status]
-  );
+      return;
+    }
+    const actionType = movie?.name ? 'tv' : 'movie';
+    if (movieInWatchList === undefined) {
+      addWatchlist(movie, actionType);
+      const res = await addToWatchList(movie);
+      if (!res || res?.status === 'error') {
+        removeWatchlist(movie, actionType);
+        toast.error('failed to add watchlist. Please try again!');
+      }
+      return;
+    }
+
+    removeWatchlist(movie, actionType);
+    const res = await removeFromWatchList(movie);
+    if (!res || res?.status === 'error') {
+      addWatchlist(movie, actionType);
+      toast.error('failed to add watchlist. Please try again!');
+    }
+  };
 
   return (
     <Button
@@ -62,10 +59,7 @@ export default function AddWatchlistButton(props: Props) {
         extraStyles
       )}
       type='button'
-      onClick={(e) => {
-        e.preventDefault();
-        handleClick(id);
-      }}
+      onClick={handleClick}
       title='add to watchlist'
     >
       {movieInWatchList ? (

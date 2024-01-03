@@ -37,11 +37,11 @@ const config: Config = {
           '4px 4px 12px 0px rgba(187, 195, 206, 0.60) inset, -4px -4px 12px 0px rgba(253, 255, 255, 0.80) inset',
         outer:
           '16px 16px 40px 0px rgba(187, 195, 206, 0.60), -16px -16px 40px 0px rgba(253, 255, 255, 0.80)',
-        ml: ' 4px 4px 12px 0px rgba(187, 195, 206, 0.60), -4px -4px 12px 0px rgba(253, 255, 255, 0.80)',
+        ml: ' 4px 4px 6px 0px rgba(39 ,114 ,189, 0.60), -4px -4px 12px 0px rgba(39 ,114 ,189, 0.80)',
         ul: '0px 10px 20px 0px rgba(140, 6, 116, 0.50)',
         zl: 'rgba(255, 184, 0, 0.24) 0px 3px 8px',
         cl: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
-        al: 'rgba(152 ,179 ,205, 0.4) 0px 2px 4px, rgba(152, 179, 205, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
+        al: 'rgba(39 ,114 ,189, 0.4) 0px 2px 4px, rgba(39 ,114 ,189, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
       },
       animation: {
         search: 'search 2s linear 1',

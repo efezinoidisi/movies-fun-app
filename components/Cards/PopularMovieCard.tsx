@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { IMG_URL } from '@/constants/data';
 import Favourite from '../Buttons/Favourite';
 import GenreList from '../common/genre-list';
-import MoviePoster from '../common/movie-poster';
+import MoviePoster from '../common/poster';
 import Rating from '../common/rating';
 
 type CardProps = MovieList & {
@@ -25,6 +25,16 @@ export default function PopularMovieCard(props: CardProps) {
   const page = `${type}${type === 'tv' ? '' : 's'}`;
 
   const genres = genre_ids.slice(0, 1);
+
+  const moviePayload: MediaItem = {
+    id,
+    genre_ids,
+    backdrop_path,
+    vote_average,
+    name,
+    title,
+  };
+
   return (
     <Link href={`/${page}/${id}`} className='block'>
       <div
@@ -34,7 +44,7 @@ export default function PopularMovieCard(props: CardProps) {
         className={`flex gap-3 items-end rounded-lg py-3  hover:bg-gray-800 px-2 min-h-[20rem] text-white transition-all duration-300 ease-in-out relative overflow-x-hidden mr-5`}
       >
         <Favourite
-          id={id}
+          movie={moviePayload}
           position='absolute'
           extraStyles='z-10 top-3 right-2'
         />
@@ -47,6 +57,7 @@ export default function PopularMovieCard(props: CardProps) {
           posterPath={poster_path}
           className='min-w-[6rem] max-w-[6rem] overflow-hidden relative'
           imageStyles='object-cover w-full h-full rounded-md'
+          alt={`poster for ${name || title}`}
         />
         <div className={'flex flex-col col-span-2 gap-1'}>
           <h3 className='capitalize font-semibold text-md line-clamp-1'>

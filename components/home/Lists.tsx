@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Card from '../Cards/Card';
 import CustomCarousel from '../Slider/carousel';
 import NewReleaseCard from '../Cards/NewRelease';
 import PopularMovieCard from '../Cards/PopularMovieCard';
@@ -11,7 +10,7 @@ export default async function Lists({
 }: {
   moviesData: {
     id: number;
-    variant: 'new' | 'show' | 'popular' | 'movie';
+    variant: 'new' | 'popular' | 'movie';
     results: MovieList[];
     href: string;
     title: string;
@@ -46,9 +45,6 @@ const Section = (props: SectionProps) => {
         options={variant === 'popular' ? popularMoviesOptions : null}
       >
         {results.map((result, index) => {
-          if (variant === 'new') {
-            return <NewReleaseCard key={result.id} {...result} />;
-          }
           if (variant === 'popular') {
             return (
               <PopularMovieCard index={index} key={result.id} {...result} />
@@ -59,7 +55,7 @@ const Section = (props: SectionProps) => {
             return <MovieCard key={result.id} {...result} />;
           }
 
-          return <Card key={result.id} {...result} type={type} />;
+          return <NewReleaseCard key={result.id} {...result} />;
         })}
       </CustomCarousel>
       <Link

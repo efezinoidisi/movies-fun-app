@@ -3,6 +3,7 @@ import React from 'react';
 
 export default function Rating({ rating }: { rating: number }) {
   const average = rating.toFixed(1);
+  if (!rating) return null;
   return (
     <span className='flex items-center'>
       <Icons.star className={'text-yellow-500'} />
