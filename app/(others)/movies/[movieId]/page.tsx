@@ -18,6 +18,15 @@ type Props = {
   params: { movieId: string };
 };
 
+export async function generateMetadata({ params: { movieId } }: Props) {
+  const movie = await fetchList(`movie/${movieId}`);
+
+  return {
+    title: movie.title,
+    description: movie.overview,
+  };
+}
+
 export default async function page({ params: { movieId } }: Props) {
   const movieData: Promise<MovieDetail> = await fetchList(
     `movie/${movieId}?append_to_response=videos,images,credits,recommendations,reviews,similar`
@@ -67,15 +76,15 @@ export default async function page({ params: { movieId } }: Props) {
   const director = credits.crew.find((crew) => crew.job === 'Director');
 
   const language = await getLanguage(original_language);
-  const genre_ids = genres.map(genre => genre.id);
-  const payload:MediaItem = {
+  const genre_ids = genres.map((genre) => genre.id);
+  const payload: MediaItem = {
     id,
     backdrop_path,
     genre_ids,
     title,
     vote_average,
-    name: ''
-  }
+    name: '',
+  };
 
   return (
     <>

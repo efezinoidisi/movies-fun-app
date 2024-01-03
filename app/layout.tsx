@@ -10,7 +10,7 @@ import { Suspense } from 'react';
 import Loader from '@/components/loaders/loader';
 
 export const metadata: Metadata = {
-  title: 'Zmovies',
+  title: 'moviesFun',
   description: 'Find interesting movies or shows you like',
 };
 

@@ -7,6 +7,12 @@ import {
 import InfiniteScroll from '@/components/infinite-scroll/infinite-scroll';
 import { MOVIE_ENDPOINTS } from '@/constants/data';
 import Tab from '@/components/common/tab';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'moviesFun - Explore Movies',
+  description: 'exxplore popular, trending, top rated and upcoming movies',
+};
 
 type Tab = 'top_rated' | 'upcoming' | 'popular' | 'trending';
 

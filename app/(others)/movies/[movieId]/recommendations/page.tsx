@@ -10,6 +10,15 @@ type Props = {
   params: { movieId: string };
 };
 
+export async function generateMetadata({ params: { movieId } }: Props) {
+  const movie = await fetchList(`movie/${movieId}`);
+
+  return {
+    title: `MoviesFun - Recommendations`,
+    description: `movie recommendations based on ${movie.title}`,
+  };
+}
+
 export default async function page(props: Props) {
   const {
     params: { movieId },

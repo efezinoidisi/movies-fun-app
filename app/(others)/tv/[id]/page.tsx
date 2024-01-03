@@ -1,28 +1,29 @@
 import { fetchList } from '@/utils/fetchList';
 import HeroContent from '@/components/common/hero-content';
 import {
-  checkTrimString,
-  getAverage,
-  getCountry,
   getLanguage,
   getReleaseDate,
   getRuntime,
   getTrailerKey,
 } from '@/utils/helpers';
-import CarouselWithHeading from '@/components/common/heading-carousel';
 import Review from '@/components/common/review';
 import Casts from '@/components/common/cast';
-import Icons from '@/lib/icons';
-import CustomCarousel from '@/components/Slider/carousel';
-import MoviePoster from '@/components/common/poster';
 import Seasons from '@/components/series/season-card';
-import Link from 'next/link';
 import Details from '@/components/common/details';
 import List from '@/components/List/List';
 
 type Props = {
   params: { id: string };
 };
+
+export async function generateMetadata({ params: { id } }: Props) {
+  const show = await fetchList(`movie/${id}`);
+
+  return {
+    title: `moviesFun - ${show.name}`,
+    description: show.overview,
+  };
+}
 
 export default async function page({ params: { id } }: Props) {
   const movieData: Promise<SeriesDetail> = await fetchList(

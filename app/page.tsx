@@ -58,7 +58,7 @@ export default async function Home() {
     {
       id: 1,
       variant: 'popular',
-      results: popularResults.toSorted((a, b) => b.popularity - a.popularity),
+      results: popularResults?.toSorted((a, b) => b.popularity - a.popularity),
       href: '/movies?tab=popular',
       title: 'popular',
       type: 'movie',
@@ -66,7 +66,7 @@ export default async function Home() {
     {
       id: 2,
       variant: 'movie',
-      results: series.toSorted((a, b) => b.popularity - a.popularity),
+      results: series?.toSorted((a, b) => b.popularity - a.popularity),
       href: '/tv?tab=popular',
       title: 'popular tv shows',
       type: 'tv',

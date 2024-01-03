@@ -5,6 +5,12 @@ import authOptions from 'config/authOptions';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import Loader from '@/components/loaders/loader';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'moviesFun - signup',
+  description: 'Find interesting movies or shows you like',
+};
 
 export default async function page() {
   const session = await getServerSession(authOptions);
