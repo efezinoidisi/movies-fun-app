@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Table of Contents
 
-## Getting Started
+1. [Project Info](#about-project)
+2. [Screenshots](#screenshots)
+3. [Technologies that are used in this project](#technologies-that-are-used-in-this-project)
+4. [How to run this project](#how-to-run-this-project)
+5. [License](#license)
 
-First, run the development server:
+## Project Info
+
+MoviesFun is a NextJs web app that integrates the TMDB API for all it's relevant data. Explore movies, shows and people and get enough information about your favorite entertainment shows.
+Building this helped me explore more nextjs features and better understand the framework
+
+### Features
+
+- explore popular, trending, top rated and upcoming movies
+- explore trending, top rated and popular tv shows.
+- explore popular people and their latest information
+- log in to add your favourite shows to your list and also watchlist for both movies and tv shows
+- search for movies, tv shows and people.
+
+## Screenshots
+
+#### Mobile screens
+
+![hero](/public/screenshots/hero-mobile.png)
+![people page](/public/screenshots/people-mobile.png)
+![movies page](/public/screenshots/movies-mobile.png)
+
+#### Desktop screens
+
+![movies page desktop](/public/screenshots/movies-desktop.png)
+![person page desktop](/public/screenshots/person-desktop.png)
+![series page desktop](/public/screenshots/series-desktop.png)
+![hero section desktop](/public/screenshots/hero-desktop.png)
+
+## Technologies that are used in this project
+
+1. [TypeScript](https://www.typescriptlang.org/)
+2. [Next.js](https://nextjs.org/)
+3. [Next-Auth](https://next-auth.js.org)
+4. [React-icons](https://react-icons.github.io/react-icons)
+5. [Tailwind](https://tailwindcss.com)
+6. [React-Hook-Form](https://react-hook-form.com)
+7. [React-Multi-Carousel](https://github.com/YIZHUANG/react-multi-carousel)
+8. [Tanstack-Query](https://tanstack.com/query/latest)
+
+## How to run this project
+
+1. Clone this repository
+
+```bash
+git clone https://github.com/efezinoidisi/movies-fun-app.git
+cd movies-fun-app
+```
+
+2. Run this command to install all the dependencies
+
+```bash
+npm install
+```
+
+3. Run this command to start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## License
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details

@@ -5,6 +5,22 @@ import { getServerSession } from 'next-auth';
 import authOptions from 'config/authOptions';
 import { redirect } from 'next/navigation';
 
+export async function fetchUser() {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    throw new Error('unauthorized');
+  }
+
+  const email = session?.user?.email;
+  await connectDb();
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new Error('user not found');
+  }
+
+  return user;
+}
+
 export async function addToWatchList(movie: MediaItem) {
   try {
     const user = await fetchUser();
@@ -73,21 +89,6 @@ export async function getFavorites() {
 export async function getWatchList() {
   const user = await fetchUser();
   return user.watchlist;
-}
-
-export async function fetchUser() {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    throw new Error('unauthorized');
-  }
-
-  const email = session?.user?.email;
-  const user = await User.findOne({ email });
-  if (!user) {
-    throw new Error('user not found');
-  }
-
-  return user;
 }
 
 export async function fetchUserDetails() {

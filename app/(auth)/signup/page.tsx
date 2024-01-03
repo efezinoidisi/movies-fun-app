@@ -4,11 +4,11 @@ import { getServerSession } from 'next-auth';
 import authOptions from 'config/authOptions';
 import Link from 'next/link';
 import { Suspense } from 'react';
-import Loader from '@/components/loaders/loader';
 import { Metadata } from 'next';
+import Ellipsis from '@/components/loaders/ellipsis';
 
 export const metadata: Metadata = {
-  title: 'moviesFun - signup',
+  title: ' - signup',
   description: 'Find interesting movies or shows you like',
 };
 
@@ -19,7 +19,7 @@ export default async function page() {
   return (
     <main className='flex flex-col items-center  py-5 px-5 md:pt-20'>
       <h2 className='capitalize'>registration form</h2>
-      <Suspense fallback={<Loader />}>
+      <Suspense fallback={<Ellipsis />}>
         <SignUpForm />
       </Suspense>
       <div className='mt-7 text-sm'>

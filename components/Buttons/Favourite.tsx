@@ -13,12 +13,13 @@ export default function Favourite({
   movie,
   position = 'static',
   extraStyles = '',
+  showText = false,
 }: {
   movie: MediaItem;
   position?: Position;
   extraStyles?: string;
+  showText?: boolean;
 }) {
-  // const { data, setData } = useUserMoviesData();
   const { favorites, addFavorite, removeFavorite } = useData();
   const { status } = useSession();
 
@@ -61,15 +62,22 @@ export default function Favourite({
   return (
     <Button
       className={merge(
-        'px-2 group bg-black/20 py-2 rounded-full',
+        'px-2 group bg-black/20 py-2 rounded-full flex items-center gap-1 capitalize',
         position,
-        extraStyles,
-        isFavorite !== undefined ? 'text-pink-500' : 'text-white'
+        extraStyles
       )}
       onClick={handleAddtoFavourites}
     >
+      {showText && (
+        <span className='text-dullText'>
+          {isFavorite ? 'liked' : 'add favourite'}
+        </span>
+      )}
+
       <Icons.heart
-        className={` text-2xl group-hover:fill-pink-300 group-active:animate-heart`}
+        className={` text-2xl group-hover:text-pink-400 group-active:animate-heart ${
+          isFavorite !== undefined ? 'text-pink-500' : 'text-white'
+        }`}
       />
     </Button>
   );

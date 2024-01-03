@@ -54,7 +54,7 @@ export default function AddWatchlistButton(props: Props) {
   return (
     <Button
       className={merge(
-        `py-2 md:py-4 min-w-max capitalize px-2 md:px-4 rounded-lg flex gap-2 items-center text-sm font-medium group cursor-pointer h-12`,
+        `py-2 md:py-4 min-w-min capitalize px-2 md:px-4 rounded-lg flex gap-2 items-center text-sm font-medium group cursor-pointer h-12`,
         border && 'border',
         extraStyles
       )}
@@ -63,11 +63,11 @@ export default function AddWatchlistButton(props: Props) {
       title='add to watchlist'
     >
       {movieInWatchList ? (
-        <Icons.bookmarkCheck className='text-md md:text-xl' />
+        <Icons.bookmarkCheck className='text-xl' />
       ) : (
-        <Icons.bookmark className='text-md md:text-xl' />
+        <Icons.bookmark className='text-xl' />
       )}
-      {showText && (movieInWatchList ? 'remove watchlist' : 'add watchlist')}
+      {showText && (movieInWatchList ? 'bookmarked' : 'add watchlist')}
     </Button>
   );
 }

@@ -44,7 +44,6 @@ export default function ForgotPassword() {
         toast.error(body.message, { duration: 5000 });
       }
     } catch (error: any) {
-      console.log(error);
       toast.error(error?.message, {
         position: 'top-left',
       });
@@ -52,7 +51,7 @@ export default function ForgotPassword() {
   });
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className='flex flex-col gap-2'>
       <InputWrap label='email' id='email'>
         <input
           className={`w-full h-full
@@ -65,7 +64,10 @@ export default function ForgotPassword() {
         />
       </InputWrap>
 
-      <Button type='submit' className=''>
+      <Button
+        type='submit'
+        className='self-center bg-pink-800 capitalize text-white rounded-lg p-2 hover:bg-accent'
+      >
         submit
       </Button>
     </form>

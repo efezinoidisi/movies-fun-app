@@ -8,7 +8,7 @@ export default function Logout() {
   };
   return (
     <Button
-      className='border rounded-2xl capitalize px-3 py-1 hover:text-white transition-colors ease-in-out duration-300 hover:border-main/80 border-accent text-accent'
+      className='border rounded-2xl capitalize px-3 py-1 hover:bg-black transition-colors ease-in-out duration-300 border-accent text-accent text-sm md:text-base bg-white/80'
       onClick={handleLogout}
     >
       logout

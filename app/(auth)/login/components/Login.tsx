@@ -112,7 +112,7 @@ export default function Login() {
       >
         <input
           className={`w-full h-full
-           focus:outline-none peer bg-inherit border-b  text-black placeholder-transparent border-gray`}
+           focus:outline-none peer bg-inherit border-b text-white placeholder-transparent border-gray`}
           {...register('password')}
           type={'password'}
           id={'password'}
@@ -122,14 +122,14 @@ export default function Login() {
       </InputWrap>
       <Link
         href={'forgot-password'}
-        className='text-right block underline ml-auto text-xs'
+        className='text-right block underline ml-auto text-xs hover:text-blue-900'
       >
         forgot your password?
       </Link>
       <div className='flex items-center gap-3'>
         <Button
           type='submit'
-          className='bg-accent rounded-lg mt-3 px-6 py-2 text-white capitalize flex items-center gap-2'
+          className='bg-accent rounded-lg mt-3 px-6 py-2 text-white capitalize flex items-center gap-2 hover:bg-white hover:text-black transition-colors ease-linear duration-200'
         >
           login
           {isSubmitting && (
@@ -138,7 +138,7 @@ export default function Login() {
         </Button>
         <Button
           type='button'
-          className='bg-black border border-pink-500  rounded-lg mt-3 px-6 py-2 capitalize flex items-center gap-2'
+          className='bg-white border border-pink-800  rounded-lg mt-3 px-6 py-2 capitalize flex items-center gap-2 min-w-max text-sm text-black hover:bg-pink-600 transition-colors ease-linear duration-200'
           onClick={handleTestUserLogin}
         >
           test user login

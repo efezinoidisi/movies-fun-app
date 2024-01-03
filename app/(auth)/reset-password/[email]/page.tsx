@@ -6,8 +6,8 @@ export default function page({
   params: { email: string };
 }) {
   return (
-    <div className='px-5 md:px-10'>
-      <h2>password reset</h2>
+    <div className='px-5 md:px-10 flex flex-col justify-center min-h-[50vh]'>
+      <h2 className='capitalize text-white text-xl'>password reset</h2>
       <ResetPasswordForm email={email} />
     </div>
   );

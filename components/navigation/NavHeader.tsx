@@ -57,7 +57,7 @@ export default function NavHeader(props: Props) {
                   from,
                 },
               }}
-              className='bg-white/70 text-black rounded-md px-3 py-1 hover:bg-accent hover:text-white transition-colors ease-linear duration-150'
+              className='bg-white/70 text-black rounded-md px-3 py-1 hover:bg-accent hover:text-white transition-colors ease-linear duration-150 text-sm md:text-base'
             >
               signup
             </Link>
@@ -68,7 +68,7 @@ export default function NavHeader(props: Props) {
                   from,
                 },
               }}
-              className='bg-accent text-white rounded-md px-3 py-1 hover:bg-main/60 transition-colors ease-linear duration-150'
+              className='hover:bg-accent text-white rounded-md px-3 py-1 bg-pink-600 transition-colors ease-linear duration-150 text-sm md:text-base'
             >
               login
             </Link>

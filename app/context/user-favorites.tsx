@@ -20,10 +20,16 @@ enum DataActionType {
   REMOVE_WATCHLIST_MOVIE = 'REMOVE_WATCHLIST_MOVIE',
 }
 
-type DataAction = {
+type UpdateAll = {
+  type: 'UPDATE_ALL';
+  payload: DataState;
+};
+
+type UpdateOne = {
   type: DataActionType;
   payload: MediaItem;
 };
+type DataAction = UpdateAll | UpdateOne;
 
 type DataState = {
   favorites: {
@@ -97,6 +103,9 @@ function dataReducer(state: DataState, action: DataAction) {
         },
       };
     }
+    case 'UPDATE_ALL': {
+      return { ...payload };
+    }
     default:
       return state;
   }
@@ -129,7 +138,11 @@ const DataProvider = ({ children }: { children: React.ReactNode }) => {
     const fetchData = async () => {
       const res = await fetch('/api/data');
       const body = await res.json();
-      dispatch(body);
+
+      dispatch({
+        type: 'UPDATE_ALL',
+        payload: body,
+      });
     };
     if (status === 'authenticated') {
       fetchData();

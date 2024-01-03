@@ -7,7 +7,7 @@ import NavHeader from '@/components/navigation/NavHeader';
 import BackToTop from '@/components/Buttons/back-to-top';
 import Sidebar from '@/components/navigation/sidebar';
 import { Suspense } from 'react';
-import Loader from '@/components/loaders/loader';
+import Ellipsis from '@/components/loaders/ellipsis';
 
 export const metadata: Metadata = {
   title: {
@@ -32,7 +32,7 @@ export default function RootLayout({
       >
         <Providers>
           <Toaster />
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={<Ellipsis />}>
             <NavHeader />
           </Suspense>
           <main className='md:grid md:grid-cols-12'>

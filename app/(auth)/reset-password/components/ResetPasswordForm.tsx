@@ -66,7 +66,7 @@ export default function ResetPasswordForm({ email }: { email: string }) {
   });
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className='flex flex-col gap-2'>
       <InputWrap
         id='password'
         label='password'
@@ -98,7 +98,10 @@ export default function ResetPasswordForm({ email }: { email: string }) {
           aria-invalid={errors?.confirmPassword ? true : false}
         />
       </InputWrap>
-      <Button type='submit' className=''>
+      <Button
+        type='submit'
+        className='self-center bg-accent capitalize text-white rounded-lg p-2 hover:bg-white hover:text-black'
+      >
         reset
       </Button>
     </form>

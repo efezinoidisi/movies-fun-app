@@ -43,7 +43,6 @@ export default function MediaItemCard(props: MediaItem) {
           <p className='flex items-center gap-1'>
             <Rating rating={vote_average} />
           </p>
-          {/* <AddWatchlistButton id={id} extraStyles='z-10' /> */}
         </div>
         <GenreList genres={genres} type='without-id' />
       </div>

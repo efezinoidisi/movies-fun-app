@@ -11,6 +11,7 @@ import Casts from '@/components/common/cast';
 import Seasons from '@/components/series/season-card';
 import Details from '@/components/common/details';
 import List from '@/components/List/List';
+import Favourite from '@/components/Buttons/Favourite';
 
 type Props = {
   params: { id: string };
@@ -109,6 +110,13 @@ export default async function page({ params: { id } }: Props) {
         type={'tv'}
         runtime={runtime}
         poster={poster_path}
+      />
+
+      <Favourite
+        movie={payload}
+        showText
+        position='relative'
+        extraStyles='bg-dull w-fit ml-auto mt-3 rounded-lg hover:border hover:border-pink-600'
       />
 
       <section className='flex flex-col gap-5 md:gap-7 lg:gap-10 w-4/5 mx-auto'>

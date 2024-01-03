@@ -1,4 +1,3 @@
-import List from '@/components/List/List';
 import UserList from '@/components/List/user-list';
 import Tab from '@/components/common/tab';
 import UserDetails from '@/components/user/details';
@@ -50,7 +49,7 @@ export default async function Page({
       title: 'watchlist movies',
     },
     'watchlist-series': {
-      data: user?.watchlist?.movies,
+      data: user?.watchlist?.tv,
       title: 'watchlist series',
     },
   };

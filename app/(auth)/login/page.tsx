@@ -4,11 +4,11 @@ import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import authOptions from 'config/authOptions';
 import { Suspense } from 'react';
-import Loader from '@/components/loaders/loader';
 import { Metadata } from 'next';
+import Ellipsis from '@/components/loaders/ellipsis';
 
 export const metadata: Metadata = {
-  title: 'moviesFun - Login',
+  title: '- Login',
   description: 'Find interesting movies or shows you like',
 };
 
@@ -27,7 +27,7 @@ export default async function page() {
           sign up for free
         </Link>
       </p>
-      <Suspense fallback={<Loader />}>
+      <Suspense fallback={<Ellipsis />}>
         <Login />
       </Suspense>
     </main>

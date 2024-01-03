@@ -16,7 +16,7 @@ export default function UserDetails({
 }) {
   const [editProfile, setEditProfile] = useState(false);
   const { favorites } = useData();
-  console.log(favorites);
+
   const toggleEdit = () => {
     setEditProfile((prev) => !prev);
   };

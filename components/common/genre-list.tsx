@@ -30,7 +30,6 @@ export default function GenreList({
   const navigate = (to: string) => {
     router.push(to);
   };
-
   if (type === 'with-id')
     return (
       <ul className={merge('flex gap-x-1 flex-wrap items- gap-y-2', styles)}>
@@ -39,7 +38,6 @@ export default function GenreList({
             <li
               key={id}
               className='text-sm min-w-max bg-dull text-dullText rounded-md px-2 py-1 hover:bg-body transition-colors duration-200 group'
-              onClick={() => navigate(`/${page}/genre/${id}`)}
             >
               <Button
                 onClick={(e) => {

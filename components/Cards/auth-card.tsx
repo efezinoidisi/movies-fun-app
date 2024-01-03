@@ -41,7 +41,7 @@ export default function AuthCard({ movies }: Props) {
       style={{
         background: `linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%),url(${IMG_URL}${backdrop_path})`,
       }}
-      className={`hero flex justify-between items-end pb-4 md:pb-10 px-8 min-h-[15rem] md:min-h-screen text-white col-start-1 row-start-1 md:col-start-2 text-opacity-70`}
+      className={`hero flex justify-between items-end pb-4 md:pb-10 px-8 min-h-[15rem]  text-white col-start-1 row-start-1 md:col-start-2 text-opacity-70`}
     >
       <div className='flex flex-col gap-1 md:gap-2'>
         <h3 className='text-white'>

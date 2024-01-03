@@ -50,6 +50,9 @@ const config: Config = {
         heart: 'heart 1.2s 1 cubic-bezier(0.215, 0.61, 0.355, 1)',
         ring: 'ring 1.2s linear infinite',
         slideIn: 'slideIn 2s linear 1',
+        ellipsis1: 'ellipsis1 0.6s infinite',
+        ellipsis2: 'ellipsis2 0.6s infinite',
+        ellipsis3: 'ellipsis3 0.6s infinite',
       },
       keyframes: {
         search: {
@@ -82,6 +85,30 @@ const config: Config = {
           '0%': { width: '0%', opacity: '0', transform: 'translateX(-50%)' },
           '50%': { width: '50%', opacity: '0.5' },
           '100%': { width: '100%', opacity: '1' },
+        },
+        ellipsis1: {
+          '0%': {
+            transform: 'scale(0)',
+          },
+          '100%': {
+            transform: 'scale(1)',
+          },
+        },
+        ellipsis2: {
+          '0%': {
+            transform: 'translate(0,0)',
+          },
+          '100%': {
+            transform: 'translate(24px,0)',
+          },
+        },
+        ellipsis3: {
+          '0%': {
+            transform: 'scale(1)',
+          },
+          '100%': {
+            transform: 'scale(0)',
+          },
         },
       },
 
