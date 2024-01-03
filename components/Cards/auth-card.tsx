@@ -45,7 +45,9 @@ export default function AuthCard({ movies }: Props) {
     >
       <div className='flex flex-col gap-1 md:gap-2'>
         <h3 className='text-white'>
-          <Link href={`/movies/${id}`}>{title}</Link>
+          <Link href={`/movies/${id}`} prefetch={false}>
+            {title}
+          </Link>
         </h3>
         <p className='text-xs md:text-sm'>{releaseYear}</p>
         <div className='md:flex gap-1 text-xs opacity-80 capitalize hidden'>

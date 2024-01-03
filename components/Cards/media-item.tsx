@@ -21,7 +21,7 @@ export default function MediaItemCard(props: MediaItem) {
   };
 
   return (
-    <Link href={`/${page}/${id}`}>
+    <Link href={`/${page}/${id}`} prefetch={false}>
       <div
         style={{
           background: `linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.60) 100%),url(${IMG_URL}${backdrop_path})`,

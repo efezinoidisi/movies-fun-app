@@ -42,7 +42,11 @@ export default function MovieCard(props: MovieList) {
         position='absolute'
         extraStyles='right-2 top-5'
       />
-      <Link href={`/${page}/${id}`} className='w-full h-full block pb-3'>
+      <Link
+        href={`/${page}/${id}`}
+        className='w-full h-full block pb-3'
+        prefetch={false}
+      >
         <MoviePoster
           posterPath={poster_path}
           imageStyles='w-full h-full rounded-t-lg bg-cover'

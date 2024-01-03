@@ -32,7 +32,7 @@ export default function Card(props: CardProps) {
   };
 
   return (
-    <Link href={`/${path}/${id}`} className='block'>
+    <Link href={`/${path}/${id}`} className='block' prefetch={false}>
       <div
         className={`relative flex flex-col items-start py-3 bg-body  px-2 gap-3 min-h-[25rem] mr-2 rounded-xl border-b-[.18rem]  border-l-[.1rem] border-t-[.1rem] border-r-[.18rem] border-text border-opacity-60
         `}

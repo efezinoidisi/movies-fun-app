@@ -17,11 +17,11 @@ type Props = {
 };
 
 export async function generateMetadata({ params: { id } }: Props) {
-  const show = await fetchList(`movie/${id}`);
+  const show = await fetchList(`tv/${id}`);
 
   return {
-    title: `moviesFun - ${show.name}`,
-    description: show.overview,
+    title: `${show?.name}`,
+    description: show?.overview,
   };
 }
 

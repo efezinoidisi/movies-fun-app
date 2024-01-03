@@ -41,7 +41,11 @@ const Genre = ({
       key={id}
       className='text-center md:text-left px-2 py-2 hover:bg-dull w-fit rounded-lg hover:text-accent transition-colors duration-200 ease-in-out'
     >
-      <Link href={`/${type}/genre/${id}`} className='underline'>
+      <Link
+        href={`/${type}/genre/${id}`}
+        className='underline'
+        prefetch={false}
+      >
         {name}
       </Link>
     </li>

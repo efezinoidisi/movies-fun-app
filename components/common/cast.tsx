@@ -28,7 +28,12 @@ export default function Casts({ casts }: Props) {
             <Icons.person className=' w-full h-52 md:h-44 overflow-x-hidden rounded-t-lg' />
           );
           return (
-            <Link href={`/people/${id}`} key={id} className='w-full block'>
+            <Link
+              prefetch={false}
+              href={`/people/${id}`}
+              key={id}
+              className='w-full block'
+            >
               <div className=' flex flex-col items-center gap-1 pb-3 md:pb-2 rounded-lg mr-2 snap-start whitespace-normal border border-dull bg-body  border-opacity-60  hover:border-accent transition-colors ease-in-out duration-200'>
                 {/* <div className='w-full'>{picture}</div> */}
                 <Poster

@@ -14,6 +14,7 @@ export default function Person({ picture, name, id }: Props) {
       style={{
         background: `url(${image})`,
       }}
+      prefetch={false}
       className={`hero relative justify-end flex flex-col min-h-[16rem] rounded-lg  overflow-x-hidden w-full`}
     >
       <div className='bg-black/60 w-full px-5 py-4'>

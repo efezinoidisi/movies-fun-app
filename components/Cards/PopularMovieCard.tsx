@@ -36,7 +36,7 @@ export default function PopularMovieCard(props: CardProps) {
   };
 
   return (
-    <Link href={`/${page}/${id}`} className='block'>
+    <Link prefetch={false} href={`/${page}/${id}`} className='block'>
       <div
         style={{
           background: `linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%),url(${IMG_URL}${backdrop_path})`,

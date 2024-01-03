@@ -28,7 +28,9 @@ export default async function page({ params: { id } }: Props) {
     gender,
   } = await person;
 
-  const movieCredits = movie_credits?.cast?.toSorted((a, b) => {
+  const movieCredits = movie_credits?.cast;
+
+  movieCredits.sort((a, b) => {
     const dateA = getReleaseDate(a.release_date, 'short');
 
     const dateB = getReleaseDate(b.release_date, 'short');
@@ -36,7 +38,9 @@ export default async function page({ params: { id } }: Props) {
     return +dateA - +dateB;
   });
 
-  const tvCredits = tv_credits?.cast?.toSorted((a, b) => {
+  const tvCredits = tv_credits?.cast;
+
+  tvCredits.sort((a, b) => {
     const dateA = getReleaseDate(a.first_air_date, 'short');
 
     const dateB = getReleaseDate(b.first_air_date, 'short');
