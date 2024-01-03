@@ -39,6 +39,9 @@ export default async function Home() {
     { results: trendingSeries },
   ] = await allResults;
 
+  series.sort((a, b) => b.popularity - a.popularity);
+
+  popularResults.sort((a, b) => b.popularity - a.popularity);
   const allData: {
     id: number;
     variant: 'new' | 'popular' | 'movie';
@@ -58,7 +61,7 @@ export default async function Home() {
     {
       id: 1,
       variant: 'popular',
-      results: popularResults?.toSorted((a, b) => b.popularity - a.popularity),
+      results: popularResults,
       href: '/movies?tab=popular',
       title: 'popular',
       type: 'movie',
@@ -66,7 +69,7 @@ export default async function Home() {
     {
       id: 2,
       variant: 'movie',
-      results: series?.toSorted((a, b) => b.popularity - a.popularity),
+      results: series,
       href: '/tv?tab=popular',
       title: 'popular tv shows',
       type: 'tv',

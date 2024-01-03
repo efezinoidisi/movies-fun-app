@@ -10,8 +10,12 @@ import { Suspense } from 'react';
 import Loader from '@/components/loaders/loader';
 
 export const metadata: Metadata = {
-  title: 'moviesFun',
-  description: 'Find interesting movies or shows you like',
+  title: {
+    template: 'moviesFun | %s',
+    default: 'moviesFun',
+  },
+  description:
+    'discover interesting movies,people and shows of different kinds',
 };
 
 export default function RootLayout({
