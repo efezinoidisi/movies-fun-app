@@ -93,7 +93,7 @@ export default async function Home() {
           list={movies.slice(0, 10)}
           link='/movies?tab=upcoming'
           title='upcoming movies'
-          styles='px-5 md:px-10 lg:px-16 xl:px-20 border-b mt-10 border-body'
+          styles=' w-11/12 mx-auto border-b mt-10 border-body'
         />
         <Lists moviesData={allData} />
       </section>

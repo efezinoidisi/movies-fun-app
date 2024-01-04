@@ -10,8 +10,8 @@ import Tab from '@/components/common/tab';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'moviesFun - Explore Movies',
-  description: 'exxplore popular, trending, top rated and upcoming movies',
+  title: 'Movies',
+  description: 'explore popular, trending, top rated and upcoming movies',
 };
 
 type Tab = 'top_rated' | 'upcoming' | 'popular' | 'trending';
@@ -61,7 +61,7 @@ export default async function page({
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className='py-10 bg-[#0e2439]'></div>
-      <section className='px-5 md:px-10 pt-10  flex flex-col gap-5'>
+      <section className='w-11/12 mx-auto pt-10  flex flex-col gap-5'>
         <h2 className='capitalize font-bold pb-5 text-center text-xl text-white'>{`${tab.replace(
           '_',
           ' '

@@ -1,19 +1,10 @@
 import { fetchList } from '@/utils/fetchList';
 import HeroContent from '@/components/common/hero-content';
-import {
-  getAverage,
-  getLanguage,
-  getRuntime,
-  getTrailerKey,
-  numberToDollarString,
-} from '@/utils/helpers';
-import CarouselWithHeading from '@/components/common/heading-carousel';
+import { getLanguage, getRuntime, getTrailerKey } from '@/utils/helpers';
 import Review from '@/components/common/review';
 import Casts from '@/components/common/cast';
 import Details from '@/components/common/details';
-import MovieCard from '@/components/Cards/MovieCard';
 import List from '@/components/List/List';
-import Favourite from '@/components/Buttons/Favourite';
 
 type Props = {
   params: { movieId: string };
@@ -98,14 +89,7 @@ export default async function page({ params: { movieId } }: Props) {
         poster={poster_path}
       />
 
-      <Favourite
-        movie={payload}
-        showText
-        position='relative'
-        extraStyles='bg-dull w-fit ml-auto mt-3 rounded-lg hover:border hover:border-pink-600'
-      />
-
-      <section className=' flex flex-col gap-5 md:gap-7 lg:gap-10 w-4/5 mx-auto mb-5  pb-5'>
+      <section className=' flex flex-col gap-5 md:gap-7 lg:gap-10 w-11/12 mx-auto mb-5 pb-5'>
         <Details
           type='movie'
           name={title}
@@ -119,6 +103,7 @@ export default async function page({ params: { movieId } }: Props) {
           release={release_date}
           budget={budget}
           revenue={revenue}
+          payload={payload}
         />
         <Casts casts={credits.cast} />
 

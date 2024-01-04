@@ -7,7 +7,7 @@ import NavHeader from '@/components/navigation/NavHeader';
 import BackToTop from '@/components/Buttons/back-to-top';
 import Sidebar from '@/components/navigation/sidebar';
 import { Suspense } from 'react';
-import Ellipsis from '@/components/loaders/ellipsis';
+import Fallback from '@/components/loaders/fallback';
 
 export const metadata: Metadata = {
   title: {
@@ -32,12 +32,12 @@ export default function RootLayout({
       >
         <Providers>
           <Toaster />
-          <Suspense fallback={<Ellipsis />}>
-            <NavHeader />
-          </Suspense>
+          <Suspense fallback={<Fallback />}></Suspense>
           <main className='md:grid md:grid-cols-12'>
             <Sidebar />
-            <section className='md:col-span-11 overflow-x-clip'>
+            <section className='md:col-span-10 overflow-x-clip relative'>
+              <NavHeader />
+
               {children}
             </section>
           </main>

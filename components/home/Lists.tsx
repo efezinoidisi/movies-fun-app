@@ -18,7 +18,7 @@ export default async function Lists({
   }[];
 }) {
   return (
-    <div className='px-5 md:px-10 lg:px-16 xl:px-20'>
+    <div className='w-11/12 mx-auto'>
       {moviesData.map(({ id, ...others }) => (
         <Section key={id} {...others} />
       ))}
@@ -37,7 +37,7 @@ type SectionProps = {
 const Section = (props: SectionProps) => {
   const { title, variant, results, href, type = 'movie' } = props;
   return (
-    <section className='border-b border-body flex flex-col gap-4 last:border-none pt-4'>
+    <section className='border-b border-body flex flex-col gap-y-4 last:border-none pt-4'>
       <h3 className='font-semibold capitalize lg text-2xl text-white'>
         {title}
       </h3>

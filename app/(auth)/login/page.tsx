@@ -6,6 +6,7 @@ import authOptions from 'config/authOptions';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
 import Ellipsis from '@/components/loaders/ellipsis';
+import Fallback from '@/components/loaders/fallback';
 
 export const metadata: Metadata = {
   title: '- Login',
@@ -27,7 +28,7 @@ export default async function page() {
           sign up for free
         </Link>
       </p>
-      <Suspense fallback={<Ellipsis />}>
+      <Suspense fallback={<Fallback />}>
         <Login />
       </Suspense>
     </main>

@@ -1,6 +1,11 @@
-import GenreList from '@/components/common/genre-list';
 import { fetchList } from '@/utils/fetchList';
+import { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Genres',
+  description: 'explore all movies and tv show genres',
+};
 
 export default async function page() {
   const movieGenresEndpoint = 'genre/movie/list';
@@ -12,7 +17,7 @@ export default async function page() {
   const [{ genres: movieGenres }, { genres: tvGenres }] = await allData;
 
   return (
-    <section className='px-5 pb-10'>
+    <section className='w-11/12 mx-auto pb-10'>
       <div className='py-12'></div>
       <h2 className='sr-only'>genres</h2>
       <div className='grid grid-cols-2 place-items-start justify-items-center gap-5'>

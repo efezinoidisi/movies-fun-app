@@ -1,14 +1,9 @@
 import { Suspense } from 'react';
 import Search from '@/components/Search';
-import Image from 'next/image';
-import { IMG_URL } from '@/constants/data';
 import List from '@/components/List/List';
-import Link from 'next/link';
 import { fetchList } from '@/utils/fetchList';
-import NewReleaseCard from '@/components/Cards/NewRelease';
-import Ring from '@/components/loaders/ring';
+import Fallback from '@/components/loaders/fallback';
 import Pagination from '@/components/common/pagination';
-import { pages } from 'next/dist/build/templates/app-page';
 type Props = {
   searchParams?: { query?: string; page?: string };
 };
@@ -25,11 +20,11 @@ export default async function page({ searchParams }: Props) {
 
   return (
     <main className='min-h-screen pt-20'>
-      <section className='flex flex-col gap-3 px-5 md:px-14 lg:px-20 pt-5'>
+      <section className='flex flex-col gap-3 w-11/12 mx-auto pt-5 mt-7'>
         <h2 className='capitalize text-xl text-center font-semibold tracking-wider sr-only'>
           search page
         </h2>
-        <Suspense fallback={<Ring />}>
+        <Suspense fallback={<Fallback />}>
           <Search />
         </Suspense>
         {query ? (

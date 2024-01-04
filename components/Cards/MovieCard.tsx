@@ -35,7 +35,7 @@ export default function MovieCard(props: MovieList) {
   const page = `${type}${type === 'tv' ? '' : 's'}`;
   return (
     <div
-      className={`flex flex-col gap-3 items-start rounded-lg  transition-colors ease-in relative bg-body mr-1 pb-4 md:pb-0  min-h-[18rem] border border-y-main/50 border-x-accent/50 hover:border-2 hover:shadow-al overflow-x-hidden w-full`}
+      className={`flex flex-col gap-3 items-start rounded-lg  transition-colors ease-in relative bg-body mr-1 pb-4 md:pb-0  md:min-h-[18rem] border border-y-main/50 border-x-accent/50 hover:border-2 hover:shadow-al overflow-x-hidden w-full`}
     >
       <Favourite
         movie={moviePayload}
@@ -50,7 +50,7 @@ export default function MovieCard(props: MovieList) {
         <MoviePoster
           posterPath={poster_path}
           imageStyles='w-full h-full rounded-t-lg bg-cover'
-          className='w-full aspect-square'
+          className='w-full aspect-[2/3]'
           alt={`poster for ${name || title}`}
         />
 

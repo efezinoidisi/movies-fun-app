@@ -53,6 +53,7 @@ const config: Config = {
         ellipsis1: 'ellipsis1 0.6s infinite',
         ellipsis2: 'ellipsis2 0.6s infinite',
         ellipsis3: 'ellipsis3 0.6s infinite',
+        'bounce-once': 'bounce-once 1s 1',
       },
       keyframes: {
         search: {
@@ -108,6 +109,20 @@ const config: Config = {
           },
           '100%': {
             transform: 'scale(0)',
+          },
+        },
+        'bounce-once': {
+          '0%': {
+            transform: 'translateY(-25%)',
+            'animation-timing-function': 'cubic-bezier(0.8,0,1,1)',
+          },
+          '50%': {
+            transform: 'none',
+            'animation-timing-function': 'cubic-bezier(0,0,0.2,1)',
+          },
+          '100%': {
+            transform: 'none',
+            'animation-timing-function': 'cubic-bezier(0,0,0.2,1)',
           },
         },
       },

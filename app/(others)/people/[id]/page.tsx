@@ -9,6 +9,15 @@ type Props = {
   params: { id: string };
 };
 
+export async function generateMetadata({ params: { id } }: Props) {
+  const person = await fetchList(`person/${id}`);
+
+  return {
+    title: person.name,
+    description: `explore public information about ${person.name}`,
+  };
+}
+
 export default async function page({ params: { id } }: Props) {
   const endpoint = `person/${id}?append_to_response=images,tv_credits,movie_credits`;
 
@@ -74,7 +83,7 @@ export default async function page({ params: { id } }: Props) {
   const profiles = images?.profiles?.slice(0, 10);
 
   return (
-    <section className='px-5 w-full md:w-5/6 mx-auto'>
+    <section className='w-11/12 mx-auto'>
       <div className='py-16'></div>
       <h2 className='text-white text-center mb-5 text-xl md:text-start'>
         {name || ''}
@@ -102,7 +111,9 @@ export default async function page({ params: { id } }: Props) {
         />
       </div>
       <section className='flex flex-col gap-3 my-5 md:my-10'>
-        <h3 className='capitalize text-white text-xl'>featured images</h3>
+        <h3 className='capitalize text-white text-xl font-bold mb-7'>
+          featured images
+        </h3>
         <div className='flex gap-3 flex-wrap'>
           {profiles?.length > 0 &&
             profiles.map((profile) => {
@@ -120,7 +131,7 @@ export default async function page({ params: { id } }: Props) {
       </section>
 
       <section className='flex flex-col gap-y-5 w-full md:5/6 lg::w-3/4 mx-auto py-5'>
-        <h3 className='capitalize text-white text-xl'>filmography</h3>
+        <h3 className='capitalize text-white text-xl font-bold'>filmography</h3>
         {movieCredits.length > 0 && (
           <Table type='movies' items={movieCredits} caption='movies' />
         )}
@@ -184,11 +195,11 @@ const Table = (props: TableProps) => {
   }
   return (
     <table className='table-fixed'>
-      <caption className='caption-top capitalize  border-b-2 py-3 text-white'>
+      <caption className='caption-top uppercase  border-b-4 py-3 text-white/90 font-medium tracking-wider text-lg border-pink-500'>
         {caption}
       </caption>
       <thead className=''>
-        <tr className='border border-b-0 py-4 grid grid-cols-5 w-full border-text/80 uppercase font-mono tracking-wider'>
+        <tr className='border border-t-pink-500 border-b-0 py-4 grid grid-cols-5 w-full border-text/80 uppercase font-mono tracking-wider text-sm md:text-base'>
           <th className='border-r border-dull text-center py-2 col-span-1'>
             year
           </th>

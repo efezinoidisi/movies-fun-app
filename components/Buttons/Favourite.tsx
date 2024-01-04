@@ -13,12 +13,10 @@ export default function Favourite({
   movie,
   position = 'static',
   extraStyles = '',
-  showText = false,
 }: {
   movie: MediaItem;
   position?: Position;
   extraStyles?: string;
-  showText?: boolean;
 }) {
   const { favorites, addFavorite, removeFavorite } = useData();
   const { status } = useSession();
@@ -68,12 +66,6 @@ export default function Favourite({
       )}
       onClick={handleAddtoFavourites}
     >
-      {showText && (
-        <span className='text-dullText'>
-          {isFavorite ? 'liked' : 'add favourite'}
-        </span>
-      )}
-
       <Icons.heart
         className={` text-2xl group-hover:text-pink-400 group-active:animate-heart ${
           isFavorite !== undefined ? 'text-pink-500' : 'text-white'

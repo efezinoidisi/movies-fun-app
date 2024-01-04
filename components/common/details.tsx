@@ -5,6 +5,7 @@ import { IMG_URL } from '@/constants/data';
 import Icons from '@/lib/icons';
 import Rating from './rating';
 import MoviePoster from './poster';
+import Favourite from '../Buttons/Favourite';
 
 type Common = {
   runtime: string;
@@ -14,6 +15,7 @@ type Common = {
   poster: string;
   name: string;
   rating: number;
+  payload: MediaItem;
 };
 
 type Tv = Common & {
@@ -37,8 +39,17 @@ type Movie = Common & {
 type Props = Movie | Tv;
 
 export default function Details(props: Props) {
-  const { overview, type, language, genres, runtime, poster, name, rating } =
-    props;
+  const {
+    overview,
+    type,
+    language,
+    genres,
+    runtime,
+    poster,
+    name,
+    rating,
+    payload,
+  } = props;
   let items: { name: string; value: string | React.ReactNode | number }[] = [
     {
       name: 'language',
@@ -109,8 +120,15 @@ export default function Details(props: Props) {
 
   return (
     <article className=' flex flex-col gap-y-3 md:gap-y-5 justify-start items-start'>
-      <h2 className='capitalize text-xl font-semibold py-3 text-white'>
-        overview
+      <h2 className=' py-3  flex items-center justify-between w-full'>
+        <span className='text-white capitalize text-xl font-semibold'>
+          overview
+        </span>
+        <Favourite
+          movie={payload}
+          position='relative'
+          extraStyles='bg-dull w-fit ml-auto mt-3 rounded-lg hover:border hover:border-pink-600'
+        />
       </h2>
       <p className='tracking-wide leading-6 md:leading-7 lg:leading-8'>
         {overview}

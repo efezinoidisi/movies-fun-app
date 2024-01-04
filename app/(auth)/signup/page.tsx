@@ -5,7 +5,7 @@ import authOptions from 'config/authOptions';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
-import Ellipsis from '@/components/loaders/ellipsis';
+import Fallback from '@/components/loaders/fallback';
 
 export const metadata: Metadata = {
   title: ' - signup',
@@ -19,7 +19,7 @@ export default async function page() {
   return (
     <main className='flex flex-col items-center  py-5 px-5 md:pt-20'>
       <h2 className='capitalize'>registration form</h2>
-      <Suspense fallback={<Ellipsis />}>
+      <Suspense fallback={<Fallback />}>
         <SignUpForm />
       </Suspense>
       <div className='mt-7 text-sm'>

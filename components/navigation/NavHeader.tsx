@@ -24,7 +24,7 @@ export default function NavHeader(props: Props) {
   const isLoggedIn = status === 'authenticated';
   return (
     <header
-      className={`flex justify-between items-center absolute w-5/6 md:w-11/12 top-9 font-bold md:px-10 lg:px-20 z-50 text-white text-opacity-90 ${styles} capitalize md:pl-20 left-1/2 -translate-x-1/2`}
+      className={`flex justify-between items-center absolute w-5/6 md:w-11/12 top-9 font-bold md:px-10 lg:px-10 z-50 text-white text-opacity-90 ${styles} capitalize  left-1/2 -translate-x-1/2`}
     >
       {' '}
       <h1 className='font-bold text-xl md:text-2xl'>

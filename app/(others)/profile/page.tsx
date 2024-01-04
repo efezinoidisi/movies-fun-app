@@ -60,7 +60,7 @@ export default async function Page({
     <>
       <div className='py-12'></div>
       <h2 className='capitalize mb-8 font-bold text-center'>account details</h2>
-      <section className='grid grid-cols-12 gap-4 px-5 md:px-10 lg:px-16 min-h-[50svh]'>
+      <section className='grid grid-cols-12 gap-4 w-11/12 mx-auto min-h-[50svh]'>
         <UserDetails username={user.username} email={user.email} id={user.id} />
         <div className='col-span-12 flex flex-col lg:col-span-8 lg:col-start-1 lg:row-start-1 pb-5'>
           <Tab
