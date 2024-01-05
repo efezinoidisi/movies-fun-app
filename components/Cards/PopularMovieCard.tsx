@@ -41,7 +41,7 @@ export default function PopularMovieCard(props: CardProps) {
         style={{
           background: `linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%),url(${IMG_URL}${backdrop_path})`,
         }}
-        className={`flex gap-3 items-end rounded-lg py-3  hover:bg-gray-800 px-2 min-h-[20rem] text-white transition-all duration-300 ease-in-out relative overflow-x-hidden mr-5`}
+        className={`flex hero gap-3 items-end rounded-lg py-3  hover:bg-gray-800 px-2 min-h-[20rem] text-white transition-all duration-300 ease-in-out relative overflow-x-hidden mr-2`}
       >
         <Favourite
           movie={moviePayload}
@@ -55,12 +55,12 @@ export default function PopularMovieCard(props: CardProps) {
         </p>
         <MoviePoster
           posterPath={poster_path}
-          className='min-w-[6rem] max-w-[6rem] overflow-hidden relative'
+          className='min-w-[7rem] max-w-[7rem] overflow-hidden relative'
           imageStyles='object-cover w-full h-full rounded-md'
           alt={`poster for ${name || title}`}
         />
-        <div className={'flex flex-col col-span-2 gap-1'}>
-          <h3 className='capitalize font-semibold text-md line-clamp-1'>
+        <div className={'flex flex-col gap-1'}>
+          <h3 className='capitalize font-semibold text-xl line-clamp-1'>
             {name || title}
           </h3>
           <GenreList genres={genres} type='without-id' />

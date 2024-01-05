@@ -55,7 +55,7 @@ export default function UserDetails({
           onClick={() => {
             setEditProfile((prev) => !prev);
           }}
-          className='w-fit  bg-accent py-1 capitalize rounded-xl px-2 text-white'
+          className='w-fit  bg-gray-600 py-1 capitalize rounded-xl px-2 text-white pointer-events-none'
         >
           edit profile
         </Button>

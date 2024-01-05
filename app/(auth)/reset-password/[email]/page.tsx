@@ -1,4 +1,6 @@
+import { Suspense } from 'react';
 import ResetPasswordForm from '../components/ResetPasswordForm';
+import Fallback from '@/components/loaders/fallback';
 
 export default function page({
   params: { email },
@@ -8,7 +10,9 @@ export default function page({
   return (
     <div className='px-5 md:px-10 flex flex-col justify-center min-h-[50vh]'>
       <h2 className='capitalize text-white text-xl'>password reset</h2>
-      <ResetPasswordForm email={email} />
+      <Suspense fallback={<Fallback />}>
+        <ResetPasswordForm email={email} />
+      </Suspense>{' '}
     </div>
   );
 }

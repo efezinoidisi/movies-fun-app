@@ -13,11 +13,12 @@ type Props = {
 
 export default function NavHeader(props: Props) {
   const { styles } = props;
-  // const session = await getServerSession(authOptions);
 
   const { status } = useSession();
   const searchParams = useSearchParams();
   const pathname = usePathname();
+
+  const isProfilePage = pathname === '/profile';
 
   const from = `${pathname}?${searchParams.toString()}`;
 
@@ -41,7 +42,9 @@ export default function NavHeader(props: Props) {
           <>
             <Link
               href={'/profile'}
-              className='border rounded-full p-1 hover:border-accent hover:text-accent'
+              className={`border rounded-full p-1 hover:border-accent hover:text-accent hover:scale-105 transition-colors duration-200 ease-linear ${
+                isProfilePage ? 'border-accent text-accent' : ''
+              }`}
             >
               {' '}
               <Icons.person />

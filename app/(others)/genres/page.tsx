@@ -44,7 +44,7 @@ const Genre = ({
   const content = genres?.map(({ id, name }) => (
     <li
       key={id}
-      className='text-center md:text-left px-2 py-2 hover:bg-dull w-fit rounded-lg hover:text-accent transition-colors duration-200 ease-in-out'
+      className='text-left px-2 py-2 hover:bg-dull min-fit rounded-lg hover:text-accent transition-colors duration-200 ease-in-out'
     >
       <Link
         href={`/${type}/genre/${id}`}

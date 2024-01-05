@@ -103,13 +103,13 @@ export default function EditUserForm({
         error={errors?.email?.message}
         register={register}
       />
-      <Input
+      {/* <Input
         label='username'
         placeholder='username'
         controlname='username'
         error={errors?.username?.message}
         register={register}
-      />
+      /> */}
       <div className='flex gap-2'>
         <Button
           type='button'

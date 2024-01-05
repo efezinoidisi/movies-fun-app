@@ -32,11 +32,12 @@ export default function RootLayout({
       >
         <Providers>
           <Toaster />
-          <Suspense fallback={<Fallback />}></Suspense>
           <main className='md:grid md:grid-cols-12'>
             <Sidebar />
             <section className='md:col-span-10 overflow-x-clip relative'>
-              <NavHeader />
+              <Suspense fallback={<Fallback />}>
+                <NavHeader />
+              </Suspense>
 
               {children}
             </section>

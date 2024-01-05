@@ -1,7 +1,10 @@
-import UserList from '@/components/List/user-list';
 import Tab from '@/components/common/tab';
+import Fallback from '@/components/loaders/fallback';
 import UserDetails from '@/components/user/details';
-import { fetchUserDetails } from '@/utils/actions';
+import UserData from '@/components/user/user-data';
+import authOptions from 'config/authOptions';
+import { getServerSession } from 'next-auth';
+import { Suspense } from 'react';
 
 type Tab =
   | 'favorite-series'
@@ -14,7 +17,8 @@ export default async function Page({
 }: {
   searchParams: { tab: Tab };
 }) {
-  const user = await fetchUserDetails();
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
   const tab = searchParams?.tab ?? 'favorite-movies';
   const tabItems = [
     {
@@ -35,43 +39,15 @@ export default async function Page({
     },
   ];
 
-  const items = {
-    'favorite-movies': {
-      data: user?.favorites?.movies,
-      title: 'favorite movies',
-    },
-    'favorite-series': {
-      data: user?.favorites?.tv,
-      title: 'favorite series',
-    },
-    'watchlist-movies': {
-      data: user?.watchlist?.movies,
-      title: 'watchlist movies',
-    },
-    'watchlist-series': {
-      data: user?.watchlist?.tv,
-      title: 'watchlist series',
-    },
-  };
-
-  const currentItems = items[tab].data.slice(0, 10);
-  const title = items[tab].title;
   return (
     <>
       <div className='py-12'></div>
       <h2 className='capitalize mb-8 font-bold text-center'>account details</h2>
       <section className='grid grid-cols-12 gap-4 w-11/12 mx-auto min-h-[50svh]'>
-        <UserDetails username={user.username} email={user.email} id={user.id} />
-        <div className='col-span-12 flex flex-col lg:col-span-8 lg:col-start-1 lg:row-start-1 pb-5'>
-          <Tab
-            tabItems={tabItems}
-            defaultTab='favorite-movies'
-            styles='col-span-12 md:self-center md:w-fit rounded-md border-white bg-white bg-opacity-90'
-            activeStyles='border-accent  text-accent'
-          />
-
-          <UserList list={currentItems} title={title} />
-        </div>
+        <UserDetails username={''} email={user?.email ?? ''} id={''} />
+        <Suspense fallback={<Fallback />}>
+          <UserData />
+        </Suspense>{' '}
       </section>{' '}
     </>
   );

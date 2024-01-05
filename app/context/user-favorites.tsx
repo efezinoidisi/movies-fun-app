@@ -7,6 +7,7 @@ import {
   useContext,
   useEffect,
   useReducer,
+  useState,
 } from 'react';
 
 enum DataActionType {
@@ -116,6 +117,7 @@ type DataContextType = DataState & {
   removeFavorite: (movie: MediaItem, type: 'tv' | 'movie') => void;
   addWatchlist: (movie: MediaItem, type: 'tv' | 'movie') => void;
   removeWatchlist: (movie: MediaItem, type: 'tv' | 'movie') => void;
+  dataStatus: string;
 };
 const DataContext = createContext<DataContextType | null>(null);
 
@@ -133,12 +135,14 @@ const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const { status } = useSession();
 
   const [data, dispatch] = useReducer(dataReducer, initialState);
+  const [dataStatus, setDataStatus] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
+      setDataStatus('loading');
       const res = await fetch('/api/data');
       const body = await res.json();
-
+      setDataStatus('success');
       dispatch({
         type: 'UPDATE_ALL',
         payload: body,
@@ -209,7 +213,9 @@ const DataProvider = ({ children }: { children: React.ReactNode }) => {
     removeFavorite,
     addWatchlist,
     removeWatchlist,
+    dataStatus,
   };
+
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 };
 

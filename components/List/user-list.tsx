@@ -14,7 +14,7 @@ export default function UserList({
   styles?: string;
 }) {
   return (
-    <section className={merge('flex flex-col gap-5', styles)}>
+    <section className={merge('flex flex-col gap-10', styles)}>
       {title && (
         <h2 className='font-bold capitalize text-lg md:text-2xl text-white'>
           {title}
