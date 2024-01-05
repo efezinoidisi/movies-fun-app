@@ -35,7 +35,7 @@ export default function RootLayout({
           <main className='md:grid md:grid-cols-12'>
             <Sidebar />
             <section className='md:col-span-10 overflow-x-clip relative'>
-              <Suspense fallback={<Fallback />}>
+              <Suspense fallback={<Fallback extraStyles='absolute top-9' />}>
                 <NavHeader />
               </Suspense>
 

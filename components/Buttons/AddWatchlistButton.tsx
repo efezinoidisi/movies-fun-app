@@ -33,6 +33,7 @@ export default function AddWatchlistButton(props: Props) {
       return;
     }
     const actionType = movie?.name ? 'tv' : 'movie';
+
     if (movieInWatchList === undefined) {
       addWatchlist(movie, actionType);
       const res = await addToWatchList(movie);
@@ -54,7 +55,7 @@ export default function AddWatchlistButton(props: Props) {
   return (
     <Button
       className={merge(
-        `py-2 md:py-4 min-w-[10rem] capitalize px-2 md:px-4 rounded-lg flex gap-2 items-center text-sm font-medium group cursor-pointer h-12`,
+        `py-2 md:py-4 truncate hover:bg-white/80 hover:text-background transition-colors duration-200 ease-linear md:min-w-max capitalize px-2 md:px-4 rounded-lg flex gap-2 items-center text-sm font-medium group cursor-pointer h-12`,
         border && 'border',
         extraStyles
       )}
@@ -67,7 +68,7 @@ export default function AddWatchlistButton(props: Props) {
       ) : (
         <Icons.bookmark className='text-xl' />
       )}
-      {showText && (movieInWatchList ? 'bookmarked' : 'bookmark')}
+      {showText && (movieInWatchList ? 'remove' : 'add watchlist')}
     </Button>
   );
 }

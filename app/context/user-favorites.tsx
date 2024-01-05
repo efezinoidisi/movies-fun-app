@@ -51,7 +51,7 @@ function dataReducer(state: DataState, action: DataAction) {
         ...state,
         favorites: {
           ...state.favorites,
-          movies: [...state.favorites.movies, payload],
+          movies: [payload, ...state.favorites.movies],
         },
       };
     }
@@ -72,7 +72,7 @@ function dataReducer(state: DataState, action: DataAction) {
         ...state,
         favorites: {
           ...state.favorites,
-          tv: [...state.favorites.tv, payload],
+          tv: [payload, ...state.favorites.tv],
         },
       };
     }
@@ -91,7 +91,19 @@ function dataReducer(state: DataState, action: DataAction) {
         ...state,
         watchlist: {
           ...state.watchlist,
-          movies: [...state.watchlist.movies, payload],
+          movies: [payload, ...state.watchlist.movies],
+        },
+      };
+    }
+    case DataActionType.REMOVE_WATCHLIST_MOVIE: {
+      const movies = state.watchlist.movies.filter(
+        (movie) => movie.id !== payload.id
+      );
+      return {
+        ...state,
+        watchlist: {
+          ...state.watchlist,
+          movies,
         },
       };
     }
@@ -100,7 +112,17 @@ function dataReducer(state: DataState, action: DataAction) {
         ...state,
         watchlist: {
           ...state.watchlist,
-          tv: [...state.watchlist.tv, payload],
+          tv: [payload, ...state.watchlist.tv],
+        },
+      };
+    }
+    case DataActionType.REMOVE_WATCHLIST_TV: {
+      const tv = state.watchlist.tv.filter((movie) => movie.id !== payload.id);
+      return {
+        ...state,
+        watchlist: {
+          ...state.watchlist,
+          tv,
         },
       };
     }

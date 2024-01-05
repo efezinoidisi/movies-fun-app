@@ -60,14 +60,14 @@ export default function Favourite({
   return (
     <Button
       className={merge(
-        'px-2 group bg-black/20 py-2 rounded-full flex items-center gap-1 capitalize',
+        'px-2 group bg-black/20 py-2 rounded-full flex items-center gap-1 capitalize transition-colors duration-200 ease-in-out',
         position,
         extraStyles
       )}
       onClick={handleAddtoFavourites}
     >
       <Icons.heart
-        className={` text-2xl group-hover:text-pink-400 group-active:animate-heart ${
+        className={`hover:text-accent text-2xl group-active:animate-heart ${
           isFavorite !== undefined ? 'text-pink-500' : 'text-white'
         }`}
       />

@@ -13,9 +13,9 @@ export default function CloseModal() {
   return (
     <Button
       onClick={goBack}
-      className='absolute right-3 bg-black/50 top-3 text-2xl p-2 rounded-full'
+      className='absolute -left-1 bg-black/50 -top-3 text-2xl p-2 rounded-full group '
     >
-      <Icons.close className={' text-white'} />
+      <Icons.close className={' fill-white/50 group-hover:fill-red-400/70'} />
     </Button>
   );
 }

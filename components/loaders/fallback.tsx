@@ -1,8 +1,13 @@
+import { merge } from 'lodash';
 import Ellipsis from './ellipsis';
 
-const Fallback = () => {
+type Props = {
+  extraStyles?: string;
+};
+
+const Fallback = ({ extraStyles = '' }: Props) => {
   return (
-    <div className='flex justify-center items-center'>
+    <div className={merge('flex justify-center items-center', extraStyles)}>
       <Ellipsis />
     </div>
   );
