@@ -7,6 +7,7 @@ import {
 import InfiniteScroll from '@/components/infinite-scroll/infinite-scroll';
 import { GENRES } from '@/constants/data';
 import Error from '@/components/error/error';
+import Heading from '@/components/common/heading';
 
 type Props = {
   params: { id: string };
@@ -42,9 +43,7 @@ export default async function page(props: Props) {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className='py-10 bg-[#0e2439]'></div>
       <section className='w-11/12 mx-auto pt-10  flex flex-col gap-5'>
-        <h2 className='capitalize font-bold pb-5 text-center text-xl text-white'>
-          {text}
-        </h2>
+        <Heading text={text} />
         <InfiniteScroll endpoint={endpoint} passkey={queryKey} />
       </section>
     </HydrationBoundary>

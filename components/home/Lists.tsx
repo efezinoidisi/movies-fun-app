@@ -4,6 +4,7 @@ import NewReleaseCard from '../Cards/NewRelease';
 import PopularMovieCard from '../Cards/PopularMovieCard';
 import { popularMoviesOptions } from '@/constants/data';
 import MovieCard from '../Cards/MovieCard';
+import SubHeading from '../common/sub-heading';
 
 export default async function Lists({
   moviesData,
@@ -18,7 +19,7 @@ export default async function Lists({
   }[];
 }) {
   return (
-    <div className='w-11/12 mx-auto'>
+    <div className='w-11/12 mx-auto flex flex-col gap-y-10'>
       {moviesData.map(({ id, ...others }) => (
         <Section key={id} {...others} />
       ))}
@@ -38,9 +39,7 @@ const Section = (props: SectionProps) => {
   const { title, variant, results, href, type = 'movie' } = props;
   return (
     <section className='border-b border-body flex flex-col gap-y-4 last:border-none pt-4'>
-      <h3 className='font-semibold capitalize lg text-2xl text-white'>
-        {title}
-      </h3>
+      <SubHeading text={title} />
       <CustomCarousel
         options={variant === 'popular' ? popularMoviesOptions : null}
       >

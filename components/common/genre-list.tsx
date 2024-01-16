@@ -32,7 +32,7 @@ export default function GenreList({
   };
   if (type === 'with-id')
     return (
-      <ul className={merge('flex gap-x-1 flex-wrap items- gap-y-2', styles)}>
+      <ul className={merge('flex gap-x-3 flex-wrap gap-y-2', styles)}>
         {genres.map(({ id, name }) => {
           return (
             <li

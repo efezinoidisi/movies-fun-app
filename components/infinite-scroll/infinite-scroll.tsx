@@ -8,6 +8,8 @@ import Ring from '../loaders/ring';
 import MovieCard from '../Cards/MovieCard';
 import Person from '../Cards/person';
 import Error from '../error/error';
+import NewReleaseCard from '../Cards/NewRelease';
+import SubHeading from '../common/sub-heading';
 
 type Props = {
   endpoint: string;
@@ -82,15 +84,13 @@ export default function InfiniteScroll(props: Props) {
               (a: MovieList, b: MovieList) => b.popularity - a.popularity
             )
             .map((movie: MovieList) => {
-              return <MovieCard key={movie.id} {...movie} />;
+              return <NewReleaseCard key={movie.id} {...movie} />;
             });
         });
 
   return (
     <section>
-      {title && (
-        <h2 className='text-white font-bold capitalize mb-5'>{title}</h2>
-      )}
+      {title && <SubHeading text={title} />}
       <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 sl:grid-cols-3 gap-2 gap-y-4 sl:gap-7 md:gap-5'>
         {content}
       </div>

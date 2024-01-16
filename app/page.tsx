@@ -51,19 +51,19 @@ export default async function Home() {
     type: 'movie' | 'tv';
   }[] = [
     {
-      id: 0,
+      id: 3,
       variant: 'new',
-      results: trendingResults,
-      href: '/movies?tab=trending',
-      title: 'trending movies',
-      type: 'movie',
+      results: trendingSeries,
+      href: '/tv?tab=trending',
+      title: 'trending tv shows',
+      type: 'tv',
     },
     {
       id: 1,
       variant: 'popular',
       results: popularResults,
       href: '/movies?tab=popular',
-      title: 'popular',
+      title: 'popular movies',
       type: 'movie',
     },
     {
@@ -75,24 +75,24 @@ export default async function Home() {
       type: 'tv',
     },
     {
-      id: 3,
+      id: 0,
       variant: 'new',
-      results: trendingSeries,
-      href: '/tv?tab=trending',
-      title: 'trending tv shows',
-      type: 'tv',
+      results: movies,
+      href: '/movies?tab=upcoming',
+      title: 'upcoming movies',
+      type: 'movie',
     },
   ];
 
   const randomFive = getRandomMovies(trendingResults, 5);
   return (
     <>
-      <section className={' flex flex-col '}>
+      <section className={' flex flex-col gap-y-5'}>
         <Hero movies={randomFive} />
         <List
-          list={movies.slice(0, 10)}
-          link='/movies?tab=upcoming'
-          title='upcoming movies'
+          list={trendingResults.slice(0, 10)}
+          link='/movies?tab=trending'
+          title='trending movies'
           styles=' w-11/12 mx-auto border-b mt-10 border-body'
         />
         <Lists moviesData={allData} />

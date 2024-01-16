@@ -1,3 +1,4 @@
+import SubHeading from '@/components/common/sub-heading';
 import { fetchList } from '@/utils/fetchList';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -19,14 +20,14 @@ export default async function page() {
   return (
     <section className='w-11/12 mx-auto pb-10'>
       <div className='py-12'></div>
-      <h2 className='sr-only'>genres</h2>
+
       <div className='grid grid-cols-2 place-items-start justify-items-center gap-5'>
         <div className='flex flex-col gap-5 border-r border-body items-center pr-5 md:border-none'>
-          <h3 className='text-white capitalize'>movie genres</h3>
+          <SubHeading text='movie genres' />
           <Genre genres={movieGenres} type='movies' />
         </div>
         <div className='flex flex-col gap-5 items-center'>
-          <h3 className='text-white capitalize'>tv genres</h3>
+          <SubHeading text='tv genres' />
           <Genre genres={tvGenres} type='tv' />
         </div>
       </div>

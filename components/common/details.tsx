@@ -1,8 +1,5 @@
 import { getReleaseDate, numberToDollarString } from '@/utils/helpers';
 import GenreList from './genre-list';
-import Image from 'next/image';
-import { IMG_URL } from '@/constants/data';
-import Icons from '@/lib/icons';
 import Rating from './rating';
 import MoviePoster from './poster';
 import Favourite from '../Buttons/Favourite';
@@ -25,13 +22,13 @@ type Tv = Common & {
   status: string;
   seasons: number;
   episodes: number;
-  creator: string;
+  creator: React.ReactNode;
 };
 
 type Movie = Common & {
   type: 'movie';
   release: string;
-  director: string;
+  director: React.ReactNode;
   budget: number;
   revenue: number;
 };
@@ -142,7 +139,7 @@ export default function Details(props: Props) {
                 <p className={`min-w-[6rem] md:min-w-[8rem] capitalize`}>
                   {name}
                 </p>
-                <p>{value}</p>
+                <div>{value}</div>
               </div>
             );
           })}

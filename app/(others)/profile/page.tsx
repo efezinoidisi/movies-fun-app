@@ -1,3 +1,4 @@
+import Heading from '@/components/common/heading';
 import Tab from '@/components/common/tab';
 import Fallback from '@/components/loaders/fallback';
 import UserDetails from '@/components/user/details';
@@ -42,7 +43,7 @@ export default async function Page({
   return (
     <>
       <div className='py-12'></div>
-      <h2 className='capitalize mb-8 font-bold text-center'>account details</h2>
+      <Heading text='account details' />
       <section className='grid grid-cols-12 gap-4 w-11/12 mx-auto min-h-[50svh]'>
         <UserDetails username={''} email={user?.email ?? ''} id={''} />
         <Suspense fallback={<Fallback />}>

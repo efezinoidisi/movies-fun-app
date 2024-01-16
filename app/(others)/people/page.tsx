@@ -6,6 +6,7 @@ import {
 } from '@tanstack/react-query';
 import InfiniteScroll from '@/components/infinite-scroll/infinite-scroll';
 import { Metadata } from 'next';
+import Heading from '@/components/common/heading';
 
 export const metadata: Metadata = {
   title: 'Popular celebrities',
@@ -31,9 +32,7 @@ export default async function page() {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className='py-10 bg-[#0e2439]'></div>
       <section className='w-11/12 mx-auto pt-10  flex flex-col gap-5'>
-        <h2 className='capitalize font-bold pb-5 text-center text-xl text-white'>
-          popular people
-        </h2>
+        <Heading text='popular celebrities' />
         <InfiniteScroll endpoint={endpoint} passkey={queryKey} type='person' />
       </section>
     </HydrationBoundary>

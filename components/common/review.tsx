@@ -1,6 +1,5 @@
 'use client';
 import { useCallback, useMemo, useState, useRef } from 'react';
-import Ratings from '@/components/common/ratings';
 import { checkTrimString } from '@/utils/helpers';
 import Button from '@/components/Button';
 import Icons from '@/lib/icons';
@@ -9,6 +8,14 @@ import { sanitize } from 'isomorphic-dompurify';
 import { IMG_URL } from '@/constants/data';
 import Image from 'next/image';
 import { fetchClientList } from '@/utils/fetchList';
+import Rating from './rating';
+import SubHeading from './sub-heading';
+
+type Props = {
+  reviews: Review[] | null;
+  pages: number;
+  movieId: number;
+};
 
 export default function Review(props: Props) {
   const { reviews, pages, movieId } = props;
@@ -36,9 +43,7 @@ export default function Review(props: Props) {
   if (!movieReviews || movieReviews.length === 0) return null;
   return (
     <section className=''>
-      <h2 className='text-white text-xl font-semibold capitalize mb-4'>
-        reviews
-      </h2>
+      <SubHeading text='IMDB reviews' />
       <div ref={ref}>
         {movieReviews.map(
           ({ id, author, content, author_details, created_at }) => {
@@ -128,13 +133,14 @@ function ReviewCard(props: ReviewCardProps) {
       width={200}
       height={200}
       className='rounded-full w-12 h-12'
+      unoptimized
     />
   ) : (
     <Icons.person className='rounded-full w-12 h-12' />
   );
   return (
     <div
-      className=' border-b last:border-b-0 py-7 flex flex-col gap-2 border-text border-opacity-40'
+      className=' border-b py-7 flex flex-col gap-2 border-text border-opacity-40 last:border-b-0'
       ref={ref}
     >
       <div className='flex items-center gap-2'>
@@ -148,11 +154,12 @@ function ReviewCard(props: ReviewCardProps) {
           </span>
         </p>
       </div>
-      <Ratings ratings={rating} />
+      <Rating rating={rating as number} />
       <div className='relative flex flex-col'>
         <p
           dangerouslySetInnerHTML={{ __html: displayedContent }}
           className={merge(
+            'leading-7 md:leading-8 tracking-wider',
             content.length > MAX_CONTENT && !showFullContent && 'mask'
           )}
           ref={ref}
@@ -179,9 +186,3 @@ function ReviewCard(props: ReviewCardProps) {
     </div>
   );
 }
-
-type Props = {
-  reviews: Review[] | null;
-  pages: number;
-  movieId: number;
-};

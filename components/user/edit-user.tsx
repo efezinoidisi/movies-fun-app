@@ -8,7 +8,6 @@ import Input from '../form/Input';
 import toast from 'react-hot-toast';
 
 const debouncedValidation = debounce(async (value: string) => {
-  const controller = new AbortController();
   const res = await fetch('api/auth/userExists', {
     method: 'POST',
     headers: {

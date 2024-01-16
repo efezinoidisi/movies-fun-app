@@ -16,7 +16,7 @@ export default function Person({ picture, name, id, character }: Props) {
         background: `url(${image})`,
       }}
       prefetch={false}
-      className={`hero relative justify-end flex flex-col min-h-[16rem] rounded-lg  overflow-x-hidden w-full mr-10 border border-accent/50 hover:scale-y-105`}
+      className={`hero relative justify-end flex flex-col min-h-[16rem] rounded-lg  overflow-hidden w-full mr-10 border border-accent/50 hover:scale-y-105`}
     >
       <div className='bg-black/60 w-full px-5 py-4'>
         <p className='text-center truncate text-white font-bold capitalize tracking-wide'>

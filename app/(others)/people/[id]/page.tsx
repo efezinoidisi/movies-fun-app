@@ -1,5 +1,8 @@
+import Heading from '@/components/common/heading';
 import Poster from '@/components/common/poster';
 import MoviePoster from '@/components/common/poster';
+import SubHeading from '@/components/common/sub-heading';
+import Tab from '@/components/common/tab';
 import { GENDERS } from '@/constants/data';
 import { fetchList } from '@/utils/fetchList';
 import { checkTrimString, getReleaseDate } from '@/utils/helpers';
@@ -7,7 +10,27 @@ import Link from 'next/link';
 
 type Props = {
   params: { id: string };
+  searchParams: {
+    tab?: 'movies' | 'television' | 'production';
+  };
 };
+
+type Item = Crew & CastTv & CastMovie;
+
+const tabItems = [
+  {
+    query: 'movies',
+    title: 'movies',
+  },
+  {
+    query: 'television',
+    title: 'television',
+  },
+  {
+    query: 'production',
+    title: 'production',
+  },
+];
 
 export async function generateMetadata({ params: { id } }: Props) {
   const person = await fetchList(`person/${id}`);
@@ -18,7 +41,10 @@ export async function generateMetadata({ params: { id } }: Props) {
   };
 }
 
-export default async function page({ params: { id } }: Props) {
+export default async function page({
+  params: { id },
+  searchParams: { tab = 'movies' },
+}: Props) {
   const endpoint = `person/${id}?append_to_response=images,tv_credits,movie_credits`;
 
   const person: Promise<PersonDetail> = await fetchList(endpoint);
@@ -40,21 +66,31 @@ export default async function page({ params: { id } }: Props) {
   const movieCredits = movie_credits?.cast;
 
   movieCredits.sort((a, b) => {
-    const dateA = getReleaseDate(a.release_date, 'short');
+    const dateA = +getReleaseDate(a.release_date, 'short');
 
-    const dateB = getReleaseDate(b.release_date, 'short');
+    const dateB = +getReleaseDate(b.release_date, 'short');
 
-    return +dateA - +dateB;
+    return dateB - dateA;
   });
 
   const tvCredits = tv_credits?.cast;
 
   tvCredits.sort((a, b) => {
-    const dateA = getReleaseDate(a.first_air_date, 'short');
+    const dateA = +getReleaseDate(a.first_air_date, 'short');
 
-    const dateB = getReleaseDate(b.first_air_date, 'short');
+    const dateB = +getReleaseDate(b.first_air_date, 'short');
 
-    return +dateA - +dateB;
+    return dateB - dateA;
+  });
+
+  const productionCredits = [...tv_credits?.crew, ...movie_credits?.crew];
+
+  productionCredits.sort((a, b) => {
+    const dateA = +getReleaseDate(a.first_air_date || a.release_date, 'short');
+
+    const dateB = +getReleaseDate(b.first_air_date || a.release_date, 'short');
+
+    return dateB - dateA;
   });
 
   const details = [
@@ -82,15 +118,31 @@ export default async function page({ params: { id } }: Props) {
 
   const profiles = images?.profiles?.slice(0, 10);
 
+  let filmography = null;
+  if (tab === 'television') {
+    filmography =
+      tvCredits.length > 0 ? (
+        <Table items={tvCredits as Item[]} caption='television' />
+      ) : null;
+  } else if (tab === 'production') {
+    filmography =
+      productionCredits.length > 0 ? (
+        <Table items={productionCredits as Item[]} caption='production' />
+      ) : null;
+  } else {
+    filmography =
+      movieCredits.length > 0 ? (
+        <Table items={movieCredits as Item[]} caption='movies' />
+      ) : null;
+  }
+
   return (
     <section className='w-11/12 mx-auto'>
       <div className='py-16'></div>
-      <h2 className='text-white text-center mb-5 text-xl md:text-start'>
-        {name || ''}
-      </h2>
-      <div className='grid md:grid-cols-3 gap-y-4 md:place-items-start gap-x-6 place-items-center'>
+      <Heading text={name || ''} />
+      <div className='grid md:grid-cols-3 gap-y-4 md:place-items-start gap-x-6 mb-3 overflow-x-hidden place-items-center'>
         <div className='md:col-span-2'>
-          <p className='mb-4 tracking-wide leading-6 md:leading-7 lg:leading-8'>
+          <p className='mb-4 tracking-wide leading-7 lg:leading-8 '>
             {biography}
           </p>
 
@@ -98,8 +150,10 @@ export default async function page({ params: { id } }: Props) {
             if (!value) return null;
             return (
               <div className='flex items-start py-2' key={title}>
-                <p className='min-w-[10rem] capitalize'>{title}</p>
-                <p>{value}</p>
+                <p className='min-w-[8.5rem] md:min-w-[12rem] capitalize'>
+                  {title}
+                </p>
+                <p className='min-w-min'>{value}</p>
               </div>
             );
           })}
@@ -110,96 +164,77 @@ export default async function page({ params: { id } }: Props) {
           imageStyles='w-full h-full rounded-lg'
         />
       </div>
-      <section className='flex flex-col gap-3 my-5 md:my-10'>
-        <h3 className='capitalize text-white text-xl font-bold mb-7'>
-          featured images
-        </h3>
-        <div className='flex gap-3 flex-wrap'>
-          {profiles?.length > 0 &&
-            profiles.map((profile) => {
-              return (
-                <Poster
-                  type='person'
-                  posterPath={profile.file_path}
-                  key={profile.iso_639_1}
-                  className='w-32'
-                  imageStyles='border border-dull w-32 rounded-lg'
-                />
-              );
-            })}
-        </div>
-      </section>
+      {images.profiles.length > 0 && (
+        <section className='flex flex-col gap-3 my-5 md:my-10'>
+          <SubHeading text='featured images' />
+          <div className='flex gap-3 flex-wrap mb-3'>
+            {profiles?.length > 0 &&
+              profiles.map((profile) => {
+                return (
+                  <Poster
+                    type='person'
+                    posterPath={profile.file_path}
+                    key={profile.iso_639_1}
+                    className='w-32'
+                    imageStyles='border border-dull w-32 rounded-lg'
+                  />
+                );
+              })}
+          </div>
+        </section>
+      )}
 
       <section className='flex flex-col gap-y-5 w-full md:5/6 lg::w-3/4 mx-auto py-5'>
-        <h3 className='capitalize text-white text-xl font-bold'>filmography</h3>
-        {movieCredits.length > 0 && (
-          <Table type='movies' items={movieCredits} caption='movies' />
-        )}
-        {tvCredits.length > 0 && (
-          <Table type='tv' items={tvCredits} caption='television' />
-        )}
+        <SubHeading text='filmography' />
+
+        <Tab
+          tabItems={tabItems}
+          defaultTab='movies'
+          styles='self-center bg-dull bg-opacity-90 py-2'
+          activeStyles='border-0  text-white'
+          scroll={false}
+          buttonStyles='border-r last:border-r-0 px-3 border-body hover:border-b-0'
+        />
+
+        {filmography}
       </section>
     </section>
   );
 }
 
-type TableProps =
-  | {
-      type: 'tv';
-      items: CastTv[];
-      caption: string;
-    }
-  | {
-      type: 'movies';
-      items: CastMovie[];
-      caption: string;
-    };
+type TableProps = {
+  items: Item[];
+  caption: string;
+};
 
 const Table = (props: TableProps) => {
-  const { type, items, caption } = props;
+  const { items, caption } = props;
 
-  let content;
-
-  if (type === 'tv') {
-    content = items.map((item) => {
-      const release = getReleaseDate(item.first_air_date, 'short');
-      return (
-        <Credit
-          key={item.id}
-          character={item.character}
-          name={item.name}
-          overview={item.overview}
-          id={item.id}
-          credit_id={item.credit_id}
-          release={release}
-          type='tv'
-        />
-      );
-    });
-  } else {
-    content = items?.map((movie) => {
-      const release = getReleaseDate(movie.release_date, 'short');
-      return (
-        <Credit
-          key={movie.id}
-          character={movie.character}
-          name={movie.title}
-          overview={movie.overview}
-          id={movie.id}
-          credit_id={movie.credit_id}
-          release={release}
-          type='movies'
-        />
-      );
-    });
-  }
+  const content = items.map((item) => {
+    const release = getReleaseDate(
+      item.first_air_date || item.release_date,
+      'short'
+    );
+    return (
+      <Credit
+        key={item.id}
+        character={item.character || item.job}
+        name={item.name || item.title}
+        overview={item.overview}
+        id={item.id}
+        credit_id={item.credit_id}
+        release={release}
+        type={item.name ? 'tv' : 'movies'}
+      />
+    );
+  });
   return (
     <table className='table-fixed'>
-      <caption className='caption-top uppercase  border-b-4 py-3 text-white/90 font-medium tracking-wider text-lg border-pink-500'>
+      <caption className='caption-top uppercase  border-b-4 py-3 text-white/90 font-medium tracking-wider text-lg'>
         {caption}
       </caption>
       <thead className=''>
-        <tr className='border border-t-pink-500 border-b-0 py-4 grid grid-cols-5 w-full border-text/80 uppercase font-mono tracking-wider text-sm md:text-base'>
+        <tr className='border border-b-0 py-4 grid grid-cols-5 w-full border-text/80 uppercase font-mono tracking-wider text-sm md:text-base'>
           <th className='border-r border-dull text-center py-2 col-span-1'>
             year
           </th>
@@ -235,8 +270,11 @@ const Credit = (props: CreditProps) => {
         {release}
       </td>
 
-      <td className='col-span-2 border-r border-dull text-center py-2'>
-        <Link href={path} className='text-accent'>
+      <td className='col-span-2 border-r border-dull text-center py-2 '>
+        <Link
+          href={path}
+          className='text-accent hover:underline visited:text-teal-700/70'
+        >
           {name}
         </Link>
       </td>

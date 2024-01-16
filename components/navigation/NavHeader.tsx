@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import Logout from '@/components/Buttons/logout';
-import { NavSearchInput } from '../Search';
 import Icons from '@/lib/icons';
 import { useSession } from 'next-auth/react';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -37,7 +36,7 @@ export default function NavHeader(props: Props) {
         </Link>
       </h1>
       <div className='flex justify-between items-center gap-3'>
-        <NavSearchInput />
+        {/* <NavSearchInput /> */}
         {isLoggedIn ? (
           <>
             <Link

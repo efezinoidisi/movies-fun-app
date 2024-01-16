@@ -42,7 +42,7 @@ export default function UserDetails({
     details.map(({ title, value }) => (
       <div className='flex items-center' key={title}>
         <p className='min-w-[8rem] capitalize'>{title}</p>
-        <p>{value}</p>
+        <p className='min-w-min'>{value}</p>
       </div>
     ))
   );

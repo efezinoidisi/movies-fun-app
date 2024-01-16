@@ -43,7 +43,7 @@ export default async function page({ searchParams }: Props) {
           <p className='text-center'>search for movie,tv show or person</p>
         )}
         {query && results?.length === 0 && (
-          <p className='text-center'>empty search result...</p>
+          <p className='text-center'>{`no match found for "${query}"`}</p>
         )}
       </section>
     </main>

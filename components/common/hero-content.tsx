@@ -2,6 +2,7 @@ import AddWatchlistButton from '@/components/Buttons/AddWatchlistButton';
 import WatchTrailerButton from '@/components/Buttons/WatchTrailerButton';
 import { IMG_URL } from '@/constants/data';
 import MoviePoster from './poster';
+import Heading from './heading';
 
 type Props = {
   releaseYear: string | null;
@@ -27,9 +28,7 @@ export default function HeroContent(props: Props) {
         <span className='rounded-xl bg-black bg-opacity-60 px-2  capitalize text-xs font-mono leading-8 tracking-wider w-fit'>
           {type}
         </span>
-        <h2 className='text-3xl text-bold capitalize'>
-          {payload.title || payload.name}
-        </h2>
+        <Heading text={payload.title || payload.name} />
         <div className='flex flex-col md:flex-row gap-2 md:items-center'>
           <p className='min-w-max text-sm'>
             {releaseYear && `${releaseYear}`} {releaseYear && runtime && '|'}{' '}

@@ -3,6 +3,7 @@ import MovieCard from '@/components/Cards/MovieCard';
 import NewReleaseCard from '@/components/Cards/NewRelease';
 import { merge } from '@/utils/merge';
 import Person from '@/components/Cards/person';
+import SubHeading from '../common/sub-heading';
 
 export default function List({
   list,
@@ -20,11 +21,7 @@ export default function List({
   if (list.length === 0) return null;
   return (
     <section className={merge('flex flex-col gap-5', styles)}>
-      {title && (
-        <h2 className='font-bold capitalize text-lg md:text-2xl text-white'>
-          {title}
-        </h2>
-      )}
+      {title && <SubHeading text={title} />}
       <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 sl:grid-cols-3 gap-2 sl:gap-7 md:gap-5 gap-y-5'>
         {list.map((movie) => {
           if (movie?.media_type === 'person') {

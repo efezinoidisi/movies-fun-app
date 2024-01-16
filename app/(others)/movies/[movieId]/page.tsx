@@ -5,6 +5,7 @@ import Review from '@/components/common/review';
 import Casts from '@/components/common/cast';
 import Details from '@/components/common/details';
 import List from '@/components/List/List';
+import Link from 'next/link';
 
 type Props = {
   params: { movieId: string };
@@ -65,7 +66,21 @@ export default async function page({ params: { movieId } }: Props) {
 
   const displayedRuntime = runtime > 0 ? getRuntime(runtime) : null;
 
-  const director = credits.crew.find((crew) => crew.job === 'Director');
+  const directors = credits.crew.filter((crew) => crew.job === 'Director');
+
+  const directorNode =
+    directors.length > 0
+      ? directors.map((director) => (
+          <Link
+            href={`/people/${director.id}`}
+            className='underline hover:text-accent transition-colors duration-150 group pr-2'
+            key={director.id}
+          >
+            {director.name}
+            <span className='group-last:hidden'>,</span>
+          </Link>
+        ))
+      : '-';
 
   const language = await getLanguage(original_language);
   const genre_ids = genres.map((genre) => genre.id);
@@ -95,7 +110,7 @@ export default async function page({ params: { movieId } }: Props) {
           name={title}
           runtime={displayedRuntime as string}
           language={language || ''}
-          director={director?.name as string}
+          director={directorNode}
           overview={overview}
           genres={genres}
           poster={poster_path}

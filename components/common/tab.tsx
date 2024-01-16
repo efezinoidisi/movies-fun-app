@@ -9,6 +9,8 @@ type Props = {
   defaultTab: string;
   styles?: string;
   activeStyles?: string;
+  scroll?: boolean;
+  buttonStyles?: string;
 };
 
 export default function Tab({
@@ -16,6 +18,8 @@ export default function Tab({
   defaultTab,
   styles = '',
   activeStyles = '',
+  scroll = true,
+  buttonStyles = '',
 }: Props) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -26,7 +30,7 @@ export default function Tab({
   const updateTab = (newtab: string) => {
     const params = new URLSearchParams(searchParams);
     params.set('tab', newtab);
-    router.replace(`${pathname}?${params.toString()}`);
+    router.replace(`${pathname}?${params.toString()}`, { scroll });
   };
 
   return (
@@ -41,7 +45,8 @@ export default function Tab({
               'uppercase hover:text-accent hover:border-accent/70 hover:opacity-70 text-sm min-w-max md:text-base py-4 hover:border-b-4',
               activeTab
                 ? `border-b-4  transition-colors duration-200 ease-in-out font-bold  ${activeStyles}`
-                : 'text-black/80'
+                : '',
+              buttonStyles
             )}
           >
             {title}

@@ -5,6 +5,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import InfiniteScroll from '@/components/infinite-scroll/infinite-scroll';
+import Heading from '@/components/common/heading';
 
 type Props = {
   params: { movieId: string };
@@ -42,9 +43,7 @@ export default async function page(props: Props) {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className='py-10 bg-[#0e2439]'></div>
       <section className='px-5 w-11/12 mx-auto pt-10  flex flex-col gap-5'>
-        <h2 className='capitalize font-bold pb-5 text-center text-xl text-white'>
-          similar movies
-        </h2>
+        <Heading text='similar novies' />
         <InfiniteScroll endpoint={endpoint} passkey={queryKey} />
       </section>
     </HydrationBoundary>

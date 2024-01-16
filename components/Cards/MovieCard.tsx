@@ -3,6 +3,7 @@ import Favourite from '../Buttons/Favourite';
 import GenreList from '../common/genre-list';
 import Rating from '../common/rating';
 import MoviePoster from '../common/poster';
+import { getReleaseDate } from '@/utils/helpers';
 
 export default function MovieCard(props: MovieList) {
   const {
@@ -18,11 +19,8 @@ export default function MovieCard(props: MovieList) {
   } = props;
 
   const type = name ? 'tv' : 'movie';
-  const date = new Date(release_date);
   const genres = genre_ids.slice(0, 1);
-
-  const firstAirDate = new Date(first_air_date);
-  const releaseYear = title ? date.getFullYear() : firstAirDate.getFullYear();
+  const releaseYear = getReleaseDate(release_date || first_air_date, 'short');
 
   const moviePayload: MediaItem = {
     id,

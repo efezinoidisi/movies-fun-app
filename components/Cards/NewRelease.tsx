@@ -1,12 +1,21 @@
 import { IMG_URL } from '@/constants/data';
 import Link from 'next/link';
 import Favourite from '../Buttons/Favourite';
-import AddWatchlistButton from '../Buttons/AddWatchlistButton';
 import GenreList from '../common/genre-list';
 import Rating from '../common/rating';
+import { getReleaseDate } from '@/utils/helpers';
 
 export default function NewReleaseCard(props: MovieList) {
-  const { backdrop_path, title, vote_average, genre_ids, id, name } = props;
+  const {
+    backdrop_path,
+    title,
+    vote_average,
+    genre_ids,
+    id,
+    name,
+    release_date,
+    first_air_date,
+  } = props;
   const type = name ? 'tv' : 'movie';
   const genres = genre_ids.slice(0, 1);
 
@@ -20,6 +29,8 @@ export default function NewReleaseCard(props: MovieList) {
     name,
     title,
   };
+
+  const releaseYear = getReleaseDate(release_date || first_air_date, 'short');
 
   return (
     <Link href={`/${page}/${id}`} prefetch={false}>
@@ -40,11 +51,9 @@ export default function NewReleaseCard(props: MovieList) {
         <h3 className='capitalize font-semibold text-md truncate'>
           {name || title}
         </h3>
-        <div className='flex items-center gap-2'>
-          <p className='flex items-center gap-1'>
-            <Rating rating={vote_average} />
-          </p>
-          {/* <AddWatchlistButton id={id} extraStyles='z-10' /> */}
+        <div className='flex items-center justify-between'>
+          <Rating rating={vote_average} />
+          <p className='text-sm'>{releaseYear}</p>
         </div>
         <GenreList genres={genres} type='without-id' />
       </div>

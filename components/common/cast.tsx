@@ -1,10 +1,6 @@
-import Image from 'next/image';
 import CustomCarousel from '../Slider/carousel';
-import { IMG_URL } from '@/constants/data';
-import Link from 'next/link';
-import Icons from '@/lib/icons';
-import Poster from './poster';
 import Person from '../Cards/person';
+import SubHeading from './sub-heading';
 
 type Props = {
   casts: Cast[];
@@ -13,45 +9,11 @@ type Props = {
 export default function Casts({ casts }: Props) {
   if (casts.length === 0) return null;
   return (
-    <article>
-      <h4 className='capitalize text-xl font-semibold py-3 text-white'>cast</h4>
+    <article className=''>
+      <SubHeading text='top cast' />
       <CustomCarousel options={castOptions}>
         {casts.map(({ name, id, profile_path, character }) => {
-          const picture = profile_path ? (
-            <Image
-              src={`${IMG_URL}${profile_path}`}
-              width={200}
-              height={200}
-              className=' w-full h-52 md:h-44 overflow-x-hidden rounded-t-lg'
-              alt={`profile of ${name}`}
-            />
-          ) : (
-            <Icons.person className=' w-full h-52 md:h-44 overflow-x-hidden rounded-t-lg' />
-          );
           return (
-            // <Link
-            //   prefetch={false}
-            //   href={`/people/${id}`}
-            //   key={id}
-            //   className='w-full block'
-            // >
-            //   <div className=' flex flex-col items-center gap-1 pb-3 md:pb-2 rounded-lg mr-2 snap-start whitespace-normal border border-dull bg-body  border-opacity-60  hover:border-accent transition-colors ease-in-out duration-200'>
-            //     {/* <div className='w-full'>{picture}</div> */}
-            //     <Poster
-            //       posterPath={profile_path}
-            //       type='person'
-            //       alt={`${name}`}
-            //       className='w-full aspect-square'
-            //       imageStyles='w-full  overflow-x-hidden rounded-t-lg h-40'
-            //     />
-            //     <div className='flex flex-col'>
-            //       <p className='font-semibold text-base text-white/90 text-center min-w-min'>
-            //         {name}
-            //       </p>
-            //       <p className='text-sm text-center'>{character}</p>
-            //     </div>
-            //   </div>
-            // </Link>
             <Person
               key={id}
               name={name}

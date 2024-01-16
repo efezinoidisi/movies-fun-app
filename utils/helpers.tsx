@@ -45,17 +45,19 @@ export const updateUrlParam = (
 export function getTrailerKey(videos: VideoType[]) {
   const trailer = videos.find(({ type }) => type === 'Trailer');
 
-  return trailer?.key;
+  return trailer?.key || '';
+}
+
+export function getRandomIndex(size: number) {
+  return Math.floor(Math.random() * size);
 }
 
 // get random movies
 export function getRandomMovies(movies: MovieList[], length: number) {
-  const getRandomIndex = () => Math.floor(Math.random() * movies.length);
-
   const values: { [key: string]: MovieList } = {};
 
   while (Object.keys(values).length < length) {
-    const index = getRandomIndex();
+    const index = getRandomIndex(movies.length);
     if (values[index]) continue;
     values[index] = movies[index];
   }

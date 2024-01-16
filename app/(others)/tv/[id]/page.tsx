@@ -11,6 +11,7 @@ import Casts from '@/components/common/cast';
 import Seasons from '@/components/series/season-card';
 import Details from '@/components/common/details';
 import List from '@/components/List/List';
+import Link from 'next/link';
 
 type Props = {
   params: { id: string };
@@ -99,7 +100,20 @@ export default async function page({ params: { id } }: Props) {
     name,
   };
 
-  const creators = created_by?.map((creator) => creator.name).toString();
+  const creators = created_by?.map((creator) => (
+    <Link
+      href={`/people/${creator.id}`}
+      className='group pr-1'
+      key={creator.id}
+    >
+      <span className='underline group-hover:text-accent transition-colors duration-150 ease-in-out '>
+        {creator.name}
+      </span>
+      <span className='group-last:hidden'>{','}</span>
+    </Link>
+  ));
+
+  const creatorNode = created_by.length ? creators : '-';
   return (
     <>
       <HeroContent
@@ -125,12 +139,12 @@ export default async function page({ params: { id } }: Props) {
           seasons={number_of_seasons}
           episodes={number_of_episodes}
           poster={poster_path}
-          creator={creators}
+          creator={creatorNode}
           rating={vote_average}
           payload={payload}
         />
         <Casts casts={credits.cast} />
-        <Seasons seasons={filteredSeasons} />
+        <Seasons seasons={filteredSeasons} seriesId={id} seriesName={name} />
         <Review
           reviews={reviews.results}
           pages={reviews.total_pages}

@@ -8,6 +8,7 @@ import {
 import Tab from '@/components/common/tab';
 import InfiniteScroll from '@/components/infinite-scroll/infinite-scroll';
 import { Metadata } from 'next';
+import Heading from '@/components/common/heading';
 
 type Tab = 'top_rated' | 'popular' | 'trending';
 
@@ -36,7 +37,7 @@ export default async function page({
 }: {
   searchParams: { tab: Tab };
 }) {
-  const { tab = 'top_rated' } = searchParams;
+  const { tab = 'trending' } = searchParams;
 
   const endpoint = TV_ENDPOINTS[tab];
 
@@ -58,15 +59,12 @@ export default async function page({
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className='py-10'></div>
       <section className='w-11/12 mx-auto pt-10 flex flex-col gap-5'>
-        <h2 className='capitalize font-bold text-white'>{`${tab.replace(
-          '_',
-          ' '
-        )} tv shows`}</h2>
+        <Heading text={`${tab.replace('_', ' ')} tv shows`} />
 
         <Tab
           tabItems={tabList}
-          defaultTab='top_rated'
-          styles='self-end rounded-md border-white bg-white bg-opacity-90 text-sm md:text-base'
+          defaultTab='trending'
+          styles='self-end rounded-md border-white bg-white bg-opacity-90 text-sm md:text-base text-black/80'
           activeStyles='border-accent  text-accent'
         />
         <InfiniteScroll endpoint={endpoint} passkey={queryKey} type='tv' />
