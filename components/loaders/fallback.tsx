@@ -1,4 +1,4 @@
-import { merge } from 'lodash';
+import { merge } from '@/utils/merge';
 import Ellipsis from './ellipsis';
 
 type Props = {
