@@ -5,7 +5,9 @@ import Button from '../Button';
 import { addToWatchList, removeFromWatchList } from '@/utils/actions';
 import { merge } from '@/utils/merge';
 import toast from 'react-hot-toast';
-import { useData } from 'app/context/user-favorites';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import useList from 'hooks/useList';
+import { UserListType } from 'types/user';
 
 type Props = {
   movie: MediaItem;
@@ -15,12 +17,58 @@ type Props = {
 };
 
 export default function AddWatchlistButton(props: Props) {
+  const queryClient = useQueryClient();
   const { movie, showText = false, border = false, extraStyles = '' } = props;
-  const { watchlist, addWatchlist, removeWatchlist } = useData();
 
+  const { watchlist } = useList();
   const { status } = useSession();
   const type = movie?.name ? 'tv' : 'movies';
   const movieInWatchList = watchlist[type].find((film) => film.id === movie.id);
+
+  const { mutateAsync } = useMutation({
+    mutationKey: ['user-data'],
+    mutationFn: (movie) => {
+      if (movieInWatchList === undefined) return addToWatchList(movie);
+
+      return removeFromWatchList(movie);
+    },
+    onMutate: async (movie: MediaItem) => {
+      await queryClient.cancelQueries({ queryKey: ['user-data'] });
+
+      const previousData = queryClient.getQueryData(['user-data']);
+
+      queryClient.setQueryData(['user-data'], (oldData: UserListType) => {
+        if (movieInWatchList === undefined) {
+          return {
+            ...oldData,
+            watchlist: {
+              ...oldData.watchlist,
+              [type]: [...oldData.watchlist[type], movie],
+            },
+          };
+        }
+
+        const newData = oldData.watchlist[type].filter(
+          (item) => item.id !== movie.id
+        );
+        return {
+          ...oldData,
+          watchlist: {
+            ...oldData.watchlist,
+            [type]: newData,
+          },
+        };
+      });
+
+      return { previousData };
+    },
+    onError: (_, __, context) => {
+      queryClient.setQueryData(['user-data'], context?.previousData);
+    },
+    // onSettled: () => {
+    //   queryClient.invalidateQueries({ queryKey: ['user-data'] });
+    // },
+  });
 
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -32,23 +80,19 @@ export default function AddWatchlistButton(props: Props) {
       });
       return;
     }
-    const actionType = movie?.name ? 'tv' : 'movie';
 
-    if (movieInWatchList === undefined) {
-      addWatchlist(movie, actionType);
-      const res = await addToWatchList(movie);
-      if (!res || res?.status === 'error') {
-        removeWatchlist(movie, actionType);
-        toast.error('failed to add watchlist. Please try again!');
-      }
-      return;
-    }
-
-    removeWatchlist(movie, actionType);
-    const res = await removeFromWatchList(movie);
-    if (!res || res?.status === 'error') {
-      addWatchlist(movie, actionType);
-      toast.error('failed to add watchlist. Please try again!');
+    try {
+      await mutateAsync(movie);
+      toast.success(
+        `${movie.name || movie.title} ${
+          movieInWatchList === undefined
+            ? 'added to watchlist'
+            : 'removed from watchlist'
+        }`
+      );
+    } catch (error) {
+      console.log('error');
+      toast.error('an error occurred!');
     }
   };
 

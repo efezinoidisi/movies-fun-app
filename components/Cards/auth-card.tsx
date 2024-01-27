@@ -41,7 +41,7 @@ export default function AuthCard({ movies }: Props) {
       style={{
         background: `linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%),url(${IMG_URL}${backdrop_path})`,
       }}
-      className={`hero flex justify-between items-end pb-4 md:pb-10 px-8 min-h-[15rem]  text-white col-start-1 row-start-1 md:col-start-2 text-opacity-70`}
+      className={`hero flex justify-between items-end pb-4 md:pb-10 px-8 min-h-[15rem]  text-white col-start-1 row-start-1 md:col-start-2 text-opacity-70 w-full md:h-full`}
     >
       <div className='flex flex-col gap-1 md:gap-2'>
         <h3 className='text-white'>
@@ -77,7 +77,7 @@ export default function AuthCard({ movies }: Props) {
         <div className='flex gap-2'>
           <Button
             className={merge(
-              'bg-white bg-opacity-20 rounded-lg ',
+              'bg-white bg-opacity-20 rounded-lg hover:bg-pink-500/50',
               currentIndex === 0 ? 'invisible' : 'visible'
             )}
             onClick={prev}
@@ -86,7 +86,7 @@ export default function AuthCard({ movies }: Props) {
           </Button>
           <Button
             className={merge(
-              'bg-white bg-opacity-20 rounded-lg ',
+              'bg-white bg-opacity-20 rounded-lg hover:bg-pink-500/50',
               currentIndex === movies.length - 1 ? 'invisible' : 'visible'
             )}
             onClick={next}

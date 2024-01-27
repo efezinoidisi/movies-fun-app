@@ -58,10 +58,10 @@ export default function Login() {
         ...data,
         redirect: false,
       });
-
       if (res?.error) {
         setError('invalid credentials!');
       } else {
+        toast.success('sign in success!');
         router.replace(from);
       }
     } catch (error) {
@@ -87,6 +87,14 @@ export default function Login() {
         isSubmitting ? 'opacity-70' : ''
       }`}
     >
+      {error ? (
+        <p
+          className=' bg-pink-400 py-5 text-white capitalize rounded-xl px-6 my-4'
+          role='alert'
+        >
+          {error}
+        </p>
+      ) : null}
       <InputWrap
         id='email'
         label='email'
@@ -122,9 +130,9 @@ export default function Login() {
       </InputWrap>
       <Link
         href={'forgot-password'}
-        className='text-right block underline ml-auto text-xs hover:text-blue-900'
+        className='text-right block underline ml-auto text-xs hover:text-blue-900 text-pink-400'
       >
-        forgot your password?
+        forgot password?
       </Link>
       <div className='flex items-center gap-3'>
         <Button

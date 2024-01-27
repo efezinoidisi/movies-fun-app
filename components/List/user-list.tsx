@@ -17,7 +17,7 @@ export default function UserList({
   return (
     <section className={merge('flex flex-col gap-10', styles)}>
       {title && <SubHeading text={title} />}
-      <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 sl:grid-cols-3 gap-2 sl:gap-7 md:gap-5 gap-y-5'>
+      <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sl:grid-cols-4 gap-2 sl:gap-7 md:gap-5 gap-y-5'>
         {list.length > 0 ? (
           list.map((movie) => {
             return <MediaItemCard key={movie.id} {...movie} />;

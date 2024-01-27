@@ -5,9 +5,22 @@ import toast from 'react-hot-toast';
 import { addToFavorites, removeFromFavorites } from '@/utils/actions';
 import { merge } from '@/utils/merge';
 import { useSession } from 'next-auth/react';
-import { useData } from 'app/context/user-favorites';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { UserListType } from 'types/user';
+import useList from 'hooks/useList';
 
 type Position = 'absolute' | 'relative' | 'static' | 'fixed' | 'sticky';
+
+const initialState = {
+  favorites: {
+    tv: [],
+    movies: [],
+  },
+  watchlist: {
+    tv: [],
+    movies: [],
+  },
+};
 
 export default function Favourite({
   movie,
@@ -18,8 +31,11 @@ export default function Favourite({
   position?: Position;
   extraStyles?: string;
 }) {
-  const { favorites, addFavorite, removeFavorite } = useData();
   const { status } = useSession();
+
+  const queryClient = useQueryClient();
+
+  const { favorites } = useList();
 
   const type = movie.name ? 'tv' : 'movie';
 
@@ -27,6 +43,54 @@ export default function Favourite({
     type === 'tv'
       ? favorites.tv.find((film) => film.id === movie.id)
       : favorites.movies.find((film) => film.id === movie.id);
+
+  const { mutateAsync } = useMutation({
+    mutationKey: ['user-data'],
+    mutationFn: (movie) => {
+      if (isFavorite === undefined) return addToFavorites(movie);
+
+      return removeFromFavorites(movie);
+    },
+    onMutate: async (movie: MediaItem) => {
+      await queryClient.cancelQueries({ queryKey: ['user-data'] });
+
+      const previousData = queryClient.getQueryData(['user-data']);
+
+      queryClient.setQueryData(['user-data'], (oldData: UserListType) => {
+        if (isFavorite === undefined) {
+          return {
+            ...oldData,
+            favorites: {
+              ...oldData.favorites,
+              [type === 'movie' ? 'movies' : 'tv']: [
+                ...oldData.favorites[type === 'movie' ? 'movies' : 'tv'],
+                movie,
+              ],
+            },
+          };
+        }
+
+        const newData = oldData.favorites[
+          type === 'movie' ? 'movies' : 'tv'
+        ].filter((item) => item.id !== movie.id);
+        return {
+          ...oldData,
+          favorites: {
+            ...oldData.favorites,
+            [type === 'movie' ? 'movies' : 'tv']: newData,
+          },
+        };
+      });
+
+      return { previousData };
+    },
+    onError: (_, __, context) => {
+      queryClient.setQueryData(['user-data'], context?.previousData);
+    },
+    // onSettled: () => {
+    //   queryClient.invalidateQueries({ queryKey: ['user-data'] });
+    // },
+  });
 
   const handleAddtoFavourites = async (
     e: React.MouseEvent<HTMLButtonElement>
@@ -40,20 +104,18 @@ export default function Favourite({
       return;
     }
 
-    if (isFavorite === undefined) {
-      addFavorite(movie, type);
-      const res = await addToFavorites(movie);
-      if (!res || res?.status === 'error') {
-        removeFavorite(movie, type);
-        toast.error('failed to add favourite. Please try again!');
-      }
-      return;
-    }
-    removeFavorite(movie, type);
-    const res = await removeFromFavorites(movie);
-    if (!res || res?.status === 'error') {
-      addFavorite(movie, type);
-      toast.error('failed to remove favourite. Please try again!');
+    try {
+      await mutateAsync(movie);
+      toast.success(
+        `${movie.name || movie.title} ${
+          isFavorite === undefined
+            ? 'added to favorites'
+            : 'removed from favorites'
+        }`
+      );
+    } catch (error) {
+      console.log('error');
+      toast.error('an error occurred!');
     }
   };
 

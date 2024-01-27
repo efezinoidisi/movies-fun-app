@@ -96,11 +96,11 @@ export default function SignUpForm() {
         isSubmitting && 'opacity-70'
       )}
     >
-      {error && (
-        <div className='text-red-500 bg-red-100 rounded-md p-2 mt-3'>
+      {error ? (
+        <div className='text-white bg-pink-400 rounded-md p-2 mt-3'>
           <p>{error}</p>
         </div>
-      )}
+      ) : null}
       <InputWrap
         id='username'
         label='username'

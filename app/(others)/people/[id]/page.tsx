@@ -191,7 +191,7 @@ export default async function page({
           tabItems={tabItems}
           defaultTab='movies'
           styles='self-center bg-dull bg-opacity-90 py-2'
-          activeStyles='border-0  text-white'
+          activeStyles='border-0  text-pink-600'
           scroll={false}
           buttonStyles='border-r last:border-r-0 px-3 border-body hover:border-b-0'
         />

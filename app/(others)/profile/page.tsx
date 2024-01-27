@@ -43,9 +43,13 @@ export default async function Page({
   return (
     <>
       <div className='py-12'></div>
-      <Heading text='account details' />
+      <Heading text='account details' styles='md:text-center' />
       <section className='grid grid-cols-12 gap-4 w-11/12 mx-auto min-h-[50svh]'>
-        <UserDetails username={''} email={user?.email ?? ''} id={''} />
+        <UserDetails
+          username={user?.username ?? ''}
+          email={user?.email ?? ''}
+          id={user?.id ?? ''}
+        />
         <Suspense fallback={<Fallback />}>
           <UserData />
         </Suspense>{' '}

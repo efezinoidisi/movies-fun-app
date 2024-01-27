@@ -1,8 +1,8 @@
 'use client';
-import { useData } from 'app/context/user-favorites';
 import UserList from '../List/user-list';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Loader from '../loaders/loader';
+import useList from 'hooks/useList';
 
 type Tab =
   | 'favorite-series'
@@ -10,30 +10,44 @@ type Tab =
   | 'watchlist-movies'
   | 'watchlist-series';
 
+const tabItems = [
+  {
+    query: 'favorite-series',
+    title: 'favorite series',
+  },
+  {
+    query: 'favorite-movies',
+    title: 'favorite movies',
+  },
+  {
+    query: 'watchlist-series',
+    title: 'watchlist tv shows',
+  },
+  {
+    query: 'watchlist-movies',
+    title: 'watchlist movies',
+  },
+];
+
 export default function UserData() {
-  const { watchlist, favorites, dataStatus } = useData();
+  const { favorites, watchlist, isError, isFetching } = useList();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const { replace } = useRouter();
+  const { push } = useRouter();
   const tab: Tab = (searchParams.get('tab') as Tab) ?? 'favorite-movies';
-  const tabItems = [
-    {
-      query: 'favorite-series',
-      title: 'favorite series',
-    },
-    {
-      query: 'favorite-movies',
-      title: 'favorite movies',
-    },
-    {
-      query: 'watchlist-series',
-      title: 'watchlist tv shows',
-    },
-    {
-      query: 'watchlist-movies',
-      title: 'watchlist movies',
-    },
-  ];
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const term = e.target.value;
+    const params = new URLSearchParams(searchParams);
+    if (term) {
+      params.set('tab', term);
+    }
+    push(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
+  // const isFetching = '';
+
+  // const isError = dataStatus === 'error';
 
   const items = {
     'favorite-movies': {
@@ -53,30 +67,18 @@ export default function UserData() {
       title: 'watchlist series',
     },
   };
-
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const term = e.target.value;
-    const params = new URLSearchParams(searchParams);
-    if (term) {
-      params.set('tab', term);
-    }
-    replace(`${pathname}?${params.toString()}`);
-  };
-
-  const isFetching = dataStatus === 'loading';
-
-  const currentItems = items[tab].data;
-  const title = items[tab].title;
+  const currentItems = items[tab]?.data;
+  const title = items[tab]?.title;
   return (
-    <div className='col-span-12 flex flex-col lg:col-span-8 lg:col-start-1 lg:row-start-1 pb-5 gap-y-10'>
+    <div className='col-span-12 flex flex-col pb-5 gap-y-10'>
       <div className='flex flex-wrap gap-y-3 gap-x-5'>
-        {Object.keys(items).map((item) => (
+        {Object.keys(items)?.map((item) => (
           <div
             key={items[item as Tab].title}
             className='flex items-center bg-dull px-3 py-1 rounded-md'
           >
             <p className='min-w-[12rem]'>{items[item as Tab].title}</p>
-            <p className='text-black'> {items[item as Tab].data.length}</p>
+            <p className='text-black'> {items[item as Tab].data?.length}</p>
           </div>
         ))}
       </div>
@@ -96,6 +98,8 @@ export default function UserData() {
       </select>
       {isFetching ? (
         <Loader background='bg-accent/80' />
+      ) : isError ? (
+        <p className='text-center'>an error occurred! please try again</p>
       ) : (
         <UserList list={currentItems} title={title} />
       )}

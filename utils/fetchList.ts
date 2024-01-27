@@ -7,6 +7,7 @@ export async function fetchList(endpoint: string) {
   }language=en-US&sort_by=popularity.desc`;
   const res = await fetch(`${API_BASE_URL}${endpoint}${query}`, {
     headers: OPTIONS,
+    next: { revalidate: 60 * 60 * 24 },
   });
 
   if (!res.ok) throw new Error('An error occurred');
@@ -19,7 +20,8 @@ export async function fetchClientList(endpoint: string, page: number = 1) {
     const res = await fetch(
       `${API_BASE_URL}${endpoint}${endpoint.includes('?') ? '&' : '?'}api_key=${
         process.env.NEXT_PUBLIC_API_KEY
-      }&page=${page}&language=en-US&sort_by=popularity.desc`
+      }&page=${page}&language=en-US&sort_by=popularity.desc`,
+      { next: { revalidate: 60 * 60 * 24 } }
     );
     const data = await res.json();
     return data;

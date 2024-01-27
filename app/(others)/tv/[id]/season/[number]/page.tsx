@@ -110,7 +110,7 @@ export default async function page(props: Props) {
           <div className='mt-10'>
             <SubHeading text='episodes' />
             <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-3 mt-5'>
-              {episodesContent}S
+              {episodesContent}
             </div>
           </div>
         ) : null}

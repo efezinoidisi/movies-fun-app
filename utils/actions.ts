@@ -22,63 +22,43 @@ export async function fetchUser() {
 }
 
 export async function addToWatchList(movie: MediaItem) {
-  try {
-    const user = await fetchUser();
-    const type = movie?.name ? 'tv' : 'movies';
-    if (user.watchlist[type].includes(movie.id)) {
-      return;
-    }
-    user.watchlist[type].push(movie);
-    await user.save();
-    return { status: 'success' };
-  } catch (error) {
-    return { status: 'error' };
+  const user = await fetchUser();
+  const type = movie?.name ? 'tv' : 'movies';
+  if (user.watchlist[type].includes(movie.id)) {
+    return;
   }
+  user.watchlist[type].push(movie);
+  await user.save();
 }
 
 export async function removeFromWatchList(movie: MediaItem) {
-  try {
-    const user = await fetchUser();
-    const type = movie?.name ? 'tv' : 'movies';
+  const user = await fetchUser();
+  const type = movie?.name ? 'tv' : 'movies';
 
-    const updatedWatchlist = user.watchlist[type].filter(
-      (film: MediaItem) => film.id !== movie.id
-    );
-    user.watchlist[type] = updatedWatchlist;
-    await user.save();
-    return { status: 'success' };
-  } catch (error) {
-    return { status: 'error' };
-  }
+  const updatedWatchlist = user.watchlist[type].filter(
+    (film: MediaItem) => film.id !== movie.id
+  );
+  user.watchlist[type] = updatedWatchlist;
+  await user.save();
 }
 export async function addToFavorites(movie: MediaItem) {
-  try {
-    const user = await fetchUser();
-    const type = movie.name ? 'tv' : 'movies';
-    if (user.favorites[type].includes(movie.id)) {
-      return;
-    }
-    user.favorites[type].push(movie);
-    await user.save();
-    return { status: 'success' };
-  } catch (error) {
-    return { status: 'error' };
+  const user = await fetchUser();
+  const type = movie.name ? 'tv' : 'movies';
+  if (user.favorites[type].includes(movie.id)) {
+    return;
   }
+  user.favorites[type].push(movie);
+  await user.save();
 }
 
 export async function removeFromFavorites(movie: MediaItem) {
-  try {
-    const user = await fetchUser();
-    const type = movie.name ? 'tv' : 'movies';
-    const updatedFavorites = user.favorites[type].filter(
-      (film: MediaItem) => film.id !== movie.id
-    );
-    user.favorites[type] = updatedFavorites;
-    await user.save();
-    return { status: 'success' };
-  } catch (error) {
-    return { status: 'error' };
-  }
+  const user = await fetchUser();
+  const type = movie.name ? 'tv' : 'movies';
+  const updatedFavorites = user.favorites[type].filter(
+    (film: MediaItem) => film.id !== movie.id
+  );
+  user.favorites[type] = updatedFavorites;
+  await user.save();
 }
 
 export async function getFavorites() {

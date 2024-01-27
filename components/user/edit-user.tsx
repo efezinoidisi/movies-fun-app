@@ -1,9 +1,8 @@
 'use client';
 import useForm from 'hooks/useForm';
 import * as yup from 'yup';
-import InputWrap from '../form/InputWrap';
 import Button from '../Button';
-import { debounce } from 'lodash';
+import debounce from 'lodash.debounce';
 import Input from '../form/Input';
 import toast from 'react-hot-toast';
 
@@ -21,7 +20,7 @@ const debouncedValidation = debounce(async (value: string) => {
     return false;
   }
   return true;
-}, 5000);
+}, 1000);
 
 const schema = yup
   .object({
@@ -90,7 +89,7 @@ export default function EditUserForm({
 
   return (
     <form
-      className={`flex flex-col items-center gap-3 px-5 pt-7 py-3 justify-center ${
+      className={`flex flex-col items-center gap-5 px-5 pt-7 py-3 justify-center ${
         isSubmitting ? 'opacity-70' : ''
       }`}
       onSubmit={onSubmit}
@@ -102,13 +101,13 @@ export default function EditUserForm({
         error={errors?.email?.message}
         register={register}
       />
-      {/* <Input
+      <Input
         label='username'
         placeholder='username'
         controlname='username'
         error={errors?.username?.message}
         register={register}
-      /> */}
+      />
       <div className='flex gap-2'>
         <Button
           type='button'

@@ -18,12 +18,10 @@ const authOptions: NextAuthOptions = {
           if (!user) {
             return null;
           }
-
           const isValid = bcrypt.compareSync(password, user.password);
           if (!isValid) {
             return null;
           }
-          console.log(user);
           return user;
         } catch (error) {
           return null;
@@ -32,15 +30,17 @@ const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user, profile }) {
+    async jwt({ token, user }) {
+      if (user) {
+        token.username = user.username;
+        token.id = user._id;
+      }
       return token;
     },
-    async session({ session, user, token }) {
-      if (session.user) {
-        // console.log(`user:${user} token:${token}`);
-        // session.user.id = token?._doc?._id;
-        // session.user.username = token?._doc.username;
-      }
+    async session({ session, token }) {
+      session.user.id = token?.id as string;
+      session.user.username = token?.username as string;
+
       return session;
     },
   },

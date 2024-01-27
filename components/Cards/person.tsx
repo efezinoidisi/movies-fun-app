@@ -23,7 +23,9 @@ export default function Person({ picture, name, id, character }: Props) {
           {name}
         </p>
         {character && (
-          <p className='text-sm text-center text-white/80'>{character}</p>
+          <p className='text-sm text-center text-white/80 max-h-[50%]'>
+            {character}
+          </p>
         )}
       </div>
     </Link>

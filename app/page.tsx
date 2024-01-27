@@ -12,14 +12,6 @@ export default async function Home() {
   const seriesEndpoint = 'tv/popular';
   const trendingSeriesEndpoint = 'trending/tv/day';
 
-  // const popularMoviesData: Promise<FetchData> = fetchList(popularEndpoint);
-
-  // const trendingMoviesData: Promise<FetchData> = fetchList(
-  //   trendingMoviesEndpoint
-  // );
-
-  // const moviesData: Promise<FetchData> = fetchList(moviesEndpoint);
-  // const seriesData: Promise<FetchData> = fetchList(seriesEndpoint);
 
   const allResults: Promise<
     [FetchData, FetchData, FetchData, FetchData, FetchData]

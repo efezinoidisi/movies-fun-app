@@ -24,7 +24,10 @@ export default async function page() {
       </h2>
       <p className='text-xs min-w-max text-right'>
         Don&#39;t have an account?{' '}
-        <Link href={'/signup'} className='text-blue-500 underline'>
+        <Link
+          href={'/signup'}
+          className='text-blue-500 underline hover:text-white'
+        >
           sign up for free
         </Link>
       </p>
