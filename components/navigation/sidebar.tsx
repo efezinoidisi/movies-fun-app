@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const iconStyles =
-  'group-hover:rotate-[360deg] duration-500 transition-transform ease-linear';
+  'group-hover:md:animate-bounce-once duration-500 transition-transform ease-linear md:hover:scale-105';
 
 const sidebarItems: {
   title:

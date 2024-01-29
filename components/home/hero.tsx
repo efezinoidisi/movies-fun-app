@@ -41,7 +41,7 @@ export default function Hero({ movies }: { movies: MovieList[] }) {
       style={{
         background: `linear-gradient(0deg, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.70) 100%),url(${IMG_URL}${backdrop_path})`,
       }}
-      className='min-h-screen w-full hero lg:header text-white bg-opacity-30 flex flex-col justify-end gap-10 md:px-12 px-5 pb-14 md:pb-32'
+      className='min-h-screen w-full hero lg:header text-white bg-opacity-30 flex flex-col justify-end gap-10 md:px-12 px-5 pb-14 md:pb-32 lg:max-h-screen lg:pb-20'
     >
       <div className='flex flex-col justify-between gap-10 md:gap-0 md:flex-row lg:w-3/4'>
         <div className='flex flex-col gap-3 md:max-w-[30rem]'>
@@ -68,8 +68,9 @@ export default function Hero({ movies }: { movies: MovieList[] }) {
             <Link
               href={`/movies/${id}`}
               className='underline pl-2 text-blue-500'
+              aria-description={`view more about ${title}`}
             >
-              more
+              more info
             </Link>
           </p>
 

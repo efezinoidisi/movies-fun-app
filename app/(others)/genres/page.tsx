@@ -3,6 +3,8 @@ import { fetchList } from '@/utils/fetchList';
 import { Metadata } from 'next';
 import Link from 'next/link';
 
+export const revalidate = 86400; // revalidate after 24 hours(1 day)
+
 export const metadata: Metadata = {
   title: 'Genres',
   description: 'explore all movies and tv show genres',

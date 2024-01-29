@@ -11,6 +11,8 @@ type Props = {
   params: { movieId: string };
 };
 
+export const revalidate = 86400; // revalidate after 24 hours(1 day)
+
 export async function generateMetadata({ params: { movieId } }: Props) {
   const movie = await fetchList(`movie/${movieId}`);
 

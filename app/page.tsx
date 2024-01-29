@@ -4,90 +4,48 @@ import { fetchList } from '@/utils/fetchList';
 import { getRandomMovies } from '@/utils/helpers';
 import Footer from '@/components/Footer';
 import List from '@/components/List/List';
+import Section from '@/components/home/section';
+
+export const revalidate = 86400; // revalidate after 24 hours(1 day)
 
 export default async function Home() {
   const trendingMoviesEndpoint = 'trending/movie/day';
   const popularEndpoint = 'movie/popular';
-  const moviesEndpoint = 'movie/upcoming';
-  const seriesEndpoint = 'tv/popular';
-  const trendingSeriesEndpoint = 'trending/tv/day';
 
-
-  const allResults: Promise<
-    [FetchData, FetchData, FetchData, FetchData, FetchData]
-  > = Promise.all([
-    fetchList(seriesEndpoint),
-    fetchList(moviesEndpoint),
+  const allResults: Promise<[FetchData, FetchData]> = Promise.all([
     fetchList(trendingMoviesEndpoint),
     fetchList(popularEndpoint),
-    fetchList(trendingSeriesEndpoint),
   ]);
 
-  const [
-    { results: series },
-    { results: movies },
-    { results: trendingResults },
-    { results: popularResults },
-    { results: trendingSeries },
-  ] = await allResults;
+  const [{ results: trendingResults }, { results: popularResults }] =
+    await allResults;
 
-  series.sort((a, b) => b.popularity - a.popularity);
+  trendingResults.sort((a, b) => b.popularity - a.popularity);
 
   popularResults.sort((a, b) => b.popularity - a.popularity);
-  const allData: {
-    id: number;
-    variant: 'new' | 'popular' | 'movie';
-    results: MovieList[];
-    href: string;
-    title: string;
-    type: 'movie' | 'tv';
-  }[] = [
-    {
-      id: 3,
-      variant: 'new',
-      results: trendingSeries,
-      href: '/tv?tab=trending',
-      title: 'trending tv shows',
-      type: 'tv',
-    },
-    {
-      id: 1,
-      variant: 'popular',
-      results: popularResults,
-      href: '/movies?tab=popular',
-      title: 'popular movies',
-      type: 'movie',
-    },
-    {
-      id: 2,
-      variant: 'movie',
-      results: series,
-      href: '/tv?tab=popular',
-      title: 'popular tv shows',
-      type: 'tv',
-    },
-    {
-      id: 0,
-      variant: 'new',
-      results: movies,
-      href: '/movies?tab=upcoming',
-      title: 'upcoming movies',
-      type: 'movie',
-    },
-  ];
 
   const randomFive = getRandomMovies(trendingResults, 5);
   return (
     <>
-      <section className={' flex flex-col gap-y-5'}>
-        <Hero movies={randomFive} />
+      <Hero movies={randomFive} />
+      <section
+        className={
+          ' flex flex-col gap-y-5 w-11/12 mx-auto border-b mt-10 border-body'
+        }
+      >
         <List
-          list={trendingResults.slice(0, 10)}
+          list={trendingResults}
           link='/movies?tab=trending'
           title='trending movies'
-          styles=' w-11/12 mx-auto border-b mt-10 border-body'
+          styles=' '
         />
-        <Lists moviesData={allData} />
+        <Section
+          title='popular movies'
+          variant='popular'
+          results={popularResults}
+          href='/movies?tab=popular'
+        />
+        <Lists />
       </section>
       <Footer />
     </>

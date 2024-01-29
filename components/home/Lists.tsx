@@ -1,68 +1,86 @@
-import Link from 'next/link';
-import CustomCarousel from '../Slider/carousel';
-import NewReleaseCard from '../Cards/NewRelease';
-import PopularMovieCard from '../Cards/PopularMovieCard';
-import { popularMoviesOptions } from '@/constants/data';
-import MovieCard from '../Cards/MovieCard';
-import SubHeading from '../common/sub-heading';
+'use client';
+import { fetchClientList } from '@/utils/fetchList';
+import Section from './section';
+import { useQueries } from '@tanstack/react-query';
+import Fallback from '../loaders/fallback';
 
-export default async function Lists({
-  moviesData,
-}: {
-  moviesData: {
+const moviesEndpoint = 'movie/upcoming';
+const seriesEndpoint = 'tv/popular';
+const trendingSeriesEndpoint = 'trending/tv/day';
+
+export default function Lists() {
+  const queries = [
+    {
+      key: ['tv', 'trending'],
+      endpoint: trendingSeriesEndpoint,
+    },
+    {
+      key: ['movies', 'upcoming'],
+      endpoint: moviesEndpoint,
+    },
+    {
+      key: ['tv', 'popular'],
+      endpoint: seriesEndpoint,
+    },
+  ];
+
+  const [
+    { data: trendingSeries, isFetching: fetchingTrendingSeries },
+    { data: upcomingMovies, isFetching: fetchingUpmcomingMovies },
+    { data: popularSeries, isFetching: fetchingPopularSeries },
+  ] = useQueries({
+    queries: queries.map(({ key, endpoint }) => ({
+      queryKey: key,
+      queryFn: () => fetchClientList(endpoint),
+    })),
+  });
+
+  if (
+    fetchingPopularSeries ||
+    fetchingTrendingSeries ||
+    fetchingUpmcomingMovies
+  )
+    return <Fallback />;
+
+  const listItems: {
     id: number;
     variant: 'new' | 'popular' | 'movie';
     results: MovieList[];
     href: string;
     title: string;
     type: 'movie' | 'tv';
-  }[];
-}) {
+  }[] = [
+    {
+      id: 0,
+      variant: 'new',
+      results: trendingSeries?.results,
+      href: '/tv?tab=trending',
+      title: 'trending tv shows',
+      type: 'movie',
+    },
+    {
+      id: 1,
+      variant: 'new',
+      results: upcomingMovies?.results,
+      href: '/movies?tab=upcoming',
+      title: 'upcoming movies',
+      type: 'movie',
+    },
+    {
+      id: 2,
+      variant: 'new',
+      results: popularSeries?.results,
+      href: '/tv?tab=popular',
+      title: 'popular tv shows',
+      type: 'tv',
+    },
+  ];
+
   return (
     <div className='w-11/12 mx-auto flex flex-col gap-y-10'>
-      {moviesData.map(({ id, ...others }) => (
-        <Section key={id} {...others} />
-      ))}
+      {listItems.map((item) => {
+        return <Section key={item.id} {...item} />;
+      })}
     </div>
   );
 }
-
-type SectionProps = {
-  title: string;
-  variant: string;
-  results: MovieList[];
-  href: string;
-  type?: 'movie' | 'tv';
-};
-
-const Section = (props: SectionProps) => {
-  const { title, variant, results, href, type = 'movie' } = props;
-  return (
-    <section className='border-b border-body flex flex-col gap-y-4 last:border-none pt-4'>
-      <SubHeading text={title} />
-      <CustomCarousel
-        options={variant === 'popular' ? popularMoviesOptions : null}
-      >
-        {results.map((result, index) => {
-          if (variant === 'popular') {
-            return (
-              <PopularMovieCard index={index} key={result.id} {...result} />
-            );
-          }
-
-          if (variant === 'movie') {
-            return <MovieCard key={result.id} {...result} />;
-          }
-
-          return <NewReleaseCard key={result.id} {...result} />;
-        })}
-      </CustomCarousel>
-      <Link
-        href={href}
-        className='self-end border border-body px-4 py-3 bg-body hover:bg-dull text-dullText'
-      >
-        view more
-      </Link>
-    </section>
-  );
-};

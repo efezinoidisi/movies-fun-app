@@ -8,6 +8,7 @@ import BackToTop from '@/components/Buttons/back-to-top';
 import Sidebar from '@/components/navigation/sidebar';
 import { Suspense } from 'react';
 import Fallback from '@/components/loaders/fallback';
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
   title: {
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     default: 'moviesFun',
   },
   description:
-    'discover interesting movies,people and shows of different kinds',
+    'discover interesting movies,people and tv series of different genres. ',
 };
 
 export default function RootLayout({
@@ -47,6 +48,7 @@ export default function RootLayout({
             </section>
           </main>
           <BackToTop />
+          <Analytics />
           {modals}
         </Providers>
       </body>

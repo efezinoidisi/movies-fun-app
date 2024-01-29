@@ -17,6 +17,8 @@ type Props = {
   params: { id: string };
 };
 
+export const revalidate = 86400; // revalidate after 24 hours(1 day)
+
 export async function generateMetadata({ params: { id } }: Props) {
   const show = await fetchList(`tv/${id}`);
 
@@ -125,7 +127,7 @@ export default async function page({ params: { id } }: Props) {
         poster={poster_path}
       />
 
-      <section className='flex flex-col gap-5 md:gap-7 lg:gap-10 w-11/12 mx-auto'>
+      <section className='flex flex-col gap-5 md:gap-7 lg:gap-10 w-11/12 mx-auto pb-5'>
         <Details
           name={name}
           type='tv'

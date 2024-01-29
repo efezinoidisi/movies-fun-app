@@ -66,7 +66,7 @@ export default function MovieCard(props: MovieList) {
               </span>
             </p>
           </div>
-          <GenreList genres={genres} type='without-id' />
+          <GenreList genres={genres} type='without-id' page={type} />
         </div>
       </Link>
     </div>

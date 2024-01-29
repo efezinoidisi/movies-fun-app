@@ -23,7 +23,7 @@ export default function Seasons({ seasons, seriesId, seriesName }: Prop) {
           return (
             <div
               key={season.id}
-              className='mr-2 rounded-xl pb-3 border-main/20 border hover:border-accent transition-all duration-300 ease-out bg-body'
+              className='mr-2 rounded-xl pb-3 border-main/20 border hover:border-accent transition-all duration-300 ease-out bg-body group'
             >
               <Link
                 href={{
@@ -34,8 +34,8 @@ export default function Seasons({ seasons, seriesId, seriesName }: Prop) {
               >
                 <MoviePoster
                   posterPath={season.poster_path}
-                  className='h-44 w-full'
-                  imageStyles='rounded-t-xl w-full h-full bg-cover aspect-[2/3]'
+                  className='h-44 w-full overflow-hidden'
+                  imageStyles='rounded-t-xl w-full h-full bg-cover aspect-[2/3] group-hover:scale-105'
                 />
                 <div className='px-2 py-1 flex flex-col gap-2'>
                   <h4 className=' truncate text-lg font-semibold'>

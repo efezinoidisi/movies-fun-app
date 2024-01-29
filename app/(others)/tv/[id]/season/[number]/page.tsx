@@ -18,6 +18,8 @@ type Props = {
   };
 };
 
+export const revalidate = 86400; // revalidate after 24 hours(1 day)
+
 export default async function page(props: Props) {
   const {
     params: { number, id },
@@ -133,7 +135,7 @@ const EpisodeCard = (props: EpisodeCardProps) => {
 
   const date = getReleaseDate(airDate, 'full');
 
-  const directors = crew.filter(({ job }) => job === 'Director');
+  const directors = crew?.filter(({ job }) => job === 'Director');
 
   const directorNode =
     directors.length > 0
@@ -148,8 +150,10 @@ const EpisodeCard = (props: EpisodeCardProps) => {
           </Link>
         ))
       : null;
+
+  if (!name && !photo) return null;
   return (
-    <div className='flex flex-col gap-5 min-h-max border border-main/30 bg-black/50 rounded-xl '>
+    <div className='flex flex-col gap-5 min-h-max border border-main/30 bg-dull/20 rounded-xl '>
       <Poster
         posterPath={photo}
         imageStyles='w-full h-full rounded-t-xl bg-cover '

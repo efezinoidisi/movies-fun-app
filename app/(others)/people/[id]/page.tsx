@@ -17,6 +17,8 @@ type Props = {
 
 type Item = Crew & CastTv & CastMovie;
 
+export const revalidate = 86400; // revalidate after 24 hours(1 day)
+
 const tabItems = [
   {
     query: 'movies',
@@ -61,6 +63,7 @@ export default async function page({
     biography,
     birthday,
     gender,
+    known_for_department,
   } = await person;
 
   const movieCredits = movie_credits?.cast;
@@ -137,7 +140,7 @@ export default async function page({
   }
 
   return (
-    <section className='w-11/12 mx-auto'>
+    <section className='w-11/12 mx-auto pb-5'>
       <div className='py-16'></div>
       <Heading text={name || ''} />
       <div className='grid md:grid-cols-3 gap-y-4 md:place-items-start gap-x-6 mb-3 overflow-x-hidden place-items-center'>
@@ -189,9 +192,11 @@ export default async function page({
 
         <Tab
           tabItems={tabItems}
-          defaultTab='movies'
+          defaultTab={
+            known_for_department === 'Acting' ? 'movies' : 'production'
+          }
           styles='self-center bg-dull bg-opacity-90 py-2'
-          activeStyles='border-0  text-pink-600'
+          activeStyles='border-0  text-white'
           scroll={false}
           buttonStyles='border-r last:border-r-0 px-3 border-body hover:border-b-0'
         />

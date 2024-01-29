@@ -42,7 +42,7 @@ export default async function page(props: Props) {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className='py-10 bg-[#0e2439]'></div>
-      <section className='w-11/12 mx-auto pt-10  flex flex-col gap-5'>
+      <section className='w-11/12 mx-auto pt-10  flex flex-col gap-2 md:gap-5'>
         <Heading text='recommendations' />
         <InfiniteScroll endpoint={endpoint} passkey={queryKey} />
       </section>

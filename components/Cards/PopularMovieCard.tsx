@@ -63,7 +63,7 @@ export default function PopularMovieCard(props: CardProps) {
           <h3 className='capitalize font-semibold text-xl line-clamp-1'>
             {name || title}
           </h3>
-          <GenreList genres={genres} type='without-id' />
+          <GenreList genres={genres} type='without-id' page={type} />
           <div className='flex items-center gap-1'>
             <Rating rating={vote_average} />
             <span className='opacity-80'>|</span>

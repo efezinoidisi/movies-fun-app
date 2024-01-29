@@ -44,7 +44,7 @@ export default function MediaItemCard(props: MediaItem) {
             <Rating rating={vote_average} />
           </p>
         </div>
-        <GenreList genres={genres} type='without-id' />
+        <GenreList genres={genres} type='without-id' page={type} />
       </div>
     </Link>
   );

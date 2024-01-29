@@ -55,7 +55,7 @@ export default function NewReleaseCard(props: MovieList) {
           <Rating rating={vote_average} />
           <p className='text-sm'>{releaseYear}</p>
         </div>
-        <GenreList genres={genres} type='without-id' />
+        <GenreList genres={genres} type='without-id' page={type} />
       </div>
     </Link>
   );
