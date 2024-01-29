@@ -79,13 +79,9 @@ export default function InfiniteScroll(props: Props) {
           });
         })
       : data?.pages?.map((pg) => {
-          return pg?.results
-            ?.toSorted(
-              (a: MovieList, b: MovieList) => b.popularity - a.popularity
-            )
-            .map((movie: MovieList) => {
-              return <NewReleaseCard key={movie.id} {...movie} />;
-            });
+          return pg?.results?.map((movie: MovieList) => {
+            return <NewReleaseCard key={movie.id} {...movie} />;
+          });
         });
 
   return (
