@@ -127,7 +127,7 @@ export default async function page({
       tvCredits.length > 0 ? (
         <Table items={tvCredits as Item[]} caption='television' />
       ) : null;
-  } else if (tab === 'production') {
+  } else if (tab === 'production' || known_for_department !== 'Acting') {
     filmography =
       productionCredits.length > 0 ? (
         <Table items={productionCredits as Item[]} caption='production' />
@@ -234,7 +234,7 @@ const Table = (props: TableProps) => {
     );
   });
   return (
-    <table className='table-fixed'>
+    <table className='table-fixed md:w-3/4 mx-auto'>
       <caption className='caption-top uppercase  border-b-4 py-3 text-white/90 font-medium tracking-wider text-lg'>
         {caption}
       </caption>
