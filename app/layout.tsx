@@ -9,6 +9,7 @@ import Sidebar from '@/components/navigation/sidebar';
 import { Suspense } from 'react';
 import Fallback from '@/components/loaders/fallback';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
   title: {
@@ -49,6 +50,7 @@ export default function RootLayout({
           </main>
           <BackToTop />
           <Analytics />
+          <SpeedInsights />
           {modals}
         </Providers>
       </body>
