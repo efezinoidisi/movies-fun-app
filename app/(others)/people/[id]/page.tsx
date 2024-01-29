@@ -124,17 +124,17 @@ export default async function page({
   let filmography = null;
   if (tab === 'television') {
     filmography =
-      tvCredits.length > 0 ? (
+      tvCredits?.length > 0 ? (
         <Table items={tvCredits as Item[]} caption='television' />
       ) : null;
   } else if (tab === 'production' || known_for_department !== 'Acting') {
     filmography =
-      productionCredits.length > 0 ? (
+      productionCredits?.length > 0 ? (
         <Table items={productionCredits as Item[]} caption='production' />
       ) : null;
   } else {
     filmography =
-      movieCredits.length > 0 ? (
+      movieCredits?.length > 0 ? (
         <Table items={movieCredits as Item[]} caption='movies' />
       ) : null;
   }
@@ -149,7 +149,7 @@ export default async function page({
             {biography}
           </p>
 
-          {details.map(({ title, value }) => {
+          {details?.map(({ title, value }) => {
             if (!value) return null;
             return (
               <div className='flex items-start py-2' key={title}>
@@ -167,12 +167,12 @@ export default async function page({
           imageStyles='w-full h-full rounded-lg'
         />
       </div>
-      {images.profiles.length > 0 && (
+      {images?.profiles?.length > 0 && (
         <section className='flex flex-col gap-3 my-5 md:my-10'>
           <SubHeading text='featured images' />
           <div className='flex gap-3 flex-wrap mb-3'>
             {profiles?.length > 0 &&
-              profiles.map((profile) => {
+              profiles?.map((profile) => {
                 return (
                   <Poster
                     type='person'

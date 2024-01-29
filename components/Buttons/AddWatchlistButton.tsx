@@ -99,7 +99,7 @@ export default function AddWatchlistButton(props: Props) {
   return (
     <Button
       className={merge(
-        `py-2 md:py-4 truncate hover:bg-white/80 hover:text-background transition-colors duration-200 ease-linear md:min-w-max capitalize px-2 md:px-4 rounded-lg flex gap-2 items-center text-sm font-medium group cursor-pointer h-12`,
+        `py-2 md:py-4 truncate hover:bg-white/80 hover:text-background transition-colors duration-200 ease-linear md:min-w-[11rem] capitalize px-2 md:px-4 rounded-lg flex gap-2 items-center text-sm font-medium group cursor-pointer h-12 w-full justify-center`,
         border && 'border',
         extraStyles
       )}

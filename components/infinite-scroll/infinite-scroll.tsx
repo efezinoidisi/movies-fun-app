@@ -5,7 +5,6 @@ import { useCallback, useRef } from 'react';
 import { merge } from '@/utils/merge';
 import Loader from '../loaders/loader';
 import Ring from '../loaders/ring';
-import MovieCard from '../Cards/MovieCard';
 import Person from '../Cards/person';
 import Error from '../error/error';
 import NewReleaseCard from '../Cards/NewRelease';

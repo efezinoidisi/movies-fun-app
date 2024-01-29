@@ -71,7 +71,7 @@ export default async function page({ params: { movieId } }: Props) {
   const directors = credits.crew.filter((crew) => crew.job === 'Director');
 
   const directorNode =
-    directors.length > 0
+    directors?.length > 0
       ? directors.map((director) => (
           <Link
             href={`/people/${director.id}`}

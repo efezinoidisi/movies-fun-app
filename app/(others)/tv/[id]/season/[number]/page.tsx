@@ -138,7 +138,7 @@ const EpisodeCard = (props: EpisodeCardProps) => {
   const directors = crew?.filter(({ job }) => job === 'Director');
 
   const directorNode =
-    directors.length > 0
+    directors?.length > 0
       ? directors.map((director) => (
           <Link
             href={`/people/${director.id}`}

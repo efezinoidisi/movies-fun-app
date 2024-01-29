@@ -25,9 +25,21 @@ export default function Lists() {
   ];
 
   const [
-    { data: trendingSeries, isFetching: fetchingTrendingSeries },
-    { data: upcomingMovies, isFetching: fetchingUpmcomingMovies },
-    { data: popularSeries, isFetching: fetchingPopularSeries },
+    {
+      data: trendingSeries,
+      isFetching: fetchingTrendingSeries,
+      isError: isTrendingSeriesError,
+    },
+    {
+      data: upcomingMovies,
+      isFetching: fetchingUpmcomingMovies,
+      isError: isUpcomingError,
+    },
+    {
+      data: popularSeries,
+      isFetching: fetchingPopularSeries,
+      isError: isPopularError,
+    },
   ] = useQueries({
     queries: queries.map(({ key, endpoint }) => ({
       queryKey: key,
@@ -41,6 +53,9 @@ export default function Lists() {
     fetchingUpmcomingMovies
   )
     return <Fallback />;
+
+  if (isPopularError || isTrendingSeriesError || isUpcomingError)
+    return <p className='text-center w-full'>error fetching data</p>;
 
   const listItems: {
     id: number;
@@ -78,7 +93,7 @@ export default function Lists() {
 
   return (
     <div className='w-11/12 mx-auto flex flex-col gap-y-10'>
-      {listItems.map((item) => {
+      {listItems?.map((item) => {
         return <Section key={item.id} {...item} />;
       })}
     </div>

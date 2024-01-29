@@ -77,8 +77,8 @@ export default function UserData() {
             key={items[item as Tab].title}
             className='flex items-center bg-dull px-3 py-1 rounded-md'
           >
-            <p className='min-w-[12rem]'>{items[item as Tab].title}</p>
-            <p className='text-black'> {items[item as Tab].data?.length}</p>
+            <p className='min-w-[12rem]'>{items[item as Tab]?.title}</p>
+            <p className='text-black'> {items[item as Tab]?.data?.length}</p>
           </div>
         ))}
       </div>
@@ -90,7 +90,7 @@ export default function UserData() {
         onChange={handleChange}
         aria-label='select active tab'
       >
-        {tabItems.map((item) => (
+        {tabItems?.map((item) => (
           <option key={item.title} value={item.query}>
             {item.title}
           </option>

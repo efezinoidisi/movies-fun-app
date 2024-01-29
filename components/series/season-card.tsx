@@ -12,7 +12,7 @@ type Prop = {
 };
 
 export default function Seasons({ seasons, seriesId, seriesName }: Prop) {
-  if (!seasons || seasons.length === 0) return null;
+  if (!seasons || seasons?.length === 0) return null;
 
   return (
     <article>

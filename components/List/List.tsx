@@ -18,7 +18,7 @@ export default function List({
   link?: string;
   styles?: string;
 }) {
-  if (list.length === 0) return null;
+  if (!list || list?.length === 0) return null;
   return (
     <section className={merge('flex flex-col gap-5', styles)}>
       {title && <SubHeading text={title} />}
