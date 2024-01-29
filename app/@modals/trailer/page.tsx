@@ -27,7 +27,7 @@ export default async function page({
           className='w-full rounded-2xl'
         ></iframe>
       ) : (
-        <div className='w-1/2 h-full  min-h-[50vh] flex justify-center items-center flex-col gap-5'>
+        <div className='md:w-1/2 h-full  min-h-[50vh] flex justify-center items-center flex-col gap-5'>
           <p className='capitalize text-lg text-white'>no trailer found😢</p>
           <CloseModal
             style='relative text-xl flex items-center gap-2 border px-5 py-1 rounded-lg border-red-600 mt-2'
