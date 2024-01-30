@@ -70,7 +70,7 @@ export default function Hero({ movies }: { movies: MovieList[] }) {
               className='underline pl-2 text-blue-500'
               aria-description={`view more about ${title}`}
             >
-              more info
+              view more
             </Link>
           </p>
 

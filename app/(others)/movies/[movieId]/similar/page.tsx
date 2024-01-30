@@ -15,7 +15,7 @@ export async function generateMetadata({ params: { movieId } }: Props) {
   const movie = await fetchList(`movie/${movieId}`);
 
   return {
-    title: `moviesFun - Similar movies`,
+    title: `Similar movies`,
     description: `more movies like ${movie.title}`,
   };
 }
@@ -41,8 +41,8 @@ export default async function page(props: Props) {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div className='py-10 bg-[#c8d3dd]'></div>
-      <section className='px-5 w-11/12 mx-auto pt-10  flex flex-col gap-2 md:gap-5'>
+      <div className='py-10 bg-[#0e2439]'></div>
+      <section className='w-11/12 mx-auto pt-10  flex flex-col gap-2 md:gap-5'>
         <Heading text='similar novies' />
         <InfiniteScroll endpoint={endpoint} passkey={queryKey} />
       </section>
