@@ -53,7 +53,7 @@ export default async function Lists() {
   ];
 
   return (
-    <div className='w-11/12 mx-auto flex flex-col gap-y-10'>
+    <div className='flex flex-col gap-y-10'>
       {listItems?.map((item) => {
         return <Section key={item.id} {...item} />;
       })}
