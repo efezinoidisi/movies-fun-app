@@ -1,61 +1,22 @@
-'use client';
-import { fetchClientList } from '@/utils/fetchList';
+import { fetchList } from '@/utils/fetchList';
 import Section from './section';
-import { useQueries } from '@tanstack/react-query';
-import Fallback from '../loaders/fallback';
 
 const moviesEndpoint = 'movie/upcoming';
 const seriesEndpoint = 'tv/popular';
 const trendingSeriesEndpoint = 'trending/tv/day';
 
-export default function Lists() {
-  const queries = [
-    {
-      key: ['tv', 'trending'],
-      endpoint: trendingSeriesEndpoint,
-    },
-    {
-      key: ['movies', 'upcoming'],
-      endpoint: moviesEndpoint,
-    },
-    {
-      key: ['tv', 'popular'],
-      endpoint: seriesEndpoint,
-    },
-  ];
+export default async function Lists() {
+  const allResults: Promise<[FetchData, FetchData, FetchData]> = Promise.all([
+    fetchList(moviesEndpoint),
+    fetchList(seriesEndpoint),
+    fetchList(trendingSeriesEndpoint),
+  ]);
 
   const [
-    {
-      data: trendingSeries,
-      isFetching: fetchingTrendingSeries,
-      isError: isTrendingSeriesError,
-    },
-    {
-      data: upcomingMovies,
-      isFetching: fetchingUpmcomingMovies,
-      isError: isUpcomingError,
-    },
-    {
-      data: popularSeries,
-      isFetching: fetchingPopularSeries,
-      isError: isPopularError,
-    },
-  ] = useQueries({
-    queries: queries.map(({ key, endpoint }) => ({
-      queryKey: key,
-      queryFn: () => fetchClientList(endpoint),
-    })),
-  });
-
-  if (
-    fetchingPopularSeries ||
-    fetchingTrendingSeries ||
-    fetchingUpmcomingMovies
-  )
-    return <Fallback />;
-
-  if (isPopularError || isTrendingSeriesError || isUpcomingError)
-    return <p className='text-center w-full'>error fetching data</p>;
+    { results: upcomingMovies },
+    { results: popularSeries },
+    { results: trendingSeries },
+  ] = await allResults;
 
   const listItems: {
     id: number;
@@ -68,15 +29,15 @@ export default function Lists() {
     {
       id: 0,
       variant: 'new',
-      results: trendingSeries?.results,
+      results: trendingSeries,
       href: '/tv?tab=trending',
       title: 'trending tv shows',
       type: 'movie',
     },
     {
       id: 1,
-      variant: 'new',
-      results: upcomingMovies?.results,
+      variant: 'movie',
+      results: upcomingMovies,
       href: '/movies?tab=upcoming',
       title: 'upcoming movies',
       type: 'movie',
@@ -84,7 +45,7 @@ export default function Lists() {
     {
       id: 2,
       variant: 'new',
-      results: popularSeries?.results,
+      results: popularSeries,
       href: '/tv?tab=popular',
       title: 'popular tv shows',
       type: 'tv',
