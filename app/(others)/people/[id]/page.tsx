@@ -127,7 +127,7 @@ export default async function page({
       tvCredits?.length > 0 ? (
         <Table items={tvCredits as Item[]} caption='television' />
       ) : null;
-  } else if (tab === 'production' || known_for_department !== 'Acting') {
+  } else if (tab === 'production') {
     filmography =
       productionCredits?.length > 0 ? (
         <Table items={productionCredits as Item[]} caption='production' />
@@ -192,9 +192,7 @@ export default async function page({
 
         <Tab
           tabItems={tabItems}
-          defaultTab={
-            known_for_department === 'Acting' ? 'movies' : 'production'
-          }
+          defaultTab={'movies'}
           styles='self-center bg-dull bg-opacity-90 py-2'
           activeStyles='border-0  text-white'
           scroll={false}
