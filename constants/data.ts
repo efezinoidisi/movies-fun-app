@@ -1,64 +1,64 @@
-export const API_BASE_URL = 'https://api.themoviedb.org/3/';
+export const API_BASE_URL = "https://api.themoviedb.org/3/";
 
-export const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+export const IMG_URL = "https://image.tmdb.org/t/p/w500";
 
 export const OPTIONS = {
-  Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
-  'Content-Type': 'application/json',
+  Authorization: `Bearer ${process.env.API_ACCESS_TOKEN}`,
+  "Content-Type": "application/json",
 };
 
 export const NAVIGATION = [
   {
     id: 0,
-    href: '/',
-    name: 'home',
+    href: "/",
+    name: "home",
   },
   {
     id: 1,
-    href: '/movies',
-    name: 'movies',
+    href: "/movies",
+    name: "movies",
   },
   {
     id: 2,
-    href: '/tv',
-    name: 'series',
+    href: "/tv",
+    name: "series",
   },
   {
     id: 3,
-    href: '/about',
-    name: 'about',
+    href: "/about",
+    name: "about",
   },
 ];
 
 // all oficial genres from the tmbd api
 export const GENRES: { [key: number]: string } = {
-  12: 'adventure',
-  14: 'fantasy',
-  16: 'animation',
-  18: 'drama',
-  27: 'horror',
-  28: 'action',
-  35: 'comedy',
-  36: 'history',
-  37: 'western',
-  53: 'thriller',
-  80: 'Crime',
-  99: 'documentary',
-  878: 'science fiction',
-  9648: 'mystery',
-  10402: 'music',
-  10749: 'romance',
-  10751: 'family',
-  10752: 'war',
-  10759: 'action & adventure',
-  10762: 'kids',
-  10763: 'news',
-  10764: 'reality',
-  10765: 'sci-fi & fantasy',
-  10766: 'soap',
-  10767: 'talk',
-  10768: 'war & politics',
-  10770: 'tv movie',
+  12: "adventure",
+  14: "fantasy",
+  16: "animation",
+  18: "drama",
+  27: "horror",
+  28: "action",
+  35: "comedy",
+  36: "history",
+  37: "western",
+  53: "thriller",
+  80: "Crime",
+  99: "documentary",
+  878: "science fiction",
+  9648: "mystery",
+  10402: "music",
+  10749: "romance",
+  10751: "family",
+  10752: "war",
+  10759: "action & adventure",
+  10762: "kids",
+  10763: "news",
+  10764: "reality",
+  10765: "sci-fi & fantasy",
+  10766: "soap",
+  10767: "talk",
+  10768: "war & politics",
+  10770: "tv movie",
 };
 
 export const popularMoviesOptions = {
@@ -73,11 +73,11 @@ export const popularMoviesOptions = {
   rewind: true,
   rewindWithAnimation: true,
   keyBoardControl: true,
-  customTransition: 'all .5',
+  customTransition: "all .5",
   transitionDuration: 500,
-  containerClass: 'carousel-container',
-  dotListClass: 'custom-dot-list-style',
-  itemClass: 'carousel-item-padding-40-px',
+  containerClass: "carousel-container",
+  dotListClass: "custom-dot-list-style",
+  itemClass: "carousel-item-padding-40-px",
   responsive: {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 1200 },
@@ -101,21 +101,21 @@ export const popularMoviesOptions = {
 };
 
 export const MOVIE_ENDPOINTS = {
-  popular: 'movie/popular',
-  trending: 'trending/movie/day',
-  top_rated: 'movie/top_rated',
-  upcoming: 'movie/upcoming',
+  popular: "movie/popular",
+  trending: "trending/movie/day",
+  top_rated: "movie/top_rated",
+  upcoming: "movie/upcoming",
 };
 
 export const TV_ENDPOINTS = {
-  popular: 'tv/popular',
-  trending: 'trending/tv/day',
-  top_rated: 'tv/top_rated',
+  popular: "tv/popular",
+  trending: "trending/tv/day",
+  top_rated: "tv/top_rated",
 };
 
 export const GENDERS: { [key: number]: string } = {
-  0: 'not specified',
-  1: 'female',
-  2: 'male',
-  3: 'non-binary',
+  0: "not specified",
+  1: "female",
+  2: "male",
+  3: "non-binary",
 };
