@@ -122,15 +122,15 @@ export default async function page({ params: { id } }: Props) {
         payload={payload}
         releaseYear={duration}
         trailer={trailerKey as string}
-        type={'tv'}
+        type={"tv"}
         runtime={runtime}
         poster={poster_path}
       />
 
-      <section className='flex flex-col gap-5 md:gap-7 lg:gap-10 w-11/12 mx-auto pb-5'>
+      <section className="flex flex-col gap-5 md:gap-7 lg:gap-10 px-5 md:px-10 lg:px-16 pb-5">
         <Details
           name={name}
-          type='tv'
+          type="tv"
           first_episode={first_air_date}
           language={language as string}
           last_episode={last_air_date}

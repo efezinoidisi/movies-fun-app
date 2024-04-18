@@ -1,13 +1,13 @@
-import { fetchList } from '@/utils/fetchList';
+import Heading from "@/components/common/heading";
+import Error from "@/components/error/error";
+import InfiniteScroll from "@/components/infinite-scroll/infinite-scroll";
+import { GENRES } from "@/constants/data";
+import { fetchList } from "@/utils/fetchList";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
-} from '@tanstack/react-query';
-import InfiniteScroll from '@/components/infinite-scroll/infinite-scroll';
-import { GENRES } from '@/constants/data';
-import Error from '@/components/error/error';
-import Heading from '@/components/common/heading';
+} from "@tanstack/react-query";
 
 type Props = {
   params: { id: string };
@@ -20,11 +20,11 @@ export default async function page(props: Props) {
 
   const endpoint = `discover/movie?with_genres=${id}`;
 
-  const queryKey = ['movies', 'genre', id];
+  const queryKey = ["movies", "genre", id];
 
   const isIdValid = Object.keys(GENRES).includes(id);
 
-  if (!isIdValid) return <Error message='genre not found' />;
+  if (!isIdValid) return <Error message="genre not found" />;
 
   const queryClient = new QueryClient();
   await queryClient.prefetchInfiniteQuery({
@@ -37,11 +37,11 @@ export default async function page(props: Props) {
     pages: 1,
   });
 
-  const text = GENRES[+id] ?? '';
+  const text = GENRES[+id] ?? "";
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div className='py-10 bg-[#0e2439]'></div>
-      <section className='w-11/12 mx-auto pt-10  flex flex-col gap-5'>
+      <div className="py-10"></div>
+      <section className="px-5 md:px-10 lg:px-16 pt-10  flex flex-col gap-5">
         <Heading text={text} />
         <InfiniteScroll endpoint={endpoint} passkey={queryKey} />
       </section>

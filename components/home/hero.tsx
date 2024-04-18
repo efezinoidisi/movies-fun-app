@@ -1,6 +1,6 @@
 "use client";
 import { GENRES, IMG_URL } from "@/constants/data";
-import { checkTrimString, getReleaseDate } from "@/utils/helpers";
+import { getReleaseDate } from "@/utils/helpers";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import AddWatchlistButton from "../Buttons/AddWatchlistButton";
@@ -23,7 +23,6 @@ export default function Hero({ movies }: { movies: MovieList[] }) {
     return () => clearInterval(unSub);
   }, [currentIndex]);
   const MAX = 200;
-  const overview = checkTrimString(currentMovie.overview, MAX);
 
   const { id, genre_ids, backdrop_path, name, title, vote_average } =
     currentMovie;
@@ -41,15 +40,15 @@ export default function Hero({ movies }: { movies: MovieList[] }) {
       style={{
         background: `linear-gradient(0deg, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.70) 100%),url(${IMG_URL}${backdrop_path})`,
       }}
-      className="min-h-screen w-full hero lg:header text-white bg-opacity-30 flex flex-col justify-end gap-10 md:px-12 px-5 pb-14 md:pb-32 lg:max-h-screen lg:pb-20"
+      className="min-h-screen w-full hero lg:header text-white bg-opacity-30 flex flex-col justify-end gap-10 md:px-12 px-5 pb-14 md:pb-20 lg:max-h-screen "
     >
-      <div className="flex flex-col justify-between gap-10 md:gap-0 md:flex-row lg:w-3/4">
+      <div className="flex flex-col justify-between gap-10 md:gap-0 md:flex-row ">
         <div className="flex flex-col gap-3 md:max-w-[30rem]">
           <span className="bg-opacity-50 bg-black py-1 px-2 rounded-full capitalize w-fit text-xs">
             movie
           </span>
 
-          <h2 className="capitalize text-4xl min-w-min">
+          <h2 className="capitalize text-4xl md:text-5xl lg:text-6xl min-w-min text-pretty line-clamp-2">
             <Link href={`/movies/${id}`}>{title}</Link>
           </h2>
 
@@ -63,18 +62,11 @@ export default function Hero({ movies }: { movies: MovieList[] }) {
               );
             })}
           </ul>
-          <p className="md:max-w-md leading-5 tracking-wide opacity-90">
-            {overview}
-            <Link
-              href={`/movies/${id}`}
-              className="underline pl-2 text-blue-500"
-              aria-description={`view more about ${title}`}
-            >
-              view more
-            </Link>
+          <p className="md:max-w-md leading-6 tracking-wide opacity-90 md:text-lg line-clamp-5">
+            {currentMovie.overview}
           </p>
 
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-2 items-center lg:w-5/6">
             <WatchTrailerButton
               path={`/trailer?movieId=${id}&title=${title}`}
             />
@@ -85,7 +77,7 @@ export default function Hero({ movies }: { movies: MovieList[] }) {
             />
           </div>
         </div>
-        <div className=" flex gap-2 items-end md:justify-start justify-center ">
+        <div className=" flex gap-2 items-end justify-center ">
           {movies.map(({ id }, index) => (
             <span
               key={id}

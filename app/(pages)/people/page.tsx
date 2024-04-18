@@ -1,22 +1,22 @@
-import { fetchList } from '@/utils/fetchList';
+import Heading from "@/components/common/heading";
+import InfiniteScroll from "@/components/infinite-scroll/infinite-scroll";
+import { fetchList } from "@/utils/fetchList";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
-} from '@tanstack/react-query';
-import InfiniteScroll from '@/components/infinite-scroll/infinite-scroll';
-import { Metadata } from 'next';
-import Heading from '@/components/common/heading';
+} from "@tanstack/react-query";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Popular celebrities',
-  description: 'explore popular, trending, top rated and upcoming movies',
+  title: "Popular celebrities",
+  description: "explore popular, trending, top rated and upcoming movies",
 };
 
 export default async function page() {
   const endpoint = `/person/popular`;
 
-  const queryKey = ['person'];
+  const queryKey = ["person"];
   const queryClient = new QueryClient();
   await queryClient.prefetchInfiniteQuery({
     queryKey,
@@ -30,10 +30,15 @@ export default async function page() {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div className='py-10 bg-[#0e2439]'></div>
-      <section className='w-11/12 mx-auto pt-10  flex flex-col gap-5'>
-        <Heading text='popular celebrities' />
-        <InfiniteScroll endpoint={endpoint} passkey={queryKey} type='person' />
+      <div className="py-10"></div>
+      <section className="px-5 md:px-10 lg:px-16 pt-10  flex flex-col gap-5">
+        <Heading text="popular celebrities" />
+        <InfiniteScroll
+          endpoint={endpoint}
+          passkey={queryKey}
+          type="person"
+          style="md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+        />
       </section>
     </HydrationBoundary>
   );

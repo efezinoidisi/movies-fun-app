@@ -1,24 +1,25 @@
-'use client';
-import { fetchClientList } from '@/utils/fetchList';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { useCallback, useRef } from 'react';
-import { merge } from '@/utils/merge';
-import Loader from '../loaders/loader';
-import Ring from '../loaders/ring';
-import Person from '../Cards/person';
-import Error from '../error/error';
-import NewReleaseCard from '../Cards/NewRelease';
-import SubHeading from '../common/sub-heading';
+"use client";
+import { fetchClientList } from "@/utils/fetchList";
+import { merge } from "@/utils/merge";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useCallback, useRef } from "react";
+import NewReleaseCard from "../Cards/NewRelease";
+import Person from "../Cards/person";
+import SubHeading from "../common/sub-heading";
+import Error from "../error/error";
+import Loader from "../loaders/loader";
+import Ring from "../loaders/ring";
 
 type Props = {
   endpoint: string;
   passkey: string[];
   title?: string;
-  type?: 'movie' | 'tv' | 'person';
+  type?: "movie" | "tv" | "person";
+  style?: string;
 };
 
 export default function InfiniteScroll(props: Props) {
-  const { endpoint, passkey, title, type = 'movie' } = props;
+  const { endpoint, passkey, title, type = "movie", style = "" } = props;
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery({
       queryKey: passkey,
@@ -54,17 +55,17 @@ export default function InfiniteScroll(props: Props) {
     [isFetchingNextPage, fetchNextPage, hasNextPage]
   );
 
-  if (status === 'pending')
+  if (status === "pending")
     return (
-      <div className='flex flex-col items-center'>
+      <div className="flex flex-col items-center">
         <Ring />
       </div>
     );
 
-  if (status === 'error') return <Error message='error fetching data' />;
+  if (status === "error") return <Error message="error fetching data" />;
 
   const content =
-    type === 'person'
+    type === "person"
       ? data?.pages?.map((pg) => {
           return pg?.results?.map((person: Person) => {
             return (
@@ -84,21 +85,25 @@ export default function InfiniteScroll(props: Props) {
         });
 
   return (
-    <section>
+    <section className="w-full">
       {title && <SubHeading text={title} />}
-      <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 sl:grid-cols-3 gap-2 gap-y-4 sl:gap-7 md:gap-5'>
+      <div
+        className={merge(
+          "grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sl:grid-cols-3 gap-2 gap-y-16  md:gap-x-5 ",
+          style
+        )}
+      >
         {content}
       </div>
       <div
         className={merge(
           `invisible flex flex-col items-center`,
 
-          isFetchingNextPage && 'visible'
+          isFetchingNextPage && "visible"
         )}
-        aria-hidden={true}
         ref={lastNodeRef}
       >
-        <Loader background='bg-accent/80' />
+        <Loader background="bg-accent/80" />
       </div>
     </section>
   );

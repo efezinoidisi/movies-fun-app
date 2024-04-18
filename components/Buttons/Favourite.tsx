@@ -10,10 +10,12 @@ export default function Favourite({
   movie,
   position = "static",
   extraStyles = "",
+  useIcon = "heart",
 }: {
   movie: MediaItem;
   position?: Position;
   extraStyles?: string;
+  useIcon?: "heart" | "like";
 }) {
   const type = movie.name ? "tv" : "movies";
 
@@ -49,11 +51,19 @@ export default function Favourite({
       )}
       onClick={handleClick}
     >
-      <Icons.heart
-        className={`hover:text-accent text-2xl group-active:animate-heart ${
-          isFavorite ? "text-pink-500" : "text-white"
-        }`}
-      />
+      {useIcon === "heart" ? (
+        <Icons.heart
+          className={`hover:text-accent text-2xl group-active:animate-heart ${
+            isFavorite ? "text-pink-500" : "text-white"
+          }`}
+        />
+      ) : (
+        <Icons.like
+          className={`hover:text-accent text-2xl group-active:animate-heart ${
+            isFavorite ? "text-pink-500" : "text-white"
+          }`}
+        />
+      )}
       <span className="sr-only">
         {isFavorite ? "remove from favourites" : "add to favourites"}
       </span>

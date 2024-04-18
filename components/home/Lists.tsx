@@ -36,7 +36,7 @@ export default async function Lists() {
     },
     {
       id: 1,
-      variant: "movie",
+      variant: "new",
       results: upcomingMovies,
       href: "/movies?tab=upcoming",
       title: "upcoming movies",

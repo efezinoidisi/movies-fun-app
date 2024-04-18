@@ -27,8 +27,8 @@ export default function Search() {
       onChange={(e) => {
         handleSearch(e.target.value);
       }}
-      placeholder="search movie,tv or person"
-      className="text-white bg-inherit px-5 py-2 rounded-lg mx-7 md:mx-14 lg:mx-32 outline-none  focus:border-opacity-100 border border-opacity-90 focus:border-accent focus:shadow-ml"
+      placeholder="search for a movie,tv or celebrity"
+      className="text-white bg-inherit px-5 py-2 rounded-lg mx-7 md:mx-14 lg:mx-32 outline-none  focus:border-opacity-100 border border-opacity-90 focus:border-accent/60 focus:shadow-sm"
     />
   );
 }

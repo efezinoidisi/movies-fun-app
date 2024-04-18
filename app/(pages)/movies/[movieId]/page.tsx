@@ -106,7 +106,7 @@ export default async function page({ params: { movieId } }: Props) {
         poster={poster_path}
       />
 
-      <section className=' flex flex-col gap-5 md:gap-7 lg:gap-10 w-11/12 mx-auto mb-5 pb-5'>
+      <section className=' flex flex-col gap-5 md:gap-7 lg:gap-10 px-5 md:px-10 lg:px-16 mb-5 pb-5'>
         <Details
           type='movie'
           name={title}

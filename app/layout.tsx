@@ -30,9 +30,9 @@ export default function RootLayout({
       >
         <Providers>
           <Toaster />
-          <main className="md:grid md:grid-cols-12">
+          <main className="md:flex w-full">
             <Sidebar />
-            <section className="md:col-span-10 overflow-x-clip relative">
+            <section className=" overflow-x-clip relative w-full">
               <NavHeader />
 
               {children}
