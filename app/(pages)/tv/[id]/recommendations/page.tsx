@@ -1,24 +1,24 @@
-import { fetchList } from '@/utils/fetchList';
+import Heading from "@/components/common/heading";
+import InfiniteScroll from "@/components/infinite-scroll/infinite-scroll";
+import { fetchList } from "@/utils/fetchList";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
-} from '@tanstack/react-query';
-import InfiniteScroll from '@/components/infinite-scroll/infinite-scroll';
-import Heading from '@/components/common/heading';
+} from "@tanstack/react-query";
 
 type Props = {
   params: { id: string };
 };
 
-export default async function page(props: Props) {
+export default async function RecommendedSeriesPage(props: Props) {
   const {
     params: { id },
   } = props;
 
   const endpoint = `/tv/${id}/recommendations`;
 
-  const queryKey = ['tv', id, 'recommendations'];
+  const queryKey = ["tv", id, "recommendations"];
   const queryClient = new QueryClient();
   await queryClient.prefetchInfiniteQuery({
     queryKey,

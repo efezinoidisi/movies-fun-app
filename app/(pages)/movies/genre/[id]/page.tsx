@@ -13,7 +13,7 @@ type Props = {
   params: { id: string };
 };
 
-export default async function page(props: Props) {
+export default async function MovieGenrePage(props: Props) {
   const {
     params: { id },
   } = props;

@@ -1,17 +1,17 @@
-import { fetchList } from '@/utils/fetchList';
-import HeroContent from '@/components/common/hero-content';
+import List from "@/components/List/List";
+import Casts from "@/components/common/cast";
+import Details from "@/components/common/details";
+import HeroContent from "@/components/common/hero-content";
+import Review from "@/components/common/review";
+import Seasons from "@/components/series/season-card";
+import { fetchList } from "@/utils/fetchList";
 import {
   getLanguage,
   getReleaseDate,
   getRuntime,
   getTrailerKey,
-} from '@/utils/helpers';
-import Review from '@/components/common/review';
-import Casts from '@/components/common/cast';
-import Seasons from '@/components/series/season-card';
-import Details from '@/components/common/details';
-import List from '@/components/List/List';
-import Link from 'next/link';
+} from "@/utils/helpers";
+import Link from "next/link";
 
 type Props = {
   params: { id: string };
@@ -28,7 +28,7 @@ export async function generateMetadata({ params: { id } }: Props) {
   };
 }
 
-export default async function page({ params: { id } }: Props) {
+export default async function SeriesPage({ params: { id } }: Props) {
   const movieData: Promise<SeriesDetail> = await fetchList(
     `tv/${id}?append_to_response=videos,credits,recommendations,reviews,similar`
   );
@@ -60,23 +60,23 @@ export default async function page({ params: { id } }: Props) {
   const trailerKey = getTrailerKey(videos?.results);
   const runtime = getRuntime(episode_run_time[0]);
 
-  const firstYear = getReleaseDate(first_air_date, 'short');
-  const lastYear = getReleaseDate(last_air_date, 'short');
+  const firstYear = getReleaseDate(first_air_date, "short");
+  const lastYear = getReleaseDate(last_air_date, "short");
   const duration =
     firstYear === lastYear ? `${firstYear}` : `${firstYear}-${lastYear}`;
 
   const language = original_language
     ? await getLanguage(original_language)
-    : '';
+    : "";
 
   const listItems = [
     {
-      title: 'more like this',
+      title: "more like this",
       movies: similar.results.slice(0, 10),
       link: `/tv/${id}/similar`,
     },
     {
-      title: 'recommendations',
+      title: "recommendations",
       movies: recommendations.results.slice(0, 10),
       link: `/tv/${id}/recommendations`,
     },
@@ -97,7 +97,7 @@ export default async function page({ params: { id } }: Props) {
     id: seriesId,
     backdrop_path,
     genre_ids,
-    title: '',
+    title: "",
     vote_average,
     name,
   };
@@ -105,17 +105,17 @@ export default async function page({ params: { id } }: Props) {
   const creators = created_by?.map((creator) => (
     <Link
       href={`/people/${creator.id}`}
-      className='group pr-1'
+      className="group pr-1"
       key={creator.id}
     >
-      <span className='underline group-hover:text-accent transition-colors duration-150 ease-in-out '>
+      <span className="underline group-hover:text-accent transition-colors duration-150 ease-in-out ">
         {creator.name}
       </span>
-      <span className='group-last:hidden'>{','}</span>
+      <span className="group-last:hidden">{","}</span>
     </Link>
   ));
 
-  const creatorNode = created_by.length ? creators : '-';
+  const creatorNode = created_by.length ? creators : "-";
   return (
     <>
       <HeroContent

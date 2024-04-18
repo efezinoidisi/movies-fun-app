@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: "explore popular, trending, top rated and upcoming movies",
 };
 
-export default async function page() {
+export default async function CelebritiesPage() {
   const endpoint = `/person/popular`;
 
   const queryKey = ["person"];

@@ -44,7 +44,7 @@ export async function generateMetadata({ params: { id } }: Props) {
   };
 }
 
-export default async function page({
+export default async function CelebrityPage({
   params: { id },
   searchParams: { tab = "movies" },
 }: Props) {

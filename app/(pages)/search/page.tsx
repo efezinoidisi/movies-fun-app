@@ -9,7 +9,7 @@ type Props = {
   searchParams?: { query?: string; page?: string };
 };
 
-export default async function page({ searchParams }: Props) {
+export default async function SearchPage({ searchParams }: Props) {
   const query = searchParams?.query;
   const page = +(searchParams?.page ?? "1");
 

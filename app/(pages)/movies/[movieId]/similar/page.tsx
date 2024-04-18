@@ -20,7 +20,7 @@ export async function generateMetadata({ params: { movieId } }: Props) {
   };
 }
 
-export default async function page(props: Props) {
+export default async function SimilarPage(props: Props) {
   const {
     params: { movieId },
   } = props;

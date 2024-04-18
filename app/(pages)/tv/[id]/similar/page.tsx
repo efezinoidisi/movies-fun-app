@@ -11,7 +11,7 @@ type Props = {
   params: { id: string };
 };
 
-export default async function page(props: Props) {
+export default async function SimilarSeriesPage(props: Props) {
   const {
     params: { id },
   } = props;

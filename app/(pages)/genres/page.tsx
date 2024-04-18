@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: "explore all movies and tv show genres",
 };
 
-export default async function page() {
+export default async function GenresPage() {
   const movieGenresEndpoint = "genre/movie/list";
   const tvGenresEndpoint = "genre/tv/list";
 

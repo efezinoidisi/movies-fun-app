@@ -1,11 +1,11 @@
-import { fetchList } from '@/utils/fetchList';
-import HeroContent from '@/components/common/hero-content';
-import { getLanguage, getRuntime, getTrailerKey } from '@/utils/helpers';
-import Review from '@/components/common/review';
-import Casts from '@/components/common/cast';
-import Details from '@/components/common/details';
-import List from '@/components/List/List';
-import Link from 'next/link';
+import List from "@/components/List/List";
+import Casts from "@/components/common/cast";
+import Details from "@/components/common/details";
+import HeroContent from "@/components/common/hero-content";
+import Review from "@/components/common/review";
+import { fetchList } from "@/utils/fetchList";
+import { getLanguage, getRuntime, getTrailerKey } from "@/utils/helpers";
+import Link from "next/link";
 
 type Props = {
   params: { movieId: string };
@@ -22,7 +22,7 @@ export async function generateMetadata({ params: { movieId } }: Props) {
   };
 }
 
-export default async function page({ params: { movieId } }: Props) {
+export default async function MoviePage({ params: { movieId } }: Props) {
   const movieData: Promise<MovieDetail> = await fetchList(
     `movie/${movieId}?append_to_response=videos,images,credits,recommendations,reviews,similar`
   );
@@ -55,12 +55,12 @@ export default async function page({ params: { movieId } }: Props) {
 
   const listItems = [
     {
-      title: 'more like this',
+      title: "more like this",
       movies: similar.results.slice(0, 10),
       link: `/movies/${id}/similar`,
     },
     {
-      title: 'recommendations',
+      title: "recommendations",
       movies: recommendations.results.slice(0, 10),
       link: `/movies/${id}/recommendations`,
     },
@@ -68,21 +68,21 @@ export default async function page({ params: { movieId } }: Props) {
 
   const displayedRuntime = runtime > 0 ? getRuntime(runtime) : null;
 
-  const directors = credits.crew.filter((crew) => crew.job === 'Director');
+  const directors = credits.crew.filter((crew) => crew.job === "Director");
 
   const directorNode =
     directors?.length > 0
       ? directors.map((director) => (
           <Link
             href={`/people/${director.id}`}
-            className='underline hover:text-accent transition-colors duration-150 group pr-2'
+            className="underline hover:text-accent transition-colors duration-150 group pr-2"
             key={director.id}
           >
             {director.name}
-            <span className='group-last:hidden'>,</span>
+            <span className="group-last:hidden">,</span>
           </Link>
         ))
-      : '-';
+      : "-";
 
   const language = await getLanguage(original_language);
   const genre_ids = genres.map((genre) => genre.id);
@@ -92,7 +92,7 @@ export default async function page({ params: { movieId } }: Props) {
     genre_ids,
     title,
     vote_average,
-    name: '',
+    name: "",
   };
 
   return (
@@ -101,17 +101,17 @@ export default async function page({ params: { movieId } }: Props) {
         releaseYear={releaseYear}
         trailer={trailerKey as string}
         payload={payload}
-        type={'movie'}
+        type={"movie"}
         runtime={displayedRuntime}
         poster={poster_path}
       />
 
-      <section className=' flex flex-col gap-5 md:gap-7 lg:gap-10 px-5 md:px-10 lg:px-16 mb-5 pb-5'>
+      <section className=" flex flex-col gap-5 md:gap-7 lg:gap-10 px-5 md:px-10 lg:px-16 mb-5 pb-5">
         <Details
-          type='movie'
+          type="movie"
           name={title}
           runtime={displayedRuntime as string}
-          language={language || ''}
+          language={language || ""}
           director={directorNode}
           overview={overview}
           genres={genres}

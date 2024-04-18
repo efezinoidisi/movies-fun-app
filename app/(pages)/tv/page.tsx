@@ -32,7 +32,7 @@ const tabList = [
   },
 ];
 
-export default async function page({
+export default async function SeriesListPage({
   searchParams,
 }: {
   searchParams: { tab: Tab };

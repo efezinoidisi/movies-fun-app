@@ -19,7 +19,7 @@ type Props = {
 
 export const revalidate = 86400; // revalidate after 24 hours(1 day)
 
-export default async function page(props: Props) {
+export default async function SeriesSeasonPage(props: Props) {
   const {
     params: { number, id },
     searchParams: { seriesName },
