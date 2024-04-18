@@ -22,7 +22,7 @@ export default function List({
   return (
     <section className={merge("flex flex-col gap-5", styles)}>
       {title && <SubHeading text={title} />}
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 sl:grid-cols-3 gap-x-6 gap-y-12  md:gap-x-5  md:gap-y-16 ">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 sl:grid-cols-3 gap-x-6 gap-y-12 py-10  md:gap-x-5  md:gap-y-16 ">
         {list.map((movie) => {
           if (movie?.media_type === "person") {
             return (

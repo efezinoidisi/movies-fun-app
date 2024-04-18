@@ -32,19 +32,19 @@ export default function GenreList({
   };
   if (type === "with-id")
     return (
-      <ul className={merge("flex gap-x-3 flex-wrap gap-y-2", styles)}>
+      <ul className={merge("flex gap-2 flex-wrap my-5", styles)}>
         {genres.map(({ id, name }) => {
           return (
             <li
               key={id}
-              className="text-sm min-w-max bg-dull text-dullText rounded-md px-2 py-1 hover:bg-body transition-colors duration-200 group"
+              className="text-base min-w-max bg-dull text-dullText rounded-md px-2 py-1 hover:bg-body transition-colors duration-200 group"
             >
               <Button
                 onClick={(e) => {
                   e.preventDefault();
                   navigate(`/${path}/genre/${id}`);
                 }}
-                className="group-hover:underline"
+                className="bg-primary text-white rounded-md px-3 py-1 hover:bg-opacity-80 transition-colors duration-200"
               >
                 {name}
               </Button>
@@ -65,14 +65,14 @@ export default function GenreList({
         return (
           <li
             key={id}
-            className="bg-primary text-white rounded-md p-1 hover:bg-body transition-colors duration-200 group"
+            className="bg-primary text-white rounded-md p-1 hover:bg-opacity-80 transition-colors duration-200 group"
           >
             <Button
               onClick={(e) => {
                 e.preventDefault();
                 navigate(`/${path}/genre/${id}`);
               }}
-              className="group-hover:underline"
+              className="hover:underline"
             >
               {GENRES[id]}
             </Button>

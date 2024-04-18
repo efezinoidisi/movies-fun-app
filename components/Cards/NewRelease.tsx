@@ -41,7 +41,7 @@ export default function NewReleaseCard(props: MovieList) {
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
-      className={`relative justify-end flex flex-col px-4 min-h-80 rounded-lg mr-2 pb-3 text-white overflow-x-hidden gap-2 hover:shadow-ml w-full shadow-sm shadow-primary transition-all ease-in-out hover:scale-[1.02]`}
+      className={`relative justify-end flex flex-col px-4 min-h-80 rounded-lg mr-2 pb-3 text-white overflow-x-hidden gap-2 hover:shadow-ml w-full shadow-sm shadow-primary transition-all ease-in-out group`}
     >
       <Favourite
         movie={moviePayload}
@@ -51,7 +51,9 @@ export default function NewReleaseCard(props: MovieList) {
       <span className="bg-black bg-opacity-40 px-2 text-[0.6rem] py-1 rounded-lg w-fit">
         {type}
       </span>
-      <h3 className="capitalize font-bold text-lg truncate">{name || title}</h3>
+      <h3 className="capitalize font-bold text-lg truncate group-hover:text-primary transition-colors duration-200 ease-in">
+        {name || title}
+      </h3>
       <div className="flex items-center justify-between w-full">
         <Rating rating={vote_average} />
         <p className="text-sm font-medium md:text-base">{releaseYear}</p>

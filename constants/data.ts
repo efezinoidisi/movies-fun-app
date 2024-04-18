@@ -98,6 +98,9 @@ export const popularMoviesOptions = {
       items: 1,
     },
   },
+  pauseOnHover: true,
+  keyboardControl: true,
+  minimumTouchDrag: 80,
 };
 
 export const MOVIE_ENDPOINTS = {

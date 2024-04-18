@@ -103,4 +103,12 @@ body {
     /* mask-image: linear-gradient(black, transparent); */
     mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 50%);
   }
+
+  .carousel {
+    margin-right: 1.3rem;
+  }
+
+  .slide {
+    transition: all 10s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
 }

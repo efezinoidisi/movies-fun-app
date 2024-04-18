@@ -1,19 +1,14 @@
-'use client';
-import Carousel from 'react-multi-carousel';
+"use client";
+
+import Carousel from "react-multi-carousel";
 import {
   ButtonGroupProps,
   ResponsiveType,
-} from 'react-multi-carousel/lib/types';
+} from "react-multi-carousel/lib/types";
 
-import 'react-multi-carousel/lib/styles.css';
-import Button from '../Button';
-import Icons from '@/lib/icons';
-
-type Device = {
-  breakpoint: { max: number; min: number };
-  items: number;
-  slidesToSlide: number;
-};
+import Icons from "@/lib/icons";
+import "react-multi-carousel/lib/styles.css";
+import Button from "../Button";
 
 type CarouselProps = {
   children: React.ReactNode;
@@ -32,6 +27,9 @@ type CarouselProps = {
     containerClass: string;
     dotListClass?: string;
     itemClass?: string;
+    pauseOnHover?: boolean;
+    keyboardControl: boolean;
+    minimumTouchDrag: number;
   };
 };
 
@@ -57,6 +55,7 @@ const responsive = {
   mobile: {
     breakpoint: { max: 600, min: 0 },
     items: 2,
+    partialVisibilityGutter: 30,
   },
 };
 
@@ -72,12 +71,14 @@ export default function CustomCarousel(props: CarouselProps) {
     autoPlay: false,
     autoPlaySpeed: 1000,
     keyBoardControl: true,
-    customTransition: 'all .5',
+    customTransition: "all .5",
     transitionDuration: 500,
-    containerClass: 'carousel-container',
-    dotListClass: 'custom-dot-list-style',
-    itemClass: 'carousel-item-padding-40-px',
+    containerClass: "carousel-container container",
+    dotListClass: "custom-dot-list-style",
+    itemClass: "carousel-item-padding-40-px carousel",
     partialVisible: true,
+    keyboardControl: true,
+    minimumTouchDrag: 80,
   };
 
   const usedOption = options ? options : defaultOptions;
@@ -97,18 +98,18 @@ const ButtonGroup = ({
   next = () => {},
 }: ButtonGroupProps) => {
   return (
-    <div className='absolute top-1/2 -translate-y-1/2 flex justify-between w-full'>
+    <div className="absolute top-1/2 -translate-y-1/2 flex justify-between w-full">
       <Button
         className={`bg-black bg-opacity-30 rounded-full hover:bg-opacity-60 group`}
         onClick={() => previous()}
       >
-        <Icons.prev className='text-7xl opacity-50 text-white group-hover:opacity-100' />
+        <Icons.prev className="text-7xl opacity-50 text-white group-hover:opacity-100" />
       </Button>
       <Button
         className={`bg-black bg-opacity-30 rounded-full hover:bg-opacity-60 group`}
         onClick={() => next()}
       >
-        <Icons.next className='text-7xl opacity-50 text-white group-hover:opacity-100' />
+        <Icons.next className="text-7xl opacity-50 text-white group-hover:opacity-100" />
       </Button>
     </div>
   );

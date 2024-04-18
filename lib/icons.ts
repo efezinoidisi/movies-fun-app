@@ -11,7 +11,7 @@ import {
 } from "react-icons/bs";
 import { CgCloseR } from "react-icons/cg";
 import { FaHeart } from "react-icons/fa";
-import { FaRegThumbsUp, FaTag } from "react-icons/fa6";
+import { FaGithub, FaRegThumbsUp, FaTag } from "react-icons/fa6";
 import { FiSearch } from "react-icons/fi";
 import { HiOutlineChevronDoubleDown } from "react-icons/hi";
 import { HiUserGroup } from "react-icons/hi2";
@@ -48,6 +48,7 @@ const Icons = {
   watchlist: LiaClipboardListSolid,
   top: MdOutlineArrowUpward,
   like: FaRegThumbsUp,
+  github: FaGithub,
 };
 
 export default Icons;

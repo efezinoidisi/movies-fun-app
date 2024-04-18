@@ -39,6 +39,7 @@ export default async function Home() {
           link="/movies?tab=trending"
           title="trending movies"
           styles=" "
+          mode="mini"
         />
         <Section
           title="popular movies"

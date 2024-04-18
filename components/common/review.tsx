@@ -1,15 +1,15 @@
-'use client';
-import { useCallback, useMemo, useState, useRef } from 'react';
-import { checkTrimString } from '@/utils/helpers';
-import Button from '@/components/Button';
-import Icons from '@/lib/icons';
-import { merge } from '@/utils/merge';
-import { sanitize } from 'isomorphic-dompurify';
-import { IMG_URL } from '@/constants/data';
-import Image from 'next/image';
-import { fetchClientList } from '@/utils/fetchList';
-import Rating from './rating';
-import SubHeading from './sub-heading';
+"use client";
+import Button from "@/components/Button";
+import { IMG_URL } from "@/constants/data";
+import Icons from "@/lib/icons";
+import { fetchClientList } from "@/utils/fetchList";
+import { checkTrimString } from "@/utils/helpers";
+import { merge } from "@/utils/merge";
+import { sanitize } from "isomorphic-dompurify";
+import Image from "next/image";
+import { useCallback, useMemo, useRef, useState } from "react";
+import Rating from "./rating";
+import SubHeading from "./sub-heading";
 
 type Props = {
   reviews: Review[] | null;
@@ -33,7 +33,7 @@ export default function Review(props: Props) {
     async (num: number) => {
       const res = await fetchClientList(`movie/${movieId}/reviews`, num);
       setMovieReviews(res?.results);
-      ref.current?.scrollIntoView({ behavior: 'smooth' });
+      ref.current?.scrollIntoView({ behavior: "smooth" });
     },
     [movieId]
   );
@@ -42,8 +42,8 @@ export default function Review(props: Props) {
 
   if (!movieReviews || movieReviews.length === 0) return null;
   return (
-    <section className=''>
-      <SubHeading text='IMDB reviews' />
+    <section className="">
+      <SubHeading text="IMDB reviews" />
       <div ref={ref}>
         {movieReviews.map(
           ({ id, author, content, author_details, created_at }) => {
@@ -63,25 +63,25 @@ export default function Review(props: Props) {
       </div>
 
       {pages > 1 && (
-        <div className='flex justify-center items-center gap-7  bg-dull text-dullText w-fit mx-auto rounded-md py-1'>
+        <div className="flex justify-center items-center gap-7  bg-dull text-dullText w-fit mx-auto rounded-md py-1">
           <Button
             className={merge(
-              'hover:bg-body border-r-2 px-3 py-1 border-body',
+              "hover:bg-body border-r-2 px-3 py-1 border-body",
               currentPage !== 1
-                ? 'cursor-pointer'
-                : 'pointer-events-none opacity-50'
+                ? "cursor-pointer"
+                : "pointer-events-none opacity-50"
             )}
             onClick={() => updateCurrentPage(currentPage - 1)}
           >
             prev
           </Button>
-          <span className='min-w-max text-xs'>{`${currentPage} of ${pages}`}</span>
+          <span className="min-w-max text-xs">{`${currentPage} of ${pages}`}</span>
           <Button
             className={merge(
-              'hover:bg-body border-l-2 px-3 py-1 border-body',
+              "hover:bg-body border-l-2 px-3 py-1 border-body",
               currentPage === pages
-                ? 'pointer-events-none opacity-50'
-                : 'cursor-pointer'
+                ? "pointer-events-none opacity-50"
+                : "cursor-pointer"
             )}
             onClick={() => updateCurrentPage(currentPage + 1)}
           >
@@ -118,7 +118,7 @@ function ReviewCard(props: ReviewCardProps) {
   const toggleContent = () => {
     setShowFullContent((prev) => {
       if (prev) {
-        ref.current?.scrollIntoView({ behavior: 'instant' });
+        ref.current?.scrollIntoView({ behavior: "instant" });
       }
       return !prev;
     });
@@ -132,35 +132,35 @@ function ReviewCard(props: ReviewCardProps) {
       alt={`profile of ${author}`}
       width={200}
       height={200}
-      className='rounded-full w-12 h-12'
+      className="rounded-full w-12 h-12"
       unoptimized
     />
   ) : (
-    <Icons.person className='rounded-full w-12 h-12' />
+    <Icons.person className="rounded-full w-12 h-12" />
   );
   return (
     <div
-      className=' border-b py-7 flex flex-col gap-2 border-text border-opacity-40 last:border-b-0'
+      className=" border-b py-7 flex flex-col gap-2 border-text border-opacity-40 last:border-b-0"
       ref={ref}
     >
-      <div className='flex items-center gap-2'>
+      <div className="flex items-center gap-2">
         {authorImage}
-        <p className='flex flex-col'>
+        <p className="flex flex-col">
           <span>{author}</span>
-          <span className='text-xs'>
-            {`${publishedDate.toLocaleDateString('en-Us', {
-              dateStyle: 'medium',
+          <span className="text-xs">
+            {`${publishedDate.toLocaleDateString("en-Us", {
+              dateStyle: "medium",
             })}`}
           </span>
         </p>
       </div>
       <Rating rating={rating as number} />
-      <div className='relative flex flex-col'>
+      <div className="relative flex flex-col">
         <p
           dangerouslySetInnerHTML={{ __html: displayedContent }}
           className={merge(
-            'leading-7 md:leading-8 tracking-wider',
-            content.length > MAX_CONTENT && !showFullContent && 'mask'
+            "leading-loose tracking-wider duration-500 ease-linear text-base md:text-lg",
+            content.length > MAX_CONTENT && !showFullContent && "mask"
           )}
           ref={ref}
         ></p>
@@ -168,17 +168,17 @@ function ReviewCard(props: ReviewCardProps) {
           <Button
             onClick={toggleContent}
             className={merge(
-              'absolute self-center flex items-center gap-1 border border-text px-3 rounded-xl ',
+              "absolute self-center flex items-center gap-1 border border-text px-3 rounded-xl transition-colors duration-300 ease-linear hover:text-primary hover:bg-white",
               showFullContent
-                ? '-bottom-6 right-0 border-opacity-30'
-                : 'bottom-0 border-opacity-80'
+                ? "-bottom-6 right-0 border-opacity-30"
+                : "bottom-0 border-opacity-80"
             )}
           >
             <span>{`${
-              showFullContent ? 'collapse' : 'continue reading'
+              showFullContent ? "collapse" : "continue reading"
             }`}</span>
             <Icons.doubleDownArrow
-              className={`${showFullContent ? 'rotate-180' : ''}`}
+              className={`${showFullContent ? "rotate-180" : ""}`}
             />
           </Button>
         )}

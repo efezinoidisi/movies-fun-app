@@ -142,7 +142,10 @@ export default async function page({
       <Heading text={name || ""} styles="text-3xl md:text-4xl lg:text-5xl" />
       <div className="grid md:grid-cols-3 gap-y-4 md:place-items-start gap-x-6 mb-3 overflow-x-hidden place-items-center">
         <div className="md:col-span-2">
-          <p className="mb-4 tracking-wide leading-loose text-base md:text-lg">
+          <p
+            className="mb-4 tracking-wide leading-loose text-base md:text-lg"
+            style={{ lineHeight: 2 }}
+          >
             {biography}
           </p>
 
@@ -255,6 +258,14 @@ const Credit = (props: CreditProps) => {
 
   return (
     <div className="border border-b-accent/40 grid grid-cols-4 w-full border-text/80 border-t-0 border-b-2">
+      <p className="col-span-4 border-b border-text/50 text-center py-2 md:text-lg pt-5">
+        <Link
+          href={path}
+          className="hover:text-accent underline transition-colors duration-200 ease-in-out visited:text-secondary/80"
+        >
+          {name}
+        </Link>
+      </p>
       <p className="col-span-1 border-r border-text/50 text-center py-2">
         {release}
       </p>
@@ -262,16 +273,7 @@ const Credit = (props: CreditProps) => {
         <span>(character)</span>
         <span>{character || "-"}</span>
       </p>
-
-      <p className="col-span-4 border-t border-text/50 text-center py-2 md:text-lg">
-        <Link
-          href={path}
-          className="text-accent underline hover:underline visited:text-secondary/80"
-        >
-          {name}
-        </Link>
-      </p>
-      <p className="col-span-5 border-t border-text/50 px-5 pt-2 leading-8 line-clamp-5 py-3 overflow-hidden">
+      <p className="col-span-4 border-t border-text/50 px-5 pt-2 leading-8 line-clamp-5 py-3">
         {overview}
       </p>
     </div>
