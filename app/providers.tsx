@@ -1,4 +1,5 @@
 "use client";
+import { FavouriteStoreProvider } from "@/providers/favourite-store-provider";
 import { WatchlistStoreProvider } from "@/providers/watchlist-store-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
@@ -17,7 +18,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <WatchlistStoreProvider>{children}</WatchlistStoreProvider>
+      <WatchlistStoreProvider>
+        <FavouriteStoreProvider>{children}</FavouriteStoreProvider>
+      </WatchlistStoreProvider>
     </QueryClientProvider>
   );
 }

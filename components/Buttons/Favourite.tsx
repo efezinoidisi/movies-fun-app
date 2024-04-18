@@ -1,19 +1,10 @@
 "use client";
 import Icons from "@/lib/icons";
+import { useFavouriteStore } from "@/providers/favourite-store-provider";
 import { merge } from "@/utils/merge";
+import toast from "react-hot-toast";
 
 type Position = "absolute" | "relative" | "static" | "fixed" | "sticky";
-
-const initialState = {
-  favorites: {
-    tv: [],
-    movies: [],
-  },
-  watchlist: {
-    tv: [],
-    movies: [],
-  },
-};
 
 export default function Favourite({
   movie,
@@ -24,39 +15,48 @@ export default function Favourite({
   position?: Position;
   extraStyles?: string;
 }) {
-  const type = movie.name ? "tv" : "movie";
+  const type = movie.name ? "tv" : "movies";
 
-  // const isFavorite =
-  //   type === 'tv'
-  //     ? favorites.tv.find((film) => film.id === movie.id)
-  //     : favorites.movies.find((film) => film.id === movie.id);
+  const { movies, tv, addMovie, removeMovie } = useFavouriteStore(
+    (state) => state
+  );
 
-  const handleAddtoFavourites = async (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
+  const favourites = {
+    movies,
+    tv,
+  };
+  const isFavorite = !!favourites[type].find((film) => film.id === movie.id);
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    // toast.success(
-    //   `${movie.name || movie.title} ${
-    //     isFavorite === undefined
-    //       ? 'added to favorites'
-    //       : 'removed from favorites'
-    //   }`
-    // );
+    if (isFavorite) {
+      removeMovie(movie.id, type);
+
+      toast.success(`${movie.name || movie.title} removed from watchlist`);
+    } else {
+      addMovie(movie);
+      toast.success(`${movie.name || movie.title} added to watchlist`);
+    }
   };
   return (
     <button
+      type="button"
       className={merge(
         "px-2 group bg-black/20 py-2 rounded-full flex items-center gap-1 capitalize transition-colors duration-200 ease-in-out",
         position,
         extraStyles
       )}
-      onClick={handleAddtoFavourites}
+      onClick={handleClick}
     >
-      <Icons.heart />
-      {/* // className={`hover:text-accent text-2xl group-active:animate-heart ${
-        //   isFavorite !== undefined ? 'text-pink-500' : 'text-white'
-        // }`} */}
+      <Icons.heart
+        className={`hover:text-accent text-2xl group-active:animate-heart ${
+          isFavorite ? "text-pink-500" : "text-white"
+        }`}
+      />
+      <span className="sr-only">
+        {isFavorite ? "remove from favourites" : "add to favourites"}
+      </span>
     </button>
   );
 }

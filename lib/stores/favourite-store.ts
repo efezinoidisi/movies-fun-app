@@ -1,23 +1,19 @@
 import type { StoreState } from "types/store";
 import { createStore } from "zustand";
 import { persist } from "zustand/middleware";
+import type { WatchlistActions } from "./watchlist-store";
 
-export type WatchlistActions = {
-  addMovie: (movie: MediaItem) => void;
-  removeMovie: (id: number, type: "tv" | "movies") => void;
-};
-
-export type WatchlistStore = StoreState & WatchlistActions;
+export type FavouriteStore = StoreState & WatchlistActions;
 
 export const defaultInitState: StoreState = {
   movies: [],
   tv: [],
 };
 
-export const createWatchliststore = (
+export const createFavouritestore = (
   initState: StoreState = defaultInitState
 ) => {
-  return createStore<WatchlistStore>()(
+  return createStore<FavouriteStore>()(
     persist(
       (set) => ({
         ...initState,
@@ -28,7 +24,7 @@ export const createWatchliststore = (
             set((state) => ({ movies: [...state.movies, movie] }));
             return;
           }
-          set((state) => ({ tv: [...state.tv, movie] }));
+          set((state) => ({ tv: [movie, ...state.tv] }));
         },
         removeMovie: (id, type) => {
           if (type === "tv") {
@@ -43,7 +39,7 @@ export const createWatchliststore = (
         },
       }),
       {
-        name: "mf-watchlist",
+        name: "mf-favourites",
       }
     )
   );
