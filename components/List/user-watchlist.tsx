@@ -34,12 +34,12 @@ export default function UserWatchlist({ tab }: UserWatchlistProps) {
   );
   return (
     <div className="px-5 md:px-10 lg:px-16 py-10">
-      <div className="flex items-center gap-10 border-b  capitalize">
+      <div className="flex items-center gap-10 border-b  border-text/75 capitalize">
         <Link
           href={"?tab=movie"}
           className={merge(
-            "opaacity-80 transition-colors  text-xl hover:text-primary/70 md:text-2xl duration-200 ease-linear py-2",
-            tab === "movie" ? "border-b-2 border-accent font-bold" : ""
+            "opacity-80 transition-colors  text-xl hover:text-primary/70 md:text-2xl duration-200 ease-linear py-2",
+            tab === "movie" ? "border-b-4 border-accent font-bold" : ""
           )}
         >
           movies
@@ -47,7 +47,7 @@ export default function UserWatchlist({ tab }: UserWatchlistProps) {
         <Link
           href={"?tab=tv"}
           className={merge(
-            "opaacity-80 transition-colors  text-xl hover:text-primary/70  duration-200 ease-linear",
+            "opacity-80 transition-colors  text-xl hover:text-primary/70  duration-200 ease-linear py-2",
             tab === "tv" ? "border-b-4 border-accent font-bold" : ""
           )}
         >
