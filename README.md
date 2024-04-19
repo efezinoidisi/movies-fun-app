@@ -8,43 +8,33 @@
 
 ## Project Info
 
-MoviesFun is a NextJs web app that integrates the TMDB API for all it's relevant data. Explore movies, shows and people and get enough information about your favorite entertainment shows.
-Building this helped me explore more nextjs features and better understand the framework
+MoviesFun is a NextJs web app that uses the tmdb api to display the latest movies, tv shows and popular celebs information.
+
+This was a fun project to explore nextjs and its features.
+
 
 ### Features
 
 - explore popular, trending, top rated and upcoming movies
 - explore trending, top rated and popular tv shows.
-- explore popular people and their latest information
-- log in to add your favourite shows to your list and also watchlist for both movies and tv shows
-- search for movies, tv shows and people.
+- explore popular celebrities and related information
+- search for movies, tv shows and celebrities.
 
 ## Screenshots
 
-#### Mobile screens
+![one](/public/screenshots/hero.webp)
+![two](/public/screenshots/home.webp)
 
-![hero](/public/screenshots/hero-mobile.png)
-![people page](/public/screenshots/people-mobile.png)
-![movies page](/public/screenshots/movies-mobile.png)
-
-#### Desktop screens
-
-![movies page desktop](/public/screenshots/movies-desktop.png)
-![person page desktop](/public/screenshots/person-desktop.png)
-![series page desktop](/public/screenshots/series-desktop.png)
-![hero section desktop](/public/screenshots/hero-desktop.png)
 
 ## Technologies that are used in this project
 
 1. [TypeScript](https://www.typescriptlang.org/)
 2. [Next.js](https://nextjs.org/)
-3. [Next-Auth](https://next-auth.js.org)
-4. [React-icons](https://react-icons.github.io/react-icons)
-5. [Tailwind](https://tailwindcss.com)
-6. [React-Hook-Form](https://react-hook-form.com)
-7. [React-Multi-Carousel](https://github.com/YIZHUANG/react-multi-carousel)
-8. [Tanstack-Query](https://tanstack.com/query/latest)
-
+3. [React-icons](https://react-icons.github.io/react-icons)
+4. [Tailwind](https://tailwindcss.com)
+5. [React-Multi-Carousel](https://github.com/YIZHUANG/react-multi-carousel)
+6. [Tanstack-Query](https://tanstack.com/query/latest)
+7. [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction)
 ## How to run this project
 
 1. Clone this repository

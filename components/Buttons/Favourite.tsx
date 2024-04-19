@@ -35,10 +35,10 @@ export default function Favourite({
     if (isFavorite) {
       removeMovie(movie.id, type);
 
-      toast.success(`${movie.name || movie.title} removed from watchlist`);
+      toast.success(`${movie.name || movie.title} removed from favourites`);
     } else {
       addMovie(movie);
-      toast.success(`${movie.name || movie.title} added to watchlist`);
+      toast.success(`${movie.name || movie.title} added to favourites`);
     }
   };
   return (
