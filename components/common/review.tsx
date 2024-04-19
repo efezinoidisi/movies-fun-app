@@ -44,7 +44,7 @@ export default function Review(props: Props) {
   return (
     <section className="">
       <SubHeading text="IMDB reviews" />
-      <div ref={ref}>
+      <div ref={ref} className="py-14">
         {movieReviews.map(
           ({ id, author, content, author_details, created_at }) => {
             const sanitizedReview = sanitize(content);
@@ -140,7 +140,7 @@ function ReviewCard(props: ReviewCardProps) {
   );
   return (
     <div
-      className=" border-b py-7 flex flex-col gap-2 border-text border-opacity-40 last:border-b-0"
+      className=" border-b py-7 flex flex-col gap-2 border-text/40 last:border-b-0 mb-5 last:mb-0"
       ref={ref}
     >
       <div className="flex items-center gap-2">
@@ -159,7 +159,7 @@ function ReviewCard(props: ReviewCardProps) {
         <p
           dangerouslySetInnerHTML={{ __html: displayedContent }}
           className={merge(
-            "leading-loose tracking-wider duration-500 ease-linear text-base md:text-lg",
+            " tracking-wider duration-500 ease-linear text-base md:text-lg",
             content.length > MAX_CONTENT && !showFullContent && "mask"
           )}
           ref={ref}

@@ -124,12 +124,12 @@ export default function Details(props: Props) {
         <Favourite
           movie={payload}
           position="relative"
-          extraStyles="bg-text/20 w-fit ml-auto mt-3 rounded-lg hover:border hover:border-pink-600"
+          extraStyles="bg-inherit w-fit  hover:text-accent"
           useIcon="like"
         />
       </div>
       <p
-        className="text-base md:text-lg tracking-wide leading-loose "
+        className="text-lg tracking-wide leading-loose "
         style={{ lineHeight: "2" }}
       >
         {overview}

@@ -50,6 +50,7 @@ const config: Config = {
         ellipsis2: "ellipsis2 0.6s infinite",
         ellipsis3: "ellipsis3 0.6s infinite",
         "bounce-once": "bounce-once 1s 1",
+        text: "text 5s infinite alternate",
       },
       keyframes: {
         search: {
@@ -79,9 +80,9 @@ const config: Config = {
           "100%": { transform: "rotate(360deg)" },
         },
         slideIn: {
-          "0%": { width: "0%", opacity: "0", transform: "translateX(-50%)" },
-          "50%": { width: "50%", opacity: "0.5" },
-          "100%": { width: "100%", opacity: "1" },
+          "0%": { opacity: "0", transform: "translateY(-50%)" },
+          "50%": { opacity: "0.5" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
         ellipsis1: {
           "0%": {
@@ -105,6 +106,11 @@ const config: Config = {
           },
           "100%": {
             transform: "scale(0)",
+          },
+        },
+        text: {
+          from: {
+            backgroundPosition: "100px 0, 100px 0, 100px 0",
           },
         },
         "bounce-once": {

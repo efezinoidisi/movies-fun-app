@@ -50,12 +50,14 @@ export default function Hero({ movies }: { movies: MovieList[] }) {
       style={{
         background: `linear-gradient(0deg, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.70) 100%),url(${IMG_URL}${backdrop_path})`,
       }}
-      onMouseEnter={() => updateIsPaused(true)}
-      onMouseLeave={() => updateIsPaused(false)}
       className="min-h-screen w-full hero lg:header text-white bg-opacity-30 flex flex-col justify-end gap-10 md:px-12 px-5  pb-14 md:pb-20 lg:max-h-screen "
     >
       <div className="flex flex-col justify-between gap-10 md:gap-0 md:flex-row">
-        <div className="flex flex-col gap-3 md:max-w-[30rem]">
+        <div
+          className="flex flex-col gap-3 md:max-w-[30rem]"
+          onMouseEnter={() => updateIsPaused(true)}
+          onMouseLeave={() => updateIsPaused(false)}
+        >
           <span className="bg-opacity-50 bg-black py-1 px-2 rounded-full capitalize w-fit text-xs">
             movie
           </span>

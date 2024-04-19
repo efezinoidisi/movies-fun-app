@@ -39,7 +39,6 @@ const castOptions = {
   infinite: false,
   autoPlay: false,
   autoPlaySpeed: 1000,
-  partialVisible: true,
   keyBoardControl: true,
   customTransition: "all .10 slide",
   transitionDuration: 500,

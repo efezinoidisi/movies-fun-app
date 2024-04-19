@@ -58,11 +58,13 @@ export default function Favourite({
           }`}
         />
       ) : (
-        <Icons.like
-          className={`hover:text-accent text-2xl group-active:animate-heart ${
-            isFavorite ? "text-pink-500" : "text-white"
+        <span
+          className={`hover:text-accent text-lg  ${
+            isFavorite ? "text-pink-500" : "text-text"
           }`}
-        />
+        >
+          {isFavorite ? "liked" : "like"}
+        </span>
       )}
       <span className="sr-only">
         {isFavorite ? "remove from favourites" : "add to favourites"}

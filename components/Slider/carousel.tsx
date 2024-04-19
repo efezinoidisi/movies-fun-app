@@ -55,7 +55,6 @@ const responsive = {
   mobile: {
     breakpoint: { max: 600, min: 0 },
     items: 2,
-    partialVisibilityGutter: 30,
   },
 };
 
