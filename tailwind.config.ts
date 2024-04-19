@@ -26,6 +26,7 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         inner: "linear-gradient(0deg, #E6EEF8 0%, #E6EEF8 100%), #CFD8DC",
+        list: 'linear-gradient(0deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 100%),url("/bg.jpeg")',
       },
       boxShadow: {
         inner:

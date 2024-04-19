@@ -39,6 +39,6 @@
     "app/(routes)/forgot-password",
     "tailwind.config.ts",
     "postcss.config.js"
-  ],
+, "components/List/user-favouritestsx"  ],
   "exclude": ["node_modules"]
 }
