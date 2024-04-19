@@ -2,52 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+/* 
+background: '#0e2439',
+        text: '#98B3CD',
+        body: '#19334C',
+        main: '#FFB800',
+        accent: 'rgb(39,114,189)',
+        dull: '#2E4D6B',
+        dullText: 'A6CDF2',
+        cGreen: '#00925d',
+        cpink: '#BE123C',
+        'deep-purple': 'rgba(149, 117, 205, 0.56)'
+*/
+
+:root {
+  --foreground: 40, 40, 40;
+  --background: 242, 240, 235;
+  --primary: 191, 137, 77;
+  --secondary: 245, 237, 204;
+  --accent: 247, 136, 55;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --foreground: 255, 255, 255;
+    --background: 11, 11, 11;
+    --primary: 141, 98, 51;
+    --secondary: 137, 77, 191;
   }
 }
 
-body {
+/* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(to bottom,
       transparent,
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
-} */
+}  */
 body {
   /* background-color: #000;
   color: #fff; */
   scroll-behavior: smooth;
+  line-height: 1.6;
 }
-
 
 @layer components {
   .flex-between-center {
-    @apply flex justify-between items-center
+    @apply flex justify-between items-center;
   }
 
   .flex-between-center-col {
-    @apply flex justify-between items-center flex-col
+    @apply flex justify-between items-center flex-col;
   }
 
   .header {
-    @apply bg-no-repeat bg-cover bg-fixed bg-center !important
+    @apply bg-no-repeat bg-cover bg-fixed bg-center !important;
   }
 
   .hero {
-    @apply bg-no-repeat bg-cover bg-center !important
+    @apply bg-no-repeat bg-cover bg-center !important;
   }
 
   .login-btn {
-    @apply bg-cGreen capitalize w-fit px-6 py-1 rounded-lg
+    @apply bg-cGreen capitalize w-fit px-6 py-1 rounded-lg;
   }
 
   .scrollbar::-webkit-scrollbar {
@@ -79,8 +95,20 @@ body {
   }
 
   .mask {
-    -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 50%);
+    -webkit-mask-image: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 1) 50%
+    );
     /* mask-image: linear-gradient(black, transparent); */
     mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 50%);
+  }
+
+  .carousel {
+    margin-right: 1.3rem;
+  }
+
+  .slide {
+    transition: all 10s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 }

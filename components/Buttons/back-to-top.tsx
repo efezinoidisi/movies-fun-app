@@ -1,7 +1,7 @@
-'use client';
-import { useEffect, useState } from 'react';
-import Button from '../Button';
-import Icons from '@/lib/icons';
+"use client";
+import Icons from "@/lib/icons";
+import { useEffect, useState } from "react";
+import Button from "../Button";
 
 export default function BackToTop() {
   const [showButton, setShowButton] = useState(false);
@@ -13,14 +13,14 @@ export default function BackToTop() {
     }
   };
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll, true);
-    return () => window.removeEventListener('scroll', handleScroll, true);
+    window.addEventListener("scroll", handleScroll, true);
+    return () => window.removeEventListener("scroll", handleScroll, true);
   });
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 
@@ -28,11 +28,11 @@ export default function BackToTop() {
     <>
       {showButton ? (
         <Button
-          className='fixed bottom-14 md:bottom-10 right-1 sl:right-2 md:right-3 hover:scale-105 hover:text-accent text-white/90 transition-colors duration-150 ease-in-out motion-safe:animate-bounce '
+          className="fixed bottom-20 md:bottom-10 right-1 sl:right-2 md:right-3 hover:scale-105 hover:text-accent  transition-colors duration-150 ease-in-out z-[1000]"
           onClick={scrollToTop}
         >
-          <Icons.doubleDownArrow className='text-4xl  rotate-180 ' />
-          top
+          <Icons.top className="text-4xl" />
+          <span className="sr-only">top</span>
         </Button>
       ) : null}
     </>

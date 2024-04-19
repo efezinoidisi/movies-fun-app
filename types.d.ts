@@ -1,8 +1,3 @@
-type SignUpForm = {
-  email: string;
-  password: string;
-  username: string;
-};
 
 type FetchData = {
   page: number;
@@ -162,19 +157,6 @@ type WatchProvider = {
   provider_id: number;
 };
 
-type LoginForm = {
-  email: string;
-  password: string;
-};
-
-type ResetPasswordForm = {
-  password: string;
-  confirmPassword: string;
-};
-
-type ForgotPasswordForm = {
-  email: string;
-};
 
 type VideoType = {
   iso_639_1: string;
@@ -411,21 +393,6 @@ type MediaItem = {
   genre_ids: number[];
   id: number;
   name: string;
-};
-
-type UserDetails = {
-  id: string;
-  username: string;
-  email: string;
-  watchlist: {
-    tv: MediaItem[];
-    movies: MediaItem[];
-  };
-  favorites: {
-    tv: MediaItem[];
-    movies: MediaItem[];
-  };
-  created_at: string;
 };
 
 type EpisodeCrew = {

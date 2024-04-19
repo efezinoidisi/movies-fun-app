@@ -1,8 +1,8 @@
-import { merge } from '@/utils/merge';
+import { merge } from "@/utils/merge";
 
 export default function Heading({
   text,
-  styles = '',
+  styles = "",
 }: {
   text: string;
   styles?: string;
@@ -10,7 +10,7 @@ export default function Heading({
   return (
     <h2
       className={merge(
-        'capitalize font-bold text-white text-2xl md:text-3xl lg:text-4xl mb-4 text-center md:text-start',
+        "capitalize font-bold text-text text-2xl md:text-3xl lg:text-4xl mb-4 text-center md:text-start",
         styles
       )}
     >

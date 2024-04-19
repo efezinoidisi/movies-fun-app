@@ -1,23 +1,19 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import { ibmMono } from './fonts';
-import Providers from './providers';
-import { Toaster } from 'react-hot-toast';
-import NavHeader from '@/components/navigation/NavHeader';
-import BackToTop from '@/components/Buttons/back-to-top';
-import Sidebar from '@/components/navigation/sidebar';
-import { Suspense } from 'react';
-import Fallback from '@/components/loaders/fallback';
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import BackToTop from "@/components/Buttons/back-to-top";
+import NavHeader from "@/components/navigation/NavHeader";
+import Sidebar from "@/components/navigation/sidebar";
+import type { Metadata } from "next";
+import { Toaster } from "react-hot-toast";
+import { ibmMono } from "./fonts";
+import "./globals.css";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: {
-    template: 'moviesFun | %s',
-    default: 'moviesFun',
+    template: "moviesFun | %s",
+    default: "moviesFun",
   },
   description:
-    'discover interesting movies,people and tv series of different genres. ',
+    "discover interesting movies,people and tv series of different genres. ",
 };
 
 export default function RootLayout({
@@ -28,29 +24,22 @@ export default function RootLayout({
   modals: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
+    <html lang="en">
       <body
         className={`${ibmMono.variable} bg-background text-text font-ibm-mono`}
       >
         <Providers>
           <Toaster />
-          <main className='md:grid md:grid-cols-12'>
+          <main className="md:flex w-full">
             <Sidebar />
-            <section className='md:col-span-10 overflow-x-clip relative'>
-              <Suspense
-                fallback={
-                  <Fallback extraStyles='absolute top-9 left-1/2 -translate-x-1/2 transform' />
-                }
-              >
-                <NavHeader />
-              </Suspense>
+            <section className=" overflow-x-clip relative w-full">
+              <NavHeader />
 
               {children}
             </section>
           </main>
           <BackToTop />
-          <Analytics />
-          <SpeedInsights />
+
           {modals}
         </Providers>
       </body>

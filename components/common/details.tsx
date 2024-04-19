@@ -1,8 +1,8 @@
-import { getReleaseDate, numberToDollarString } from '@/utils/helpers';
-import GenreList from './genre-list';
-import Rating from './rating';
-import MoviePoster from './poster';
-import Favourite from '../Buttons/Favourite';
+import { getReleaseDate, numberToDollarString } from "@/utils/helpers";
+import Favourite from "../Buttons/Favourite";
+import GenreList from "./genre-list";
+import MoviePoster from "./poster";
+import Rating from "./rating";
 
 type Common = {
   runtime: string;
@@ -16,7 +16,7 @@ type Common = {
 };
 
 type Tv = Common & {
-  type: 'tv';
+  type: "tv";
   first_episode: string;
   last_episode: string;
   status: string;
@@ -26,7 +26,7 @@ type Tv = Common & {
 };
 
 type Movie = Common & {
-  type: 'movie';
+  type: "movie";
   release: string;
   director: React.ReactNode;
   budget: number;
@@ -49,38 +49,38 @@ export default function Details(props: Props) {
   } = props;
   let items: { name: string; value: string | React.ReactNode | number }[] = [
     {
-      name: 'language',
+      name: "language",
       value: language,
     },
     {
-      name: 'runtime',
-      value: runtime || '-',
+      name: "runtime",
+      value: runtime || "-",
     },
     {
-      name: 'rating',
+      name: "rating",
       value: <Rating rating={rating} />,
     },
   ];
-  if (type === 'movie') {
+  if (type === "movie") {
     const { release, director, budget, revenue } = props;
     items = [
       ...items,
       {
-        name: 'director',
+        name: "director",
         value: director,
       },
       {
-        name: 'release',
-        value: getReleaseDate(release) || '-',
+        name: "release",
+        value: getReleaseDate(release) || "-",
       },
 
       {
-        name: 'budget',
-        value: budget ? numberToDollarString(budget) : '-',
+        name: "budget",
+        value: budget ? numberToDollarString(budget) : "-",
       },
       {
-        name: 'revenue',
-        value: revenue ? numberToDollarString(revenue) : '-',
+        name: "revenue",
+        value: revenue ? numberToDollarString(revenue) : "-",
       },
     ];
   } else {
@@ -89,53 +89,57 @@ export default function Details(props: Props) {
     items = [
       ...items,
       {
-        name: 'creator',
+        name: "creator",
         value: creator,
       },
       {
-        name: 'first episode',
+        name: "first episode",
         value: getReleaseDate(first_episode),
       },
       {
-        name: 'last episode',
+        name: "last episode",
         value: getReleaseDate(last_episode),
       },
       {
-        name: 'seasons',
+        name: "seasons",
         value: seasons,
       },
       {
-        name: 'episodes',
+        name: "episodes",
         value: episodes,
       },
       {
-        name: 'status',
+        name: "status",
         value: status,
       },
     ];
   }
 
   return (
-    <article className=' flex flex-col gap-y-3 md:gap-y-5 justify-start items-start'>
-      <h2 className=' py-3  flex items-center justify-between w-full'>
-        <span className='text-white capitalize text-xl font-semibold'>
+    <article className=" flex flex-col gap-y-3 md:gap-y-5 justify-start items-start">
+      <div className=" py-3  flex items-center justify-between w-full">
+        <h2 className=" capitalize text-xl md:text-2xl lg:text-4xl font-semibold">
           overview
-        </span>
+        </h2>
         <Favourite
           movie={payload}
-          position='relative'
-          extraStyles='bg-dull w-fit ml-auto mt-3 rounded-lg hover:border hover:border-pink-600'
+          position="relative"
+          extraStyles="bg-text/20 w-fit ml-auto mt-3 rounded-lg hover:border hover:border-pink-600"
+          useIcon="like"
         />
-      </h2>
-      <p className='tracking-wide leading-6 md:leading-7 lg:leading-8'>
+      </div>
+      <p
+        className="text-base md:text-lg tracking-wide leading-loose "
+        style={{ lineHeight: "2" }}
+      >
         {overview}
       </p>
-      <GenreList genres={genres} type='with-id' page={type} />
-      <div className='grid md:grid-cols-2 justify-items-center md:justify-items-stretch gap-y-5 w-full mt-4 gap-x-2'>
-        <div className=''>
+      <GenreList genres={genres} type="with-id" page={type} />
+      <div className="grid md:grid-cols-2 justify-items-center md:justify-items-stretch gap-y-5 w-full mt-4 gap-x-2">
+        <div className="">
           {items.map(({ name, value }) => {
             return (
-              <div className='py-2 flex gap-x-10 items-start' key={name}>
+              <div className="py-2 flex gap-x-10 items-start" key={name}>
                 <p className={`min-w-[6rem] md:min-w-[8rem] capitalize`}>
                   {name}
                 </p>
@@ -147,8 +151,8 @@ export default function Details(props: Props) {
 
         <MoviePoster
           posterPath={poster}
-          className='w-full border border-accent rounded-lg max-w-xs row-start-1 md:col-start-2'
-          imageStyles='w-full h-full rounded-lg'
+          className="w-full border border-accent rounded-lg max-w-xs row-start-1 md:col-start-2"
+          imageStyles="w-full h-full rounded-lg"
           alt={`poster for ${name}`}
         />
       </div>

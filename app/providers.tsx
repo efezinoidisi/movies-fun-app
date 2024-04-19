@@ -1,7 +1,8 @@
-'use client';
-import AuthProvider from './context/SessionContext';
-import { useState } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+"use client";
+import { FavouriteStoreProvider } from "@/providers/favourite-store-provider";
+import { WatchlistStoreProvider } from "@/providers/watchlist-store-provider";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "react";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -17,7 +18,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>{children}</AuthProvider>
+      <WatchlistStoreProvider>
+        <FavouriteStoreProvider>{children}</FavouriteStoreProvider>
+      </WatchlistStoreProvider>
     </QueryClientProvider>
   );
 }

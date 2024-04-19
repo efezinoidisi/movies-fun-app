@@ -25,7 +25,8 @@
       "@/models/*": ["./models/*"],
       "@/assets/*": ["./assets/*"],
       "@/constants/*": ["./constants/*"],
-      "@/utils/*": ["./utils/*"]
+      "@/utils/*": ["./utils/*"],
+      "@/providers/*": ["./providers/*"]
     }
   },
   "include": [
@@ -38,6 +39,6 @@
     "app/(routes)/forgot-password",
     "tailwind.config.ts",
     "postcss.config.js"
-  ],
+, "components/List/user-favouritestsx"  ],
   "exclude": ["node_modules"]
 }

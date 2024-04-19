@@ -32,8 +32,3 @@ export const getImage = async (src: string) => {
     img: { src, height, width },
   };
 };
-
-// Usage
-// const { base64, img } = await getImage(
-//   'https://images.unsplash.com/photo-1621961458348-f013d219b50c?auto=format&fit=crop&w=2850&q=80'
-// );
